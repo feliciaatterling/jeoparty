@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["@types/json-schema"],
     "plugins": [
       {
         "name": "next"
