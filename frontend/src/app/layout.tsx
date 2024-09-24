@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import StyledComponentsRegistry from "./lib/registry";
+import { ScWrapper } from "./layout.styled";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <StyledComponentsRegistry>
+          <ScWrapper>{children}</ScWrapper>
+        </StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
