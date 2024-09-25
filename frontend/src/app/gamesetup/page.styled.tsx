@@ -9,15 +9,35 @@ const ScWrap = styled.div`
 `;
 
 const ScContainer = styled.div`
+  display: flex;
   width: 70vw;
   height: 70vh;
   background-color: #ffffff10;
-  padding: 48px;
+  border-radius: 8px;
 `;
 
 const ScGameSettings = styled.div`
+  padding: 48px;
   display: flex;
   flex-direction: column;
+  width: 70%;
+`;
+
+const ScTeamSettings = styled(ScGameSettings)`
+  width: 30%;
+  border-left: 2px solid #ffffff10;
+`;
+
+const ScCategoryGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 16px;
+  row-gap: 16px;
+`;
+
+const ScGridItem = styled.div`
+  flex: 1 0 calc(33.33%-18px);
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 `;
 
 const ScHeading = styled.h1`
@@ -25,7 +45,7 @@ const ScHeading = styled.h1`
   color: white;
   font-family: "Roboto";
   font-weight: 500;
-  font-size: 32px;
+  font-size: 28px;
 `;
 
 const ScSubHeading = styled.h2`
@@ -33,7 +53,16 @@ const ScSubHeading = styled.h2`
   color: white;
   font-family: "Roboto";
   font-weight: 500;
-  font-size: 24px;
+  font-size: 22px;
 `;
 
-export { ScWrap, ScContainer, ScHeading, ScSubHeading, ScGameSettings };
+export {
+  ScWrap,
+  ScContainer,
+  ScHeading,
+  ScSubHeading,
+  ScGameSettings,
+  ScTeamSettings,
+  ScCategoryGrid,
+  ScGridItem,
+};
