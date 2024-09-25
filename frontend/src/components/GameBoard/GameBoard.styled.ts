@@ -5,7 +5,6 @@ export const ScGameBoard = styled.div`
   width: 65vw;
   height: 75vh;
   border: solid white;
-  margin-left: 30vw;
 `;
 
 export const ScCategory = styled.div`
@@ -17,4 +16,9 @@ export const ScCategory = styled.div`
   justify-content: center;
   padding-top: 20px;
 `;
-// display: "flex", flexDirection: "row", textAlign: "center"
+
+export const ScCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: "center";
+`;

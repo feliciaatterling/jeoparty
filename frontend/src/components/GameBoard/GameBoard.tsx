@@ -1,7 +1,11 @@
 import PointCard from "@/components/PointCard/PointCard";
-import { ScGameBoard, ScCategory } from "./GameBoard.styled";
+import { ScGameBoard, ScCategory, ScCard } from "./GameBoard.styled";
 
-export default function GameBoard() {
+interface GameBoardProps {
+  onQuestionClick: () => void;
+}
+
+const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick }) => {
   const points = [200, 400, 600, 800, 1000];
   const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
 
@@ -15,23 +19,22 @@ export default function GameBoard() {
           {categories.map((title, index) => (
             <div>
               {title}
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  textAlign: "center",
-                }}
-              >
+              <ScCard>
                 {/*containing the board, flexbox rows// column, maps through title and 5 cards */}
                 {points.map((point, index) => (
-                  <PointCard points={point} category={title} />
+                  <PointCard
+                    points={point}
+                    category={title}
+                    onClick={onQuestionClick}
+                  />
                 ))}
-              </div>
+              </ScCard>
             </div>
           ))}
         </ScCategory>
       </ScGameBoard>
     </div>
   );
-}
+};
+
+export default GameBoard;
