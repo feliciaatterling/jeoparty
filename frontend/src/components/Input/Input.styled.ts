@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { TextField } from "@mui/material";
 
 export const ScInput = styled(TextField)`
+  flex: 1 1 auto;
+
   .MuiOutlinedInput-root {
     background-color: #ffffff15; /* Background color for the input root */
   }
@@ -16,6 +18,7 @@ export const ScInput = styled(TextField)`
 
   .MuiInputBase-input {
     color: white; /* Input text color */
+    font-size: 14px;
   }
 
   .MuiOutlinedInput-notchedOutline {

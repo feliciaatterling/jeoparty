@@ -11,7 +11,7 @@ const ScWrap = styled.div`
 const ScContainer = styled.div`
   display: flex;
   width: 70vw;
-  height: 70vh;
+  height: 85vh;
   background-color: #ffffff10;
   border-radius: 8px;
 `;
@@ -20,11 +20,11 @@ const ScGameSettings = styled.div`
   padding: 48px;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
 `;
 
 const ScTeamSettings = styled(ScGameSettings)`
-  width: 30%;
+  width: 40%;
   border-left: 2px solid #ffffff10;
 `;
 
@@ -38,6 +38,12 @@ const ScCategoryGrid = styled.div`
 const ScGridItem = styled.div`
   flex: 1 0 calc(33.33%-18px);
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+`;
+
+const ScTeamsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 const ScHeading = styled.h1`
@@ -65,4 +71,5 @@ export {
   ScTeamSettings,
   ScCategoryGrid,
   ScGridItem,
+  ScTeamsContainer,
 };
