@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { 
-  GameCardWrapper, 
-  QuestionText, 
-  AnswerText, 
-  ModeTag, 
-  AnswerButtonsWrapper, 
-  AnswerButton, 
+import {
+  GameCardWrapper,
+  QuestionText,
+  AnswerText,
+  ModeTag,
+  AnswerButtonsWrapper,
+  AnswerButton,
   SmallText,
-  ShowAnswerButton
+  ShowAnswerButton,
 } from "./GameCard.styled";
 
 interface GameCardProps {
@@ -15,9 +15,16 @@ interface GameCardProps {
   answer: string;
   category: string;
   value: number;
+  onBack: () => void;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ question, answer, category, value }) => {
+const GameCard: React.FC<GameCardProps> = ({
+  question,
+  answer,
+  category,
+  value,
+  onBack,
+}) => {
   const [isQuestionMode, setIsQuestionMode] = useState(true);
 
   const handleToggleMode = () => {
@@ -26,19 +33,25 @@ const GameCard: React.FC<GameCardProps> = ({ question, answer, category, value }
 
   return (
     <GameCardWrapper>
-      <ModeTag>{category} ${value}</ModeTag>
+      <ModeTag>
+        {category} ${value}
+      </ModeTag>
       {isQuestionMode ? (
         <>
           <QuestionText>{question}</QuestionText>
-          <ShowAnswerButton onClick={handleToggleMode}>SHOW ANSWER</ShowAnswerButton>
+          <ShowAnswerButton onClick={handleToggleMode}>
+            SHOW ANSWER
+          </ShowAnswerButton>
         </>
       ) : (
         <>
           <AnswerText>Who Is {answer}?</AnswerText>
           <SmallText>Did you get the question right?</SmallText>
           <AnswerButtonsWrapper>
-            <AnswerButton correct>Yes</AnswerButton>
-            <AnswerButton>No</AnswerButton>
+            <AnswerButton correct onClick={onBack}>
+              Yes
+            </AnswerButton>
+            <AnswerButton onClick={onBack}>No</AnswerButton>
           </AnswerButtonsWrapper>
         </>
       )}
