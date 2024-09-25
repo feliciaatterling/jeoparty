@@ -10,7 +10,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick }) => {
   const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
 
   return (
-    <div style={{ paddingTop: "20vh" }}>
+    <div>
       {/*SVG logo */}
 
       <ScGameBoard>
