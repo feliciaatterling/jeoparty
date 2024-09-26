@@ -31,7 +31,7 @@ export default function Home() {
       {/* Right: GameCard (Question and answer section) */}
       <GameCardWrapper>
         <Typography variant="h1" align="center">
-          Team 1's turn!
+          ${"Team 1's turn!"}
         </Typography>
         <Spacer size={2} orientation="vertical" />
 

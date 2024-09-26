@@ -79,9 +79,15 @@ export default function GameSetup() {
           <Spacer size={2} orientation="vertical" />
           <Input label="Describe the occasion!" multiline />
           <Spacer size={2} orientation="vertical" />
-          <Link href="/gamecard" legacyBehavior>
-            <Button label="START GAME" />
-          </Link>
+          <div style={{ display: "flex" }}>
+            <Link href="/gamecard" legacyBehavior>
+              <Button label="START GAME" />
+            </Link>
+            <Spacer size={3} orientation="horizontal" />
+            <Link href="/" legacyBehavior>
+              <Button label="EXIT" variant="danger" />
+            </Link>
+          </div>
         </ScGameSettings>
         <ScTeamSettings>
           <Typography variant="h1">Team settings</Typography>

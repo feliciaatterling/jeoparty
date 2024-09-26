@@ -21,7 +21,7 @@ const ScP = styled.p`
 `;
 
 const ScMeta = styled.p`
-  color: gray;
+  color: #a4a0c4;
   font-size: 13px;
 `;
 

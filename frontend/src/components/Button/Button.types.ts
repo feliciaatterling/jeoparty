@@ -7,8 +7,8 @@ la till "as-propen" då det tydligen är väldigt användbart när man använder
 
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   label: string;
+  variant?: "primary" | "secondary" | "danger";
   as?: React.ElementType; // Allow rendering as another element
 }
-
 
 export default ButtonProps;

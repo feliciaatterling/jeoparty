@@ -1,8 +1,6 @@
 import React from "react";
 import {
   DashboardWrapper,
-  EditButton,
-  EndButton,
   TeamsContainer,
   TeamCard,
   TeamName,
@@ -13,6 +11,7 @@ import {
 import Image from "next/image";
 import Spacer from "../Spacer/Spacer";
 import Link from "next/link";
+import Button from "../Button/Button";
 
 const Dashboard = () => {
   const teams = [
@@ -43,9 +42,9 @@ const Dashboard = () => {
       </TeamsContainer>
 
       <ButtonGroup>
-        <EditButton>Edit Game</EditButton>
+        <Button label="EDIT GAME" />
         <Link href="/" legacyBehavior>
-          <EndButton>End Game</EndButton>
+          <Button variant="danger" label="END GAME" />
         </Link>
       </ButtonGroup>
     </DashboardWrapper>
