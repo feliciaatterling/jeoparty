@@ -9,8 +9,10 @@ import {
   TeamMoney,
   ButtonGroup,
 } from "./Dashboard.styled";
+
 import Image from "next/image";
 import Spacer from "../Spacer/Spacer";
+import Link from "next/link";
 
 const Dashboard = () => {
   const teams = [
@@ -42,7 +44,9 @@ const Dashboard = () => {
 
       <ButtonGroup>
         <EditButton>Edit Game</EditButton>
-        <EndButton>End Game</EndButton>
+        <Link href="/" legacyBehavior>
+          <EndButton>End Game</EndButton>
+        </Link>
       </ButtonGroup>
     </DashboardWrapper>
   );

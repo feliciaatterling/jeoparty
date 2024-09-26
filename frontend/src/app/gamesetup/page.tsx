@@ -15,6 +15,7 @@ import TeamNameColorPicker from "@/components/TeamNameColorPicker/TeamNameColorP
 import { useState } from "react";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
+import Link from "next/link";
 
 const GRID: number[] = [1, 2, 3, 4, 5, 6];
 
@@ -47,7 +48,9 @@ export default function GameSetup() {
           <Spacer size={2} orientation="vertical" />
           <Input label="Describe the occasion!" multiline />
           <Spacer size={2} orientation="vertical" />
-          <Button label="START GAME" />
+          <Link href="/gamecard" legacyBehavior>
+            <Button label="START GAME" />
+          </Link>
         </ScGameSettings>
         <ScTeamSettings>
           <Typography variant="h1">Team settings</Typography>
