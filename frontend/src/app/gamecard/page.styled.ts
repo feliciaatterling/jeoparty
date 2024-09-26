@@ -4,21 +4,19 @@ import styled from "styled-components";
 export const HomeWrapper = styled.div`
   display: flex;
   height: 100vh;
+  width: 100vw;
+  gap: 32px;
 `;
 
 // Left section: Dashboard area
 export const DashboardWrapper = styled.div`
-  flex: 0 0 300px;
   height: 100%;
-  padding: 20px;
+  padding: 32px;
   box-sizing: border-box;
 `;
 
 // Right section: GameCard area
 export const GameCardWrapper = styled.div`
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  width: 100%;
+  padding: 32px;
 `;

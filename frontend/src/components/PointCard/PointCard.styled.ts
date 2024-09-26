@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const ScPointCard = styled.button<{ $taken?: boolean }>`
-  padding: 26px 34px;
+  padding: 28px 36px;
+  font-size: 16px;
   background: rgb(60, 202, 231);
   background: linear-gradient(
     180deg,

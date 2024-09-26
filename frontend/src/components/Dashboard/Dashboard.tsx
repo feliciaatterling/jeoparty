@@ -9,6 +9,9 @@ import {
   TeamMoney,
   ButtonGroup,
 } from "./Dashboard.styled";
+
+import Image from "next/image";
+import Spacer from "../Spacer/Spacer";
 import Link from "next/link";
 
 const Dashboard = () => {
@@ -23,6 +26,13 @@ const Dashboard = () => {
 
   return (
     <DashboardWrapper>
+      <Image
+        src="/images/JEOPARTY.png"
+        alt="JeoParty Logo"
+        width={225}
+        height={32}
+      />
+      <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams.map((team, index) => (
           <TeamCard key={index} isActive={index === 0}>
