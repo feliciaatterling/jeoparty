@@ -1,5 +1,15 @@
 import React from "react";
-import { DashboardWrapper, EditButton, EndButton, TeamsContainer, TeamCard, TeamName, TeamMoney, ButtonGroup } from "./Dashboard.styled";
+import {
+  DashboardWrapper,
+  EditButton,
+  EndButton,
+  TeamsContainer,
+  TeamCard,
+  TeamName,
+  TeamMoney,
+  ButtonGroup,
+} from "./Dashboard.styled";
+import Link from "next/link";
 
 const Dashboard = () => {
   const teams = [
@@ -24,7 +34,9 @@ const Dashboard = () => {
 
       <ButtonGroup>
         <EditButton>Edit Game</EditButton>
-        <EndButton>End Game</EndButton>
+        <Link href="/" legacyBehavior>
+          <EndButton>End Game</EndButton>
+        </Link>
       </ButtonGroup>
     </DashboardWrapper>
   );
