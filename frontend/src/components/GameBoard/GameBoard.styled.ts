@@ -2,9 +2,9 @@
 import styled from "styled-components";
 
 export const ScGameBoard = styled.div`
-  width: 65vw;
-  height: 75vh;
-  border: solid white;
+  padding: 32px;
+  background-color: #ffffff10;
+  border-radius: 8px;
 `;
 
 export const ScCategory = styled.div`
@@ -14,7 +14,6 @@ export const ScCategory = styled.div`
   color: white;
   width: auto;
   justify-content: center;
-  padding-top: 20px;
 `;
 
 export const ScCard = styled.div`

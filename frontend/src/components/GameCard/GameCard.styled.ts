@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 // The container for the GameCard
 export const GameCardWrapper = styled.div`
-  background-color: #FFFFFF20;
-  padding: 30px;
+  background-color: #ffffff10;
   border-radius: 8px;
   color: white;
   text-align: center;
@@ -11,11 +10,7 @@ export const GameCardWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: calc(100% - 80px);
-  max-width: 800px;
-  height: calc(100% - 80px);
-  min-height: 300px;
-  margin: 40px;
+  height: 552px;
 `;
 
 // Tag displaying the category and value
@@ -78,7 +73,7 @@ export const ShowAnswerButton = styled.button`
 export const AnswerButton = styled.button<{ correct?: boolean }>`
   background-color: ${(props) => (props.correct ? "#4caf50" : "#d64d4d")};
   color: white;
-  padding: 12px 32px;  /* Increase padding to give more space */
+  padding: 12px 32px; /* Increase padding to give more space */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -89,7 +84,7 @@ export const AnswerButton = styled.button<{ correct?: boolean }>`
   min-width: 150px; /* Set a minimum width to make sure it's not too small */
 
   &:hover {
-    background-color: ${(props) => (props.correct ? "#45a049" : "#c74646")}; /* Hover color change */
+    background-color: ${(props) =>
+      props.correct ? "#45a049" : "#c74646"}; /* Hover color change */
   }
 `;
-
