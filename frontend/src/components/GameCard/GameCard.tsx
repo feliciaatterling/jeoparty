@@ -5,10 +5,10 @@ import {
   AnswerText,
   ModeTag,
   AnswerButtonsWrapper,
-  AnswerButton,
-  SmallText,
-  ShowAnswerButton,
 } from "./GameCard.styled";
+import Button from "../Button/Button";
+import Spacer from "../Spacer/Spacer";
+import Typography from "../Typography/Typography";
 
 interface GameCardProps {
   question: string;
@@ -39,19 +39,25 @@ const GameCard: React.FC<GameCardProps> = ({
       {isQuestionMode ? (
         <>
           <QuestionText>{question}</QuestionText>
-          <ShowAnswerButton onClick={handleToggleMode}>
-            SHOW ANSWER
-          </ShowAnswerButton>
+          <div style={{ width: 200 }}>
+            <Button
+              label="SHOW ANSWER"
+              variant="secondary"
+              onClick={handleToggleMode}
+            />
+          </div>
         </>
       ) : (
         <>
           <AnswerText>Who Is {answer}?</AnswerText>
-          <SmallText>Did you get the question right?</SmallText>
+          <Typography variant="meta">
+            Did you get the question right?
+          </Typography>
+          <Spacer size={1} orientation="vertical" />
           <AnswerButtonsWrapper>
-            <AnswerButton correct onClick={onBack}>
-              Yes
-            </AnswerButton>
-            <AnswerButton onClick={onBack}>No</AnswerButton>
+            <Button label="YES" onClick={onBack} variant="primary" />
+            <Spacer size={3} orientation="horizontal" />
+            <Button label="NO" onClick={onBack} variant="secondary" />
           </AnswerButtonsWrapper>
         </>
       )}

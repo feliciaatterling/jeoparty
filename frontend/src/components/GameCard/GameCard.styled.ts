@@ -50,7 +50,6 @@ export const AnswerButtonsWrapper = styled.div`
   justify-content: space-around;
   width: 100%;
   max-width: 400px;
-  margin-top: 20px;
 `;
 
 // Specific styling for the "Show Answer" button

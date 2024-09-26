@@ -46,24 +46,6 @@ export const TeamMoney = styled.div<TeamCardProps>`
     props.isActive ? "white" : "#333"}; /* Use the isActive prop */
 `;
 
-export const EditButton = styled.button`
-  background-color: #b45ad5;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-`;
-
-export const EndButton = styled.button`
-  background-color: #ef5350;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-`;
-
 export const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;

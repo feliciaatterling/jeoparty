@@ -8,6 +8,7 @@ import {
   ExplanationText1,
   ExplanationText2,
 } from "@/components/HomeStyles/HomeStyles";
+import Spacer from "@/components/Spacer/Spacer";
 
 export default function Home() {
   return (
@@ -34,13 +35,17 @@ export default function Home() {
       </ExplanationText2>
 
       {/* Buttons with Link for navigation */}
-      <Link href="/gamesetup" passHref>
-        <Button label="Play" as="button" />
-      </Link>
+      <div style={{ display: "flex" }}>
+        <Link href="/gamesetup" passHref>
+          <Button label="PLAY GAME" as="button" />
+        </Link>
 
-      <Link href="/how-to-play" passHref>
-        <Button label="How to Play" as="button" />
-      </Link>
+        <Spacer size={3} orientation="horizontal" />
+
+        <Link href="/how-to-play" passHref>
+          <Button label="HOW TO PLAY" as="button" variant="secondary" />
+        </Link>
+      </div>
     </HomeContainer>
   );
 }

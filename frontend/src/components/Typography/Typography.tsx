@@ -17,9 +17,7 @@ const Typography: React.FC<TypographyProps> = ({
     case "h3":
       return <ScH3 style={{ color: color, textAlign: align }}>{children}</ScH3>;
     case "meta":
-      return (
-        <ScMeta style={{ color: color, textAlign: align }}>{children}</ScMeta>
-      );
+      return <ScMeta style={{ textAlign: align }}>{children}</ScMeta>;
     default:
       return <ScP style={{ color: color, textAlign: align }}>{children}</ScP>;
   }
