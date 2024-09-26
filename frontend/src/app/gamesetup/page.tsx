@@ -5,8 +5,6 @@ import {
   ScContainer,
   ScGameSettings,
   ScGridItem,
-  ScHeading,
-  ScSubHeading,
   ScTeamsContainer,
   ScTeamSettings,
   ScWrap,
@@ -16,6 +14,7 @@ import Slider from "@/components/Slider/Slider";
 import TeamNameColorPicker from "@/components/TeamNameColorPicker/TeamNameColorPicker";
 import { useState } from "react";
 import Button from "@/components/Button/Button";
+import Typography from "@/components/Typography/Typography";
 
 const GRID: number[] = [1, 2, 3, 4, 5, 6];
 
@@ -30,9 +29,9 @@ export default function GameSetup() {
     <ScWrap>
       <ScContainer>
         <ScGameSettings>
-          <ScHeading>Jeopardy settings</ScHeading>
+          <Typography variant="h1">Jeopardy settings</Typography>
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Categories</ScSubHeading>
+          <Typography variant="h2">Categories</Typography>
           <Spacer size={2} orientation="vertical" />
           <ScCategoryGrid>
             {GRID.map((i) => {
@@ -44,16 +43,16 @@ export default function GameSetup() {
             })}
           </ScCategoryGrid>
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Context</ScSubHeading>
+          <Typography variant="h2">Context</Typography>
           <Spacer size={2} orientation="vertical" />
           <Input label="Describe the occasion!" multiline />
           <Spacer size={2} orientation="vertical" />
           <Button label="START GAME" />
         </ScGameSettings>
         <ScTeamSettings>
-          <ScHeading>Team settings</ScHeading>
+          <Typography variant="h1">Team settings</Typography>
           <Spacer size={2} orientation="vertical" />
-          <ScSubHeading>Number of teams</ScSubHeading>
+          <Typography variant="h2">Number of teams</Typography>
           <Spacer size={1} orientation="vertical" />
           <Slider
             min={1}
@@ -64,7 +63,7 @@ export default function GameSetup() {
             setValue={handleSlider}
           />
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Team names</ScSubHeading>
+          <Typography variant="h2">Team names</Typography>
           <Spacer size={2} orientation="vertical" />
           <ScTeamsContainer>
             {GRID.slice(0, sliderValue).map((i) => {
