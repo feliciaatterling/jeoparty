@@ -19,16 +19,40 @@ import Link from "next/link";
 import { BiInfoCircle } from "react-icons/bi";
 import InfoText from "@/components/InfoText/InfoText";
 
-const GRID: number[] = [1, 2, 3, 4, 5, 6];
-
 export default function GameSetup() {
+  // Info-icon hover state
+  const [onHover, setOnHover] = useState(0);
+
+  // Datavalue states
+  const [categories, setCategories] = useState<string[]>(Array(6).fill(""));
+  const [context, setContext] = useState<string>("");
   const [sliderValue, setSliderValue] = useState<number>(2);
+  const [teamNames, setTeamNames] = useState<string[]>(Array(6).fill(""));
 
   const handleSlider = (newValue: number) => {
     setSliderValue(newValue);
   };
 
-  const [onHover, setOnHover] = useState(0);
+  const handleInputChange = (
+    newValue: string,
+    setValue:
+      | React.Dispatch<React.SetStateAction<string[]>>
+      | ((newValue: string) => void),
+    index?: number,
+    inputArray?: string[] // Optional array argument
+  ) => {
+    if (inputArray && index !== undefined) {
+      // Type narrowing: We know we're working with a string array
+      const updatedArray = [...inputArray];
+      updatedArray[index] = newValue;
+      (setValue as React.Dispatch<React.SetStateAction<string[]>>)(
+        updatedArray
+      ); // Set the updated array
+    } else {
+      // Type narrowing: We're working with a string
+      (setValue as (newValue: string) => void)(newValue); // Set the new string value
+    }
+  };
 
   return (
     <ScWrap>
@@ -53,10 +77,21 @@ export default function GameSetup() {
 
           <Spacer size={2} orientation="vertical" />
           <ScCategoryGrid>
-            {GRID.map((i) => {
+            {categories.map((category, index) => {
               return (
-                <ScGridItem key={i}>
-                  <Input label={"Category " + i} />
+                <ScGridItem key={index}>
+                  <Input
+                    label={`Category ${index + 1}`}
+                    value={categories[index]} // Pass the value from the categories array
+                    setValue={(newValue) =>
+                      handleInputChange(
+                        newValue,
+                        setCategories,
+                        index,
+                        categories
+                      )
+                    }
+                  />
                 </ScGridItem>
               );
             })}
@@ -77,7 +112,12 @@ export default function GameSetup() {
             <div>{onHover === 2 && <InfoText content="Info text" />}</div>
           </div>
           <Spacer size={2} orientation="vertical" />
-          <Input label="Describe the occasion!" multiline />
+          <Input
+            label="Describe the occasion!"
+            multiline
+            value={context}
+            setValue={(newValue) => handleInputChange(newValue, setContext)}
+          />
           <Spacer size={2} orientation="vertical" />
           <div style={{ display: "flex" }}>
             <Link href="/gamecard" legacyBehavior>
@@ -94,7 +134,7 @@ export default function GameSetup() {
           <Spacer size={2} orientation="vertical" />
           <div style={{ display: "flex", flexDirection: "row" }}>
             <Typography variant="h2">
-              Number of teams{" "}
+              Number of teams
               <BiInfoCircle
                 style={{
                   color: "white",
@@ -132,8 +172,17 @@ export default function GameSetup() {
           </div>
           <Spacer size={2} orientation="vertical" />
           <ScTeamsContainer>
-            {GRID.slice(0, sliderValue).map((i) => {
-              return <TeamNameColorPicker key={i} label={"Team " + i} />;
+            {teamNames.slice(0, sliderValue).map((teamName, index) => {
+              return (
+                <TeamNameColorPicker
+                  key={index}
+                  label={"Team " + (index + 1)}
+                  value={teamName}
+                  setValue={(newValue) =>
+                    handleInputChange(newValue, setTeamNames, index, teamNames)
+                  }
+                />
+              );
             })}
           </ScTeamsContainer>
         </ScTeamSettings>

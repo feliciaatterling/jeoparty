@@ -5,10 +5,14 @@ import Input from "../Input/Input";
 import { ScContainer } from "./TeamNameColorPicker.styled";
 import TeamNameColorPickerProps from "./TeamNameColorPicker.types";
 //#2f53f9
-const TeamNameColorPicker: React.FC<TeamNameColorPickerProps> = ({ label }) => {
+const TeamNameColorPicker: React.FC<TeamNameColorPickerProps> = ({
+  label,
+  value,
+  setValue,
+}) => {
   return (
     <ScContainer>
-      <Input label={label} />
+      <Input label={label} value={value} setValue={setValue} />
       <ColorPicker />
     </ScContainer>
   );

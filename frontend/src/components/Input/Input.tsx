@@ -4,7 +4,7 @@ import React from "react";
 import InputProps from "./Input.types";
 import { useTheme } from "@mui/material";
 
-const Input: React.FC<InputProps> = ({ label, multiline }) => {
+const Input: React.FC<InputProps> = ({ label, multiline, value, setValue }) => {
   const theme = useTheme();
 
   return (
@@ -15,6 +15,8 @@ const Input: React.FC<InputProps> = ({ label, multiline }) => {
       size="small"
       multiline={multiline ? true : false}
       rows={4}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
     />
   );
 };
