@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import ScPointCard from "./PointCard.styled";
-import PCProps from "./PointCard.types";
-import Link from "next/link";
 
 interface PointCardProps {
   points: number;

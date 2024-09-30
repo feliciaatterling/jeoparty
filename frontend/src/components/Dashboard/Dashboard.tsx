@@ -1,5 +1,17 @@
 import React from "react";
-import { DashboardWrapper, EditButton, EndButton, TeamsContainer, TeamCard, TeamName, TeamMoney, ButtonGroup } from "./Dashboard.styled";
+import {
+  DashboardWrapper,
+  TeamsContainer,
+  TeamCard,
+  TeamName,
+  TeamMoney,
+  ButtonGroup,
+} from "./Dashboard.styled";
+
+import Image from "next/image";
+import Spacer from "../Spacer/Spacer";
+import Link from "next/link";
+import Button from "../Button/Button";
 
 const Dashboard = () => {
   const teams = [
@@ -13,6 +25,13 @@ const Dashboard = () => {
 
   return (
     <DashboardWrapper>
+      <Image
+        src="/images/JEOPARTY.png"
+        alt="JeoParty Logo"
+        width={225}
+        height={32}
+      />
+      <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams.map((team, index) => (
           <TeamCard key={index} isActive={index === 0}>
@@ -23,8 +42,10 @@ const Dashboard = () => {
       </TeamsContainer>
 
       <ButtonGroup>
-        <EditButton>Edit Game</EditButton>
-        <EndButton>End Game</EndButton>
+        <Button label="EDIT GAME" />
+        <Link href="/" legacyBehavior>
+          <Button variant="danger" label="END GAME" />
+        </Link>
       </ButtonGroup>
     </DashboardWrapper>
   );

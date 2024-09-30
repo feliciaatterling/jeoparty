@@ -1,19 +1,38 @@
 "use client";
 import React from "react";
-import ScButton from "./Button.styled";
 import ButtonProps from "./Button.types";
+import {
+  ScDangerButton,
+  ScPrimaryButton,
+  ScSecondaryButton,
+} from "./Button.styled";
 
-/*
-const Button: React.FC<ButtonProps> = ({ label }) => {
-  return <ScButton onClick={() => alert("Klickad")}>{label}</ScButton>;
+const Button: React.FC<ButtonProps> = ({
+  label,
+  as,
+  variant = "primary",
+  ...props
+}) => {
+  switch (variant) {
+    case "secondary":
+      return (
+        <ScSecondaryButton as={as} {...props}>
+          {label}
+        </ScSecondaryButton>
+      );
+    case "danger":
+      return (
+        <ScDangerButton as={as} {...props}>
+          {label}
+        </ScDangerButton>
+      );
+    default:
+      return (
+        <ScPrimaryButton as={as} {...props}>
+          {label}
+        </ScPrimaryButton>
+      );
+  }
 };
-*/
 
-const Button: React.FC<ButtonProps> = ({ label, as, ...props }) => {
-  return (
-    <ScButton as={as} {...props}>
-      {label}
-    </ScButton>
-  );
-};
 export default Button;

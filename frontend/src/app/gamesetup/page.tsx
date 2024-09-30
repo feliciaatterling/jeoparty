@@ -5,8 +5,6 @@ import {
   ScContainer,
   ScGameSettings,
   ScGridItem,
-  ScHeading,
-  ScSubHeading,
   ScTeamsContainer,
   ScTeamSettings,
   ScWrap,
@@ -16,6 +14,10 @@ import Slider from "@/components/Slider/Slider";
 import TeamNameColorPicker from "@/components/TeamNameColorPicker/TeamNameColorPicker";
 import { useState } from "react";
 import Button from "@/components/Button/Button";
+import Typography from "@/components/Typography/Typography";
+import Link from "next/link";
+import { BiInfoCircle } from "react-icons/bi";
+import InfoText from "@/components/InfoText/InfoText";
 
 const GRID: number[] = [1, 2, 3, 4, 5, 6];
 
@@ -26,13 +28,29 @@ export default function GameSetup() {
     setSliderValue(newValue);
   };
 
+  const [onHover, setOnHover] = useState(0);
+
   return (
     <ScWrap>
       <ScContainer>
         <ScGameSettings>
-          <ScHeading>Jeopardy settings</ScHeading>
+          <Typography variant="h1">Jeopardy settings</Typography>
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Categories</ScSubHeading>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Typography variant="h2">
+              Categories
+              <BiInfoCircle
+                style={{
+                  color: "white",
+                  marginLeft: "5px",
+                }}
+                onMouseEnter={() => setOnHover(1)}
+                onMouseLeave={() => setOnHover(0)}
+              />
+            </Typography>
+            <div>{onHover === 1 && <InfoText content="Info text" />}</div>
+          </div>
+
           <Spacer size={2} orientation="vertical" />
           <ScCategoryGrid>
             {GRID.map((i) => {
@@ -44,16 +62,50 @@ export default function GameSetup() {
             })}
           </ScCategoryGrid>
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Context</ScSubHeading>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Typography variant="h2">
+              Context{" "}
+              <BiInfoCircle
+                style={{
+                  color: "white",
+                  marginLeft: "5px",
+                }}
+                onMouseEnter={() => setOnHover(2)}
+                onMouseLeave={() => setOnHover(0)}
+              />
+            </Typography>
+            <div>{onHover === 2 && <InfoText content="Info text" />}</div>
+          </div>
           <Spacer size={2} orientation="vertical" />
           <Input label="Describe the occasion!" multiline />
           <Spacer size={2} orientation="vertical" />
-          <Button label="START GAME" />
+          <div style={{ display: "flex" }}>
+            <Link href="/gamecard" legacyBehavior>
+              <Button label="START GAME" />
+            </Link>
+            <Spacer size={3} orientation="horizontal" />
+            <Link href="/" legacyBehavior>
+              <Button label="EXIT" variant="danger" />
+            </Link>
+          </div>
         </ScGameSettings>
         <ScTeamSettings>
-          <ScHeading>Team settings</ScHeading>
+          <Typography variant="h1">Team settings</Typography>
           <Spacer size={2} orientation="vertical" />
-          <ScSubHeading>Number of teams</ScSubHeading>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Typography variant="h2">
+              Number of teams{" "}
+              <BiInfoCircle
+                style={{
+                  color: "white",
+                  marginLeft: "5px",
+                }}
+                onMouseEnter={() => setOnHover(3)}
+                onMouseLeave={() => setOnHover(0)}
+              />
+            </Typography>
+            <div>{onHover === 3 && <InfoText content="Info text" />}</div>
+          </div>
           <Spacer size={1} orientation="vertical" />
           <Slider
             min={1}
@@ -64,7 +116,20 @@ export default function GameSetup() {
             setValue={handleSlider}
           />
           <Spacer size={3} orientation="vertical" />
-          <ScSubHeading>Team names</ScSubHeading>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Typography variant="h2">
+              Team names{" "}
+              <BiInfoCircle
+                style={{
+                  color: "white",
+                  marginLeft: "5px",
+                }}
+                onMouseEnter={() => setOnHover(4)}
+                onMouseLeave={() => setOnHover(0)}
+              />
+            </Typography>
+            <div>{onHover === 4 && <InfoText content="Info text" />}</div>
+          </div>
           <Spacer size={2} orientation="vertical" />
           <ScTeamsContainer>
             {GRID.slice(0, sliderValue).map((i) => {

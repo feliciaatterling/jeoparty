@@ -5,7 +5,8 @@ import Dashboard from "@/components/Dashboard/Dashboard";
 import GameCard from "@/components/GameCard/GameCard";
 import { HomeWrapper, DashboardWrapper, GameCardWrapper } from "./page.styled";
 import GameBoard from "@/components/GameBoard/GameBoard";
-import Image from "next/image";
+import Typography from "@/components/Typography/Typography";
+import Spacer from "@/components/Spacer/Spacer";
 
 export default function Home() {
   const [question, setQuestion] = useState(false);
@@ -44,7 +45,10 @@ export default function Home() {
 
       {/* Right: GameCard (Question and answer section) */}
       <GameCardWrapper>
-        <Image src="/images/JEOPARTY.png" alt="JeoParty Logo" width={700} height={100} />
+        <Typography variant="h1" align="center">
+          {"Team 1's turn!"}
+        </Typography>
+        <Spacer size={2} orientation="vertical" />
 
         {question ? (
           <GameCard
@@ -55,6 +59,7 @@ export default function Home() {
             onBack={handleBackToBoard}
           />
         ) : (
+
           <GameBoard
             onQuestionClick={handleQuestionClick}
             disabledCards={disabledCards} // Pass disabledCards state to GameBoard

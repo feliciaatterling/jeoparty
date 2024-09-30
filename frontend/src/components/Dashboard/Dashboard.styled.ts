@@ -7,12 +7,13 @@ interface TeamCardProps {
 export const DashboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF10;
-  padding: 20px;
+  background-color: #ffffff10;
+  padding: 32px;
   width: 300px;
   border-radius: 8px;
   height: 100%;
   box-sizing: border-box;
+  align-items: center;
 `;
 
 export const TeamsContainer = styled.div`
@@ -21,6 +22,7 @@ export const TeamsContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   gap: 10px;
+  width: 100%;
 `;
 
 export const TeamCard = styled.div<TeamCardProps>`
@@ -37,27 +39,11 @@ export const TeamName = styled.div`
   font-weight: bold;
 `;
 
-export const TeamMoney = styled.div<TeamCardProps>`  /* Add TeamCardProps type here */
+export const TeamMoney = styled.div<TeamCardProps>`
+  /* Add TeamCardProps type here */
   font-size: 14px;
-  color: ${(props) => (props.isActive ? "white" : "#333")};  /* Use the isActive prop */
-`;
-
-export const EditButton = styled.button`
-  background-color: #b45ad5;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-`;
-
-export const EndButton = styled.button`
-  background-color: #ef5350;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
+  color: ${(props) =>
+    props.isActive ? "white" : "#333"}; /* Use the isActive prop */
 `;
 
 export const ButtonGroup = styled.div`
@@ -65,4 +51,5 @@ export const ButtonGroup = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-top: auto;
+  width: 100%;
 `;

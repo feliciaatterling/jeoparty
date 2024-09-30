@@ -1,21 +1,40 @@
 import styled from "styled-components";
 
-const ScButton = styled.button`
-  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-  font-family: "Roboto";
-  border: 1px solid #478525;
-  background: none;
-  padding: 16px 24px;
-  background-color: #77b555;
-  border-radius: 8px;
+const ScBaseButton = styled.button`
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+`;
+
+const ScPrimaryButton = styled(ScBaseButton)`
+  background-color: #b45ad5;
   color: white;
-  font-size: 16px;
-  font-weight: 500;
 
   &:hover {
-    border: 1px solid #478525;
-    cursor: pointer;
+    background-color: #c06fdd;
   }
 `;
 
-export default ScButton;
+const ScSecondaryButton = styled(ScBaseButton)`
+  background-color: #43b3f4;
+  color: white;
+
+  &:hover {
+    background-color: #5cc0f6;
+  }
+`;
+
+const ScDangerButton = styled(ScBaseButton)`
+  background-color: #ef5350;
+  color: white;
+
+  &:hover {
+    background-color: #ef6060;
+  }
+`;
+
+export { ScPrimaryButton, ScSecondaryButton, ScDangerButton };
