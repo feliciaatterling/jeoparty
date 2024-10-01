@@ -20,6 +20,15 @@ import Link from "next/link";
 import { BiInfoCircle } from "react-icons/bi";
 import InfoText from "@/components/InfoText/InfoText";
 
+const defaultTeamObject = [
+  { name: "", color: "#FF5C5C" },  
+  { name: "", color: "#43D17D" },  
+  { name: "", color: "#4A90E2" }, 
+  { name: "", color: "#F7D154" },  
+  { name: "", color: "#B45AD5" },  
+  { name: "", color: "#2DCED6" },
+];
+
 export default function GameSetup() {
   // Info-icon hover state
   const [onHover, setOnHover] = useState(0);
@@ -28,7 +37,7 @@ export default function GameSetup() {
   const [categories, setCategories] = useState<string[]>(Array(6).fill(""));
   const [context, setContext] = useState<string>("");
   const [sliderValue, setSliderValue] = useState<number>(2);
-  const [teamNames, setTeamNames] = useState<string[]>(Array(6).fill(""));
+  const [teams, setTeams] = useState<{ name: string; color: string }[]>(defaultTeamObject);
 
   const handleSlider = (newValue: number) => {
     setSliderValue(newValue);
@@ -53,6 +62,17 @@ export default function GameSetup() {
       // Type narrowing: We're working with a string
       (setValue as (newValue: string) => void)(newValue); // Set the new string value
     }
+  };
+
+  const handleTeamChange = (
+    index: number,
+    newValue: { name?: string; color?: string }
+  ) => {
+    setTeams((prevTeams) =>
+      prevTeams.map((team, i) =>
+        i === index ? { ...team, ...newValue } : team
+      )
+    );
   };
 
   return (
@@ -161,15 +181,18 @@ export default function GameSetup() {
             </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
           <ScTeamsContainer>
-            {teamNames.slice(0, sliderValue).map((teamName, index) => {
+            {teams.slice(0, sliderValue).map((team, index) => {
               return (
                 <TeamNameColorPicker
                   key={index}
                   label={"Team " + (index + 1)}
-                  value={teamName}
-                  setValue={(newValue) =>
-                    handleInputChange(newValue, setTeamNames, index, teamNames)
+                  name={team.name}
+                  setName={(newName) =>
+                    handleTeamChange(index, {name: newName})
                   }
+                  color={team.color}
+                  setColor={(newColor)=> handleTeamChange(index, {color: newColor})}
+                  defaultColors={teams.map((team)=> team.color)}
                 />
               );
             })}
