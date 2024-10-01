@@ -1,0 +1,184 @@
+{
+  "Jeopardy": [
+    {
+      "category": "Swedish Music",
+      "questions": [
+        {
+          "points": 200,
+          "question": "Which Swedish pop group is known for hits like 'Dancing Queen' and 'Mamma Mia'?",
+          "answer": "ABBA"
+        },
+        {
+          "points": 400,
+          "question": "Who is the Swedish DJ and music producer famous for songs like 'Wake Me Up'?",
+          "answer": "Avicii"
+        },
+        {
+          "points": 600,
+          "question": "What band is known for the hit song 'The Final Countdown'?",
+          "answer": "Europe"
+        },
+        {
+          "points": 800,
+          "question": "Which Swedish singer-songwriter is known for the song 'You'?",
+          "answer": "Zara Larsson"
+        },
+        {
+          "points": 1000,
+          "question": "Who is the Swedish artist known for the album 'True' and the single 'I Love It'?",
+          "answer": "Icona Pop"
+        }
+      ]
+    },
+    {
+      "category": "Swedish Food",
+      "questions": [
+        {
+          "points": 200,
+          "question": "What is the name of the traditional Swedish dish made of fermented herring?",
+          "answer": "Surströmming"
+        },
+        {
+          "points": 400,
+          "question": "Which type of bread is commonly eaten in Sweden, often with butter?",
+          "answer": "Knäckebröd"
+        },
+        {
+          "points": 600,
+          "question": "What is the popular Swedish meatball dish called?",
+          "answer": "Köttbullar"
+        },
+        {
+          "points": 800,
+          "question": "What is the name of the Swedish pastry filled with almond paste and marzipan?",
+          "answer": "Prinsesstårta"
+        },
+        {
+          "points": 1000,
+          "question": "What is the traditional Swedish Christmas dish made of spiced, baked ham called?",
+          "answer": "Julskinka"
+        }
+      ]
+    },
+    {
+      "category": "Swedish Literature",
+      "questions": [
+        {
+          "points": 200,
+          "question": "Who wrote the children's book series about Pippi Longstocking?",
+          "answer": "Astrid Lindgren"
+        },
+        {
+          "points": 400,
+          "question": "Which Swedish author is known for the book 'The Girl with the Dragon Tattoo'?",
+          "answer": "Stieg Larsson"
+        },
+        {
+          "points": 600,
+          "question": "What is the title of the famous novel by Selma Lagerlöf that won the Nobel Prize in Literature?",
+          "answer": "Gösta Berlings Saga"
+        },
+        {
+          "points": 800,
+          "question": "Who is the acclaimed author of 'The Brothers Lionheart'?",
+          "answer": "Astrid Lindgren"
+        },
+        {
+          "points": 1000,
+          "question": "What novel by Hjalmar Söderberg is set in early 20th century Stockholm?",
+          "answer": "Doctor Glas"
+        }
+      ]
+    },
+    {
+      "category": "Swedish Geography",
+      "questions": [
+        {
+          "points": 200,
+          "question": "What is the capital city of Sweden?",
+          "answer": "Stockholm"
+        },
+        {
+          "points": 400,
+          "question": "Which Swedish island is known for its beautiful archipelago?",
+          "answer": "Gotland"
+        },
+        {
+          "points": 600,
+          "question": "What is the largest lake in Sweden?",
+          "answer": "Vänern"
+        },
+        {
+          "points": 800,
+          "question": "Which mountain range runs along the border between Sweden and Norway?",
+          "answer": "Scandes"
+        },
+        {
+          "points": 1000,
+          "question": "What is the name of the northernmost region of Sweden?",
+          "answer": "Norrland"
+        }
+      ]
+    },
+    {
+      "category": "Swedish Sports",
+      "questions": [
+        {
+          "points": 200,
+          "question": "Which sport is most associated with Sweden's national team?",
+          "answer": "Football (Soccer)"
+        },
+        {
+          "points": 400,
+          "question": "What is the name of Sweden's most famous ice hockey league?",
+          "answer": "SHL (Swedish Hockey League)"
+        },
+        {
+          "points": 600,
+          "question": "Which Swedish athlete is known for her success in cross-country skiing?",
+          "answer": "Charlotte Kalla"
+        },
+        {
+          "points": 800,
+          "question": "What is the name of the annual athletics event held in Stockholm?",
+          "answer": "Stockholm Marathon"
+        },
+        {
+          "points": 1000,
+          "question": "Which Swedish tennis player won the French Open in 1982?",
+          "answer": "Bjørn Borg"
+        }
+      ]
+    },
+    {
+      "category": "Swedish History",
+      "questions": [
+        {
+          "points": 200,
+          "question": "Who was the king of Sweden during World War II?",
+          "answer": "King Gustav V"
+        },
+        {
+          "points": 400,
+          "question": "What year did Sweden adopt a policy of neutrality?",
+          "answer": "1814"
+        },
+        {
+          "points": 600,
+          "question": "What was the name of the treaty that ended the Great Northern War in 1721?",
+          "answer": "Treaty of Nystad"
+        },
+        {
+          "points": 800,
+          "question": "Which famous Swedish explorer is known for discovering the Pacific Ocean?",
+          "answer": "Vitus Bering"
+        },
+        {
+          "points": 1000,
+          "question": "What is the name of the Swedish political party founded in 1904?",
+          "answer": "Socialdemokraterna (Swedish Social Democratic Party)"
+        }
+      ]
+    }
+  ]
+}
