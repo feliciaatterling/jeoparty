@@ -5,6 +5,7 @@ import {
   ScContainer,
   ScGameSettings,
   ScGridItem,
+  ScInfoContainer,
   ScTeamsContainer,
   ScTeamSettings,
   ScWrap,
@@ -60,20 +61,17 @@ export default function GameSetup() {
         <ScGameSettings>
           <Typography variant="h1">Jeopardy settings</Typography>
           <Spacer size={3} orientation="vertical" />
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <ScInfoContainer>
             <Typography variant="h2">
               Categories
-              <BiInfoCircle
-                style={{
-                  color: "white",
-                  marginLeft: "5px",
-                }}
+            </Typography>
+            <BiInfoCircle
+            size={20}
                 onMouseEnter={() => setOnHover(1)}
                 onMouseLeave={() => setOnHover(0)}
               />
-            </Typography>
-            <div>{onHover === 1 && <InfoText content="Info text" />}</div>
-          </div>
+            <div>{onHover === 1 && <InfoText content="You can choose up to 6 categories. You can leave all or some categories empty and our AI will come up with fun categories for you." />}</div>
+            </ScInfoContainer>
 
           <Spacer size={2} orientation="vertical" />
           <ScCategoryGrid>
@@ -97,20 +95,17 @@ export default function GameSetup() {
             })}
           </ScCategoryGrid>
           <Spacer size={3} orientation="vertical" />
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <ScInfoContainer>
             <Typography variant="h2">
-              Context{" "}
-              <BiInfoCircle
-                style={{
-                  color: "white",
-                  marginLeft: "5px",
-                }}
+              Context
+            </Typography>
+            <BiInfoCircle
+                size={20}
                 onMouseEnter={() => setOnHover(2)}
                 onMouseLeave={() => setOnHover(0)}
               />
-            </Typography>
-            <div>{onHover === 2 && <InfoText content="Info text" />}</div>
-          </div>
+            <div>{onHover === 2 && <InfoText content="If you give our AI the context of the game occasion it can come up with more fun and relevant questions. For example “Birthday party for my little brother who is turning 8 and loves dinosaurs” or “On a skiing trip with my college friends” or “Family get together, loves movies and music”." />}</div>
+            </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
           <Input
             label="Describe the occasion!"
@@ -132,20 +127,17 @@ export default function GameSetup() {
         <ScTeamSettings>
           <Typography variant="h1">Team settings</Typography>
           <Spacer size={2} orientation="vertical" />
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <ScInfoContainer>
             <Typography variant="h2">
-              Number of teams
-              <BiInfoCircle
-                style={{
-                  color: "white",
-                  marginLeft: "5px",
-                }}
+              Number of teams       
+            </Typography>
+            <BiInfoCircle
+                size={20}
                 onMouseEnter={() => setOnHover(3)}
                 onMouseLeave={() => setOnHover(0)}
               />
-            </Typography>
-            <div>{onHover === 3 && <InfoText content="Info text" />}</div>
-          </div>
+            <div>{onHover === 3 && <InfoText content="Decide how many teams you want to have. You can have at most 6 teams." />}</div>
+          </ScInfoContainer>
           <Spacer size={1} orientation="vertical" />
           <Slider
             min={1}
@@ -156,20 +148,17 @@ export default function GameSetup() {
             setValue={handleSlider}
           />
           <Spacer size={3} orientation="vertical" />
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <ScInfoContainer>
             <Typography variant="h2">
-              Team names{" "}
-              <BiInfoCircle
-                style={{
-                  color: "white",
-                  marginLeft: "5px",
-                }}
+              Team names
+            </Typography>
+            <BiInfoCircle
+                size={20}
                 onMouseEnter={() => setOnHover(4)}
                 onMouseLeave={() => setOnHover(0)}
               />
-            </Typography>
-            <div>{onHover === 4 && <InfoText content="Info text" />}</div>
-          </div>
+            <div>{onHover === 4 && <InfoText content="Come up with a name for each team. You can also pick a color for the team." />}</div>
+            </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
           <ScTeamsContainer>
             {teamNames.slice(0, sliderValue).map((teamName, index) => {
