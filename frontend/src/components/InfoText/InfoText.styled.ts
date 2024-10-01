@@ -10,7 +10,7 @@ const ScInfoText = styled.div`
   border: none;
   position: absolute;
   z-index: 100;
-  width: 15vw;
+  width: 275px;
 `;
 
 export default ScInfoText;
