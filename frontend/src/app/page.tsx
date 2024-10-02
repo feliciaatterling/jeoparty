@@ -11,7 +11,6 @@ import {
   LogoContainer,
 } from "@/components/HomeStyles/HomeStyles";
 import Spacer from "@/components/Spacer/Spacer";
-import Typography from "@/components/Typography/Typography";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
@@ -67,7 +66,7 @@ export default function Home() {
           >
             <InfoText
               content={
-                "Example text explaining the rules of Jeopardy as well as JeoPARTY \n which i will write more thoroughly at a later time (ᵔᴥᵔ)"
+                "Example text explaining the rules of Jeopardy as well as JeoPARTY which i will write more thoroughly at a later time (ᵔᴥᵔ)"
               }
             />
           </div>
