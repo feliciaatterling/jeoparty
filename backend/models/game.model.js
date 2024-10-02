@@ -9,13 +9,15 @@ const gameSchema = new mongoose.Schema({
         color: String,
         score: Number,
     }],
-    question: [{
-        id: String,
+    questions: [{
         category: String,
-        scoreValue: Number,
-        question: String,
-        answer: String,
-        isAnswered: Boolean,
+        questionCards: [{
+            points: Number,
+            question: String,
+            answer: String,
+            isAnswered: Boolean,
+        }]
+        
     }],
     currentTurnTeamId: String,
     isGameOver: Boolean,

@@ -1,8 +1,8 @@
 {
-  "Jeopardy": [
+  "Questions": [
     {
       "category": "Swedish Music",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "Which Swedish pop group is known for hits like 'Dancing Queen' and 'Mamma Mia'?",
@@ -32,7 +32,7 @@
     },
     {
       "category": "Swedish Food",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "What is the name of the traditional Swedish dish made of fermented herring?",
@@ -62,7 +62,7 @@
     },
     {
       "category": "Swedish Literature",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "Who wrote the children's book series about Pippi Longstocking?",
@@ -92,7 +92,7 @@
     },
     {
       "category": "Swedish Geography",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "What is the capital city of Sweden?",
@@ -122,7 +122,7 @@
     },
     {
       "category": "Swedish Sports",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "Which sport is most associated with Sweden's national team?",
@@ -152,7 +152,7 @@
     },
     {
       "category": "Swedish History",
-      "questions": [
+      "questionCards": [
         {
           "points": 200,
           "question": "Who was the king of Sweden during World War II?",
