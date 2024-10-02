@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 
@@ -24,6 +25,7 @@ async function connect() {
 connect();
 
 // Middleware to parse JSON bodies
+app.use(cors());
 app.use(express.json());
 app.use('/game', gameRouter)
 app.use('/', homeRouter)
