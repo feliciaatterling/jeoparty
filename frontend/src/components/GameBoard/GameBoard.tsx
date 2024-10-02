@@ -6,9 +6,10 @@ import Typography from "@/components/Typography/Typography";
 interface GameBoardProps {
   onQuestionClick: (categoryIndex: number, pointIndex: number) => void;
   disabledCards: boolean[][]; // Accept disabledCards as a prop from Home
+  cardOwners: string[][]; // Accept cardOwners prop from Home to track which team picked the card
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick, disabledCards }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick, disabledCards, cardOwners }) => {
   const points = [200, 400, 600, 800, 1000];
   const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
 
@@ -18,6 +19,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick, disabledCards })
         <ScCategory>
           {categories.map((title, categoryIndex) => (
             <div key={categoryIndex}>
+              {/* Remove unnecessary <h3> and use Typography */}
               <Typography variant="h3" color="white" align="center">
                 {title}
               </Typography>
