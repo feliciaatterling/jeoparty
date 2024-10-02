@@ -7,7 +7,18 @@ interface InfoTextProps {
 }
 
 const InfoText: React.FC<InfoTextProps> = ({ content }) => {
-  return <ScInfoText>{content}</ScInfoText>;
+  // Radbryter content med \n
+  const lines = content.split("\n");
+
+  return (
+    <ScInfoText>
+      {lines.map((line, index) => (
+        <p key={index} style={{ margin: "0" }}>
+          {line}
+        </p>
+      ))}
+    </ScInfoText>
+  );
 };
 
 export default InfoText;

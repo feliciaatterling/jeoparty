@@ -5,18 +5,9 @@ import {
   Circle,
   PickerWrapper,
 } from "./ColorPicker.styled";
+import ColorPickerProps from "./ColorPicker.types";
 
-const defaultColors = [
-  "#FF0000",
-  "#00FF00",
-  "#0000FF",
-  "#FFFF00",
-  "#FF00FF",
-  "#00FFFF",
-];
-
-const ColorPicker: React.FC = () => {
-  const [color, setColor] = useState<string>("#FFFFFF"); // Default color
+const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors}) => {
   const [showPicker, setShowPicker] = useState<boolean>(false); // For toggling the picker
   const pickerRef = useRef<HTMLDivElement>(null); // To track if user clicks outside the picker
 

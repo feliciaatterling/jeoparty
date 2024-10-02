@@ -4,12 +4,19 @@ import ColorPicker from "../ColorPicker/ColorPicker";
 import Input from "../Input/Input";
 import { ScContainer } from "./TeamNameColorPicker.styled";
 import TeamNameColorPickerProps from "./TeamNameColorPicker.types";
-//#2f53f9
-const TeamNameColorPicker: React.FC<TeamNameColorPickerProps> = ({ label }) => {
+
+const TeamNameColorPicker: React.FC<TeamNameColorPickerProps> = ({
+  label,
+  name,
+  setName,
+  color,
+  setColor,
+  defaultColors
+}) => {
   return (
     <ScContainer>
-      <Input label={label} />
-      <ColorPicker />
+      <Input label={label} value={name} setValue={setName} />
+      <ColorPicker color={color} setColor={setColor} defaultColors={defaultColors}/>
     </ScContainer>
   );
 };
