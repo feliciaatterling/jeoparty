@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
@@ -10,7 +9,7 @@ import {
   HomeContainer,
   LogoContainer,
 } from "@/components/HomeStyles/HomeStyles";
-import Spacer from "@/components/Spacer/Spacer";
+import Logo from "@/components/Logo/Logo";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
@@ -22,12 +21,7 @@ export default function Home() {
   return (
     <HomeContainer>
       <LogoContainer>
-        <Image
-          src="/images/JEOPARTY.png"
-          alt="JeoParty Logo"
-          width={700}
-          height={100}
-        />
+      <Logo size="large" />
       </LogoContainer>
 
       <div style={{ marginBottom: "30px", marginTop: "40px" }}>
