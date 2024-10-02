@@ -19,6 +19,9 @@ import Typography from "@/components/Typography/Typography";
 import Link from "next/link";
 import { BiInfoCircle } from "react-icons/bi";
 import InfoText from "@/components/InfoText/InfoText";
+import { gameSetup } from "./utils.types";
+import { createGame } from "./utils";
+import { useRouter } from "next/navigation";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
@@ -31,6 +34,8 @@ const defaultTeamObject = [
 ];
 
 export default function GameSetup() {
+  const router = useRouter();
+  
   // State for handling hover effect over info icons
   const [onHover, setOnHover] = useState(0);
 
@@ -76,6 +81,16 @@ export default function GameSetup() {
       )
     );
   };
+
+  async function handleStartGame() {
+    const gameObject: gameSetup = {
+      categories: categories,
+      context: context,
+      teams: teams.filter(team => team.name !== "")
+    }
+    await createGame(gameObject)
+    router.push("/gamecard")
+  }
 
   return (
     <ScWrap>
@@ -148,9 +163,7 @@ export default function GameSetup() {
           <Spacer size={2} orientation="vertical" />
           {/* Start game and exit buttons */}
           <div style={{ display: "flex" }}>
-            <Link href="/gamecard" legacyBehavior>
-              <Button label="START GAME" />
-            </Link>
+             <Button label="START GAME" onClick={handleStartGame}/>
             <Spacer size={3} orientation="horizontal" />
             <Link href="/" legacyBehavior>
               <Button label="EXIT" variant="danger" />
