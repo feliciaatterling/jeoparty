@@ -7,12 +7,10 @@ import {
   TeamMoney,
   ButtonGroup,
 } from "./Dashboard.styled";
-
-import Image from "next/image";
+import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
 import Link from "next/link";
 import Button from "../Button/Button";
-import Typography from "../Typography/Typography";
 
 const Dashboard = () => {
   const teams = [
@@ -26,30 +24,17 @@ const Dashboard = () => {
 
   return (
     <DashboardWrapper>
-      <Image
-        src="/images/JEOPARTY.png"
-        alt="JeoParty Logo"
-        width={225}
-        height={32}
-      />
+      <Logo size="medium" />
       <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams.map((team, index) => (
-          <TeamCard key={index} $isActive={index === 0} $color={team.color}>
-            <Typography
-              variant="p"
-              color={index === 0 ? "white" : "black"}
-              align="center"
-            >
+          <TeamCard key={index} $isActive={index === 0} color={team.color}>
+            <TeamName $isActive={index === 0} color={team.color}>
               {team.name}
-            </Typography>
-            <Typography
-              variant="meta"
-              color={index === 0 ? "white" : "#333"}
-              align="center"
-            >
+            </TeamName>
+            <TeamMoney $isActive={index === 0} color={team.color}>
               {team.money}
-            </Typography>
+            </TeamMoney>
           </TeamCard>
         ))}
       </TeamsContainer>
