@@ -8,17 +8,33 @@ import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 
+// Team colors mapped to team names
+const teamColors = {
+  "Team 1": "255, 87, 51",   // Red
+  "Team 2": "51, 255, 87",   // Green
+  "Team 3": "51, 87, 255",   // Blue
+  "Team 4": "255, 51, 161",  // Pink
+  "Team 5": "51, 255, 240",  // Cyan
+  "Team 6": "243, 255, 51",  // Yellow
+};
+
 export default function Home() {
   const [question, setQuestion] = useState(false);
 
   // 2D array to track whether each PointCard is disabled
   const points = [200, 400, 600, 800, 1000];
   const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
+  
   const [disabledCards, setDisabledCards] = useState<boolean[][]>(
     Array(categories.length).fill(Array(points.length).fill(false))
   );
+  
+  // 2D array to track which team picked each card
+  const [cardOwners, setCardOwners] = useState<(string | null)[][]>(
+    Array(categories.length).fill(Array(points.length).fill(null))
+  );
 
-  // Handle card click to set the question state and disable the clicked card
+  // Handle card click to set the question state, disable the clicked card, and assign card owner
   const handleQuestionClick = (categoryIndex: number, pointIndex: number) => {
     setQuestion(true);
 
@@ -29,7 +45,15 @@ export default function Home() {
         : row
     );
 
+    // Assign the current team to the clicked card (for example, "Team 1")
+    const updatedCardOwners = cardOwners.map((row, catIdx) =>
+      catIdx === categoryIndex
+        ? row.map((owner, pointIdx) => (pointIdx === pointIndex ? "Team 1" : owner))
+        : row
+    );
+
     setDisabledCards(updatedDisabledCards);
+    setCardOwners(updatedCardOwners);
   };
 
   const handleBackToBoard = () => {
@@ -59,10 +83,11 @@ export default function Home() {
             onBack={handleBackToBoard}
           />
         ) : (
-
           <GameBoard
             onQuestionClick={handleQuestionClick}
-            disabledCards={disabledCards} // Pass disabledCards state to GameBoard
+            disabledCards={disabledCards}  // Pass disabledCards state to GameBoard
+            cardOwners={cardOwners}        // Pass cardOwners state to GameBoard
+            teamColors={teamColors}        // Pass teamColors object to GameBoard
           />
         )}
       </GameCardWrapper>

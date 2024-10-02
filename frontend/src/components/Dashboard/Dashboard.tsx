@@ -26,6 +26,7 @@ const Dashboard = () => {
     <DashboardWrapper>
       <Logo size="medium" />
       <Spacer size={3} orientation="vertical" />
+      {/* Render team cards */}
       <TeamsContainer>
         {teams.map((team, index) => (
           <TeamCard key={index} $isActive={index === 0} color={team.color}>
@@ -39,6 +40,7 @@ const Dashboard = () => {
         ))}
       </TeamsContainer>
 
+      {/* Button group for game controls */}
       <ButtonGroup>
         <Button label="EDIT GAME" />
         <Link href="/" legacyBehavior>
