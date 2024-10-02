@@ -5,40 +5,46 @@ import Typography from "@/components/Typography/Typography";
 
 interface GameBoardProps {
   onQuestionClick: (categoryIndex: number, pointIndex: number) => void;
-  disabledCards: boolean[][]; // Accept disabledCards as a prop from Home
-  cardOwners: string[][]; // Accept cardOwners prop from Home to track which team picked the card
+  disabledCards: boolean[][];
+  cardOwners: (string | null)[][];
+  teamColors: { [key: string]: string }; // Maps team names to colors
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick, disabledCards, cardOwners }) => {
+const GameBoard: React.FC<GameBoardProps> = ({
+  onQuestionClick,
+  disabledCards,
+  cardOwners,
+  teamColors,
+}) => {
   const points = [200, 400, 600, 800, 1000];
   const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
 
   return (
-    <div>
-      <ScGameBoard>
-        <ScCategory>
-          {categories.map((title, categoryIndex) => (
-            <div key={categoryIndex}>
-              {/* Remove unnecessary <h3> and use Typography */}
-              <Typography variant="h3" color="white" align="center">
-                {title}
-              </Typography>
-              <ScCard>
-                {points.map((point, pointIndex) => (
-                  <PointCard
-                    key={`${categoryIndex}-${pointIndex}`}
-                    points={point}
-                    category={title}
-                    onClick={() => onQuestionClick(categoryIndex, pointIndex)} // Handle click by passing indices
-                    disabled={disabledCards[categoryIndex][pointIndex]} // Use the correct disabled state
-                  />
-                ))}
-              </ScCard>
-            </div>
-          ))}
-        </ScCategory>
-      </ScGameBoard>
-    </div>
+    <ScGameBoard>
+      {/* Render each category and its cards */}
+      <ScCategory>
+        {categories.map((title, categoryIndex) => (
+          <div key={categoryIndex}>
+            <Typography variant="h3" color="white" align="center">
+              {title}
+            </Typography>
+            <ScCard>
+              {points.map((point, pointIndex) => (
+                <PointCard
+                  key={`${categoryIndex}-${pointIndex}`}
+                  points={point}
+                  category={title}
+                  onClick={() => onQuestionClick(categoryIndex, pointIndex)}
+                  disabled={disabledCards[categoryIndex][pointIndex]}
+                  owner={cardOwners[categoryIndex][pointIndex]}
+                  ownerColor={teamColors[cardOwners[categoryIndex][pointIndex] || ""]} // Assign team color
+                />
+              ))}
+            </ScCard>
+          </div>
+        ))}
+      </ScCategory>
+    </ScGameBoard>
   );
 };
 

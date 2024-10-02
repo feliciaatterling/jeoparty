@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Base button styling shared by all buttons
 const ScBaseButton = styled.button`
   padding: 12px;
   border: none;
@@ -10,6 +11,7 @@ const ScBaseButton = styled.button`
   font-size: 14px;
 `;
 
+// Primary button styling, with a custom background and hover effect
 const ScPrimaryButton = styled(ScBaseButton)`
   background-color: #b45ad5;
   color: white;
@@ -19,6 +21,7 @@ const ScPrimaryButton = styled(ScBaseButton)`
   }
 `;
 
+// Secondary button styling, with a different color and hover effect
 const ScSecondaryButton = styled(ScBaseButton)`
   background-color: #43b3f4;
   color: white;
@@ -28,6 +31,7 @@ const ScSecondaryButton = styled(ScBaseButton)`
   }
 `;
 
+// Danger button styling, with a red background and hover effect
 const ScDangerButton = styled(ScBaseButton)`
   background-color: #ef5350;
   color: white;
@@ -37,4 +41,5 @@ const ScDangerButton = styled(ScBaseButton)`
   }
 `;
 
+// Exporting all button variants
 export { ScPrimaryButton, ScSecondaryButton, ScDangerButton };

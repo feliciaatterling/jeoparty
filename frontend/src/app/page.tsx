@@ -1,19 +1,21 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
+
 import HowToPlayText from "@/components/HowToPlayText/HowToPlayText";
 import {
   HomeContainer,
   LogoContainer,
 } from "@/components/HomeStyles/HomeStyles";
+
 import Logo from "@/components/Logo/Logo";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
 
+  // Toggle the visibility of the popup
   const handlePopup = () => {
     setShowPopup(!showPopup);
   };
@@ -24,33 +26,33 @@ export default function Home() {
         <Logo size="large" />
       </LogoContainer>
 
+      {/* Game description */}
       <div style={{ marginBottom: "30px", marginTop: "40px" }}>
         <Typography variant="p">
-          Jeoparty Classic Mode is an online version of the classic game
-          Jeopardy, where the <br />
+          Jeoparty Classic Mode is an online version of the classic game Jeopardy, where the <br />
           categories and questions are all generated with the help of OpenAI.
         </Typography>
       </div>
 
       <div style={{ marginBottom: "20px" }}>
         <Typography variant="p">
-          Jeoparty Party Mode is our spin on Jeopardy, including things like
-          dares and <br />
+          Jeoparty Party Mode is our spin on Jeopardy, including things like dares and <br />
           challenges - perfect for a party with your friends!
         </Typography>
       </div>
 
-      {/* Play button with Link for navigation */}
+      {/* Play button navigating to game setup */}
       <div style={{ marginBottom: "10px", marginTop: "20px" }}>
         <Link href="/gamesetup" passHref>
           <Button label="Play" as="button" />
         </Link>
       </div>
 
-      {/* How to Play button with toggled popup */}
+      {/* How to Play button with popup */}
       <div style={{ display: "inline-block", marginBottom: "10px" }}>
         <Button label="How to Play" as="button" onClick={handlePopup} />
         {showPopup && (
+
           <div
             style={{
               position: "absolute",
@@ -80,6 +82,7 @@ export default function Home() {
               
               Ready to test your knowledge? Press "Play" and start creating games!`}
             />
+
           </div>
         )}
       </div>

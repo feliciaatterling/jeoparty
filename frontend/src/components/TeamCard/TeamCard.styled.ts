@@ -1,4 +1,3 @@
-// frontend/src/components/TeamCard/TeamCard.styled.ts
 import styled, { css } from "styled-components";
 
 export const TeamCardWrapper = styled.div<{ isActive: boolean }>`
