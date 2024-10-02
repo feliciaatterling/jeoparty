@@ -10,6 +10,8 @@ import {
   HomeContainer,
   LogoContainer,
 } from "@/components/HomeStyles/HomeStyles";
+import Spacer from "@/components/Spacer/Spacer";
+import Typography from "@/components/Typography/Typography";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);

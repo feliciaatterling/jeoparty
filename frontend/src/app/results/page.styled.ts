@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Styled wrapper for the entire Results Page
 export const PageWrapper = styled.div`
   display: flex;
   justify-content: center;

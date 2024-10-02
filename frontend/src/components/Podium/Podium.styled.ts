@@ -49,7 +49,7 @@ export const PodiumContainer = styled.div`
 `;
 
 // Base styling for the podium spots with animation
-export const PodiumSpot = styled.div<{ delay: number }>`
+export const PodiumSpot = styled.div<{ $delay: number; color?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,13 +58,13 @@ export const PodiumSpot = styled.div<{ delay: number }>`
   border-radius: 2px;
   text-align: center;
   color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: ${(props) => props.color || "rgba(255, 255, 255, 0.1)"};
   width: 200px;
   position: relative;
 
   opacity: 0;
   animation: ${fadeIn} 1s forwards;
-  animation-delay: ${(props) => props.delay}s;
+  animation-delay: ${(props) => props.$delay}s;
 `;
 
 // Add PlayerInfo for positioning the player info at the top of the podium
@@ -77,17 +77,14 @@ export const PlayerInfo = styled.div`
 // Specific styles for the first, second, and third places
 export const FirstPlace = styled(PodiumSpot)`
   height: 300px;
-  background-color: rgba(255, 255, 255, 0.15);
 `;
 
 export const SecondPlace = styled(PodiumSpot)`
   height: 250px;
-  background-color: rgba(255, 255, 255, 0.1);
 `;
 
 export const ThirdPlace = styled(PodiumSpot)`
   height: 200px;
-  background-color: rgba(255, 255, 255, 0.1);
 `;
 
 // Player name and score styling
@@ -107,20 +104,8 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   gap: 20px;
   margin-top: 10px;
-`;
-
-// Button styling
-export const ActionButton = styled.button<{ color: string }>`
-  background-color: ${(props) => props.color};
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  width: 150px;
-
-  &:hover {
-    opacity: 0.9;
-  }
+  width: 100%; /* Ensure the container spans the full width */
+  max-width: 600px; /* You can adjust this as needed to fit the design */
+  padding: 0 20px; /* Optional padding to give some spacing on the sides */
+  box-sizing: border-box; /* Ensure padding is included in the element's total width */
 `;
