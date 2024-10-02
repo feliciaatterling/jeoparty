@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <HomeContainer>
       <LogoContainer>
-      <Logo size="large" />
+        <Logo size="large" />
       </LogoContainer>
 
       <div style={{ marginBottom: "30px", marginTop: "40px" }}>
