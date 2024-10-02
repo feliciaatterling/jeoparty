@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
   GameCardWrapper,
-  QuestionText,
-  AnswerText,
-  ModeTag,
   AnswerButtonsWrapper,
+  ModeTag,
 } from "./GameCard.styled";
 import Button from "../Button/Button";
 import Spacer from "../Spacer/Spacer";
@@ -34,11 +32,17 @@ const GameCard: React.FC<GameCardProps> = ({
   return (
     <GameCardWrapper>
       <ModeTag>
-        {category} ${value}
+        <Typography variant="h3" color="#D3D3D3" align="center">
+          {category} ${value}
+        </Typography>
       </ModeTag>
       {isQuestionMode ? (
         <>
-          <QuestionText>{question}</QuestionText>
+          <Spacer size={3} orientation={"vertical"}></Spacer>
+          <Typography variant="h1" align="center">
+            {question}
+          </Typography>
+          <Spacer size={3} orientation={"vertical"}></Spacer>
           <div style={{ width: 200 }}>
             <Button
               label="SHOW ANSWER"
@@ -49,10 +53,16 @@ const GameCard: React.FC<GameCardProps> = ({
         </>
       ) : (
         <>
-          <AnswerText>Who Is {answer}?</AnswerText>
-          <Typography variant="meta">
+          <Spacer size={3} orientation={"vertical"}></Spacer>
+          <Typography variant="h1" color="white" align="center">
+            Who Is {answer}?
+          </Typography>
+          <Spacer size={3} orientation={"vertical"}></Spacer>
+          
+          <Typography variant="meta" color="#D3D3D3" align="center">
             Did you get the question right?
           </Typography>
+          
           <Spacer size={1} orientation="vertical" />
           <AnswerButtonsWrapper>
             <Button label="YES" onClick={onBack} variant="primary" />

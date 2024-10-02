@@ -1,6 +1,7 @@
 import React from "react";
 import PointCard from "@/components/PointCard/PointCard";
 import { ScGameBoard, ScCategory, ScCard } from "./GameBoard.styled";
+import Typography from "@/components/Typography/Typography";
 
 interface GameBoardProps {
   onQuestionClick: (categoryIndex: number, pointIndex: number) => void;
@@ -17,7 +18,9 @@ const GameBoard: React.FC<GameBoardProps> = ({ onQuestionClick, disabledCards })
         <ScCategory>
           {categories.map((title, categoryIndex) => (
             <div key={categoryIndex}>
-              {title}
+              <Typography variant="h3" color="white" align="center">
+                {title}
+              </Typography>
               <ScCard>
                 {points.map((point, pointIndex) => (
                   <PointCard

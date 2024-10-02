@@ -20,9 +20,10 @@ const ScP = styled.p`
   font-size: 16px;
 `;
 
-const ScMeta = styled.p`
-  color: #a4a0c4;
-  font-size: 13px;
+const ScMeta = styled.span`
+  font-size: 14px;
+  font-weight: normal;
+  color: ${(props) => props.color || "inherit"};
 `;
 
 export { ScH1, ScH2, ScH3, ScP, ScMeta };

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface TeamCardProps {
-  isActive?: boolean;
+  $isActive?: boolean;
+  $color?: string;
 }
 
 export const DashboardWrapper = styled.div`
@@ -21,18 +22,20 @@ export const TeamsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 5px;
   width: 100%;
 `;
 
 export const TeamCard = styled.div<TeamCardProps>`
-  background-color: ${(props) => (props.isActive ? "#ef5350" : "white")};
-  color: ${(props) => (props.isActive ? "white" : "black")};
+  background-color: ${(props) => (props.$isActive ? props.$color : "white")}; // Use team color if active
+  color: ${(props) => (props.$isActive ? "white" : props.$color)}; // White text if active, team color if inactive
   padding: 10px;
   border-radius: 8px;
   text-align: center;
   box-sizing: border-box;
+  border: ${(props) => (!props.$isActive ? `2px solid ${props.$color}` : "none")}; // Add border for inactive teams
 `;
+
 
 export const TeamName = styled.div`
   font-size: 16px;
@@ -40,10 +43,8 @@ export const TeamName = styled.div`
 `;
 
 export const TeamMoney = styled.div<TeamCardProps>`
-  /* Add TeamCardProps type here */
   font-size: 14px;
-  color: ${(props) =>
-    props.isActive ? "white" : "#333"}; /* Use the isActive prop */
+  color: ${({ $isActive }) => ($isActive ? "white" : "#333")};
 `;
 
 export const ButtonGroup = styled.div`
