@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
-import InfoText from "@/components/InfoText/InfoText";
+import HowToPlayText from "@/components/HowToPlayText/HowToPlayText";
 import {
   HomeContainer,
   LogoContainer,
@@ -53,15 +53,32 @@ export default function Home() {
         {showPopup && (
           <div
             style={{
-              marginTop: "8px",
-              display: "flex",
-              justifyContent: "center",
+              position: "absolute",
+              bottom: "calc(100% + -75px)",
+              transform: "translateX(-50%)",
+              zIndex: 1000,
+              width: "600px",
             }}
           >
-            <InfoText
-              content={
-                "Example text explaining the rules of Jeopardy as well as JeoPARTY which i will write more thoroughly at a later time (ᵔᴥᵔ)"
-              }
+            <HowToPlayText
+              content={`How to Play Jeoparty:
+              
+              Jeoparty is a trivia game based on the classic Jeopardy format.
+              There are six categories with five questions each. 
+              The more money the questions are worth, the more difficult they are!
+
+              In Jeopardy, you must respond in the form of a question. 
+              (The first US president - Your answer: "Who is George Washington" )
+              
+
+              
+              What's special about Jeoparty?
+
+              Jeoparty uses OpenAI to create unique questions and categories on the spot. 
+              This means every game is different, with fresh challenges every time you play! You can give the AI instructions to better tailor your experience, such as give it categories to create questions for, or give it the context for the quiz.
+              
+              
+              Ready to test your knowledge? Press "Play" and start creating games!`}
             />
           </div>
         )}
