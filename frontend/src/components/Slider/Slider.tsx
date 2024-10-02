@@ -12,17 +12,19 @@ const Slider: React.FC<SliderProps> = ({
 }) => {
   return (
     <ScSliderContainer>
-      <p>{min}</p>
+      <p>{min}</p> {/* Min value display */}
+      
       <ScSlider
-        defaultValue={defaultValue}
-        step={step}
-        max={max}
-        min={min}
-        valueLabelDisplay="auto"
-        value={value}
-        onChange={(event, newValue) => setValue(newValue as number)}
+        defaultValue={defaultValue} 
+        step={step} 
+        max={max} 
+        min={min} 
+        valueLabelDisplay="auto" 
+        value={value} 
+        onChange={(event, newValue) => setValue(newValue as number)} 
       />
-      <p>{max}</p>
+      
+      <p>{max}</p> {/* Max value display */}
     </ScSliderContainer>
   );
 };

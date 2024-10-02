@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Circle component for color selection
 const Circle = styled.div<{ color: string }>`
   width: 25px;
   height: 25px;
@@ -8,13 +9,15 @@ const Circle = styled.div<{ color: string }>`
   cursor: pointer;
 `;
 
+// Container for the color picker
 const ColorPickerContainer = styled.div`
-  position: relative; /* For positioning the color picker */
-  display: inline-block; /* Allow it to sit next to other elements */
+  position: relative;
+  display: inline-block;
 `;
 
+// Wrapper for the color picker options
 const PickerWrapper = styled.div`
-  position: absolute; /* Position it absolutely to the circle */
+  position: absolute;
   top: -70px;
   left: 50px;
   padding: 12px;

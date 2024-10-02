@@ -105,7 +105,7 @@ export const ButtonContainer = styled.div`
   gap: 20px;
   margin-top: 10px;
   width: 100%; /* Ensure the container spans the full width */
-  max-width: 600px; /* You can adjust this as needed to fit the design */
-  padding: 0 20px; /* Optional padding to give some spacing on the sides */
+  max-width: 600px; 
+  padding: 0 20px; /* Padding to give some spacing on the sides */
   box-sizing: border-box; /* Ensure padding is included in the element's total width */
 `;

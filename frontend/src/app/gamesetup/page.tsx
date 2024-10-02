@@ -20,6 +20,7 @@ import Link from "next/link";
 import { BiInfoCircle } from "react-icons/bi";
 import InfoText from "@/components/InfoText/InfoText";
 
+// Default team settings for the color picker
 const defaultTeamObject = [
   { name: "", color: "#FF5C5C" },  
   { name: "", color: "#43D17D" },  
@@ -30,40 +31,41 @@ const defaultTeamObject = [
 ];
 
 export default function GameSetup() {
-  // Info-icon hover state
+  // State for handling hover effect over info icons
   const [onHover, setOnHover] = useState(0);
 
-  // Datavalue states
+  // State for category input, context description, slider value, and team details
   const [categories, setCategories] = useState<string[]>(Array(6).fill(""));
   const [context, setContext] = useState<string>("");
   const [sliderValue, setSliderValue] = useState<number>(2);
   const [teams, setTeams] = useState<{ name: string; color: string }[]>(defaultTeamObject);
 
+  // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
     setSliderValue(newValue);
   };
 
+  // Handles input changes for both categories and context
   const handleInputChange = (
     newValue: string,
     setValue:
       | React.Dispatch<React.SetStateAction<string[]>>
       | ((newValue: string) => void),
     index?: number,
-    inputArray?: string[] // Optional array argument
+    inputArray?: string[] // Optional array for handling category inputs
   ) => {
     if (inputArray && index !== undefined) {
-      // Type narrowing: We know we're working with a string array
       const updatedArray = [...inputArray];
       updatedArray[index] = newValue;
       (setValue as React.Dispatch<React.SetStateAction<string[]>>)(
         updatedArray
-      ); // Set the updated array
+      );
     } else {
-      // Type narrowing: We're working with a string
-      (setValue as (newValue: string) => void)(newValue); // Set the new string value
+      (setValue as (newValue: string) => void)(newValue);
     }
   };
 
+  // Handles team name and color changes
   const handleTeamChange = (
     index: number,
     newValue: { name?: string; color?: string }
@@ -78,29 +80,34 @@ export default function GameSetup() {
   return (
     <ScWrap>
       <ScContainer>
+        {/* Game settings section */}
         <ScGameSettings>
           <Typography variant="h1">Jeopardy settings</Typography>
           <Spacer size={3} orientation="vertical" />
           <ScInfoContainer>
-            <Typography variant="h2">
-              Categories
-            </Typography>
+            <Typography variant="h2">Categories</Typography>
+            {/* Info icon with hover effect for categories */}
             <BiInfoCircle
-            size={20}
-                onMouseEnter={() => setOnHover(1)}
-                onMouseLeave={() => setOnHover(0)}
-              />
-            <div>{onHover === 1 && <InfoText content="You can choose up to 6 categories. You can leave all or some categories empty and our AI will come up with fun categories for you." />}</div>
-            </ScInfoContainer>
-
+              size={20}
+              onMouseEnter={() => setOnHover(1)}
+              onMouseLeave={() => setOnHover(0)}
+            />
+            {/* Tooltip with category information */}
+            <div>
+              {onHover === 1 && (
+                <InfoText content="You can choose up to 6 categories. Leave any empty, and AI will generate them." />
+              )}
+            </div>
+          </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
+          {/* Grid for category inputs */}
           <ScCategoryGrid>
             {categories.map((category, index) => {
               return (
                 <ScGridItem key={index}>
                   <Input
                     label={`Category ${index + 1}`}
-                    value={categories[index]} // Pass the value from the categories array
+                    value={categories[index]} // Value from categories array
                     setValue={(newValue) =>
                       handleInputChange(
                         newValue,
@@ -116,17 +123,22 @@ export default function GameSetup() {
           </ScCategoryGrid>
           <Spacer size={3} orientation="vertical" />
           <ScInfoContainer>
-            <Typography variant="h2">
-              Context
-            </Typography>
+            <Typography variant="h2">Context</Typography>
+            {/* Info icon with hover effect for context */}
             <BiInfoCircle
-                size={20}
-                onMouseEnter={() => setOnHover(2)}
-                onMouseLeave={() => setOnHover(0)}
-              />
-            <div>{onHover === 2 && <InfoText content="If you give our AI the context of the game occasion it can come up with more fun and relevant questions. For example “Birthday party for my little brother who is turning 8 and loves dinosaurs” or “On a skiing trip with my college friends” or “Family get together, loves movies and music”." />}</div>
-            </ScInfoContainer>
+              size={20}
+              onMouseEnter={() => setOnHover(2)}
+              onMouseLeave={() => setOnHover(0)}
+            />
+            {/* Tooltip with context information */}
+            <div>
+              {onHover === 2 && (
+                <InfoText content="Provide context for AI-generated questions. For example, describe the occasion." />
+              )}
+            </div>
+          </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
+          {/* Input for context description */}
           <Input
             label="Describe the occasion!"
             multiline
@@ -134,6 +146,7 @@ export default function GameSetup() {
             setValue={(newValue) => handleInputChange(newValue, setContext)}
           />
           <Spacer size={2} orientation="vertical" />
+          {/* Start game and exit buttons */}
           <div style={{ display: "flex" }}>
             <Link href="/gamecard" legacyBehavior>
               <Button label="START GAME" />
@@ -144,21 +157,28 @@ export default function GameSetup() {
             </Link>
           </div>
         </ScGameSettings>
+
+        {/* Team settings section */}
         <ScTeamSettings>
           <Typography variant="h1">Team settings</Typography>
           <Spacer size={2} orientation="vertical" />
           <ScInfoContainer>
-            <Typography variant="h2">
-              Number of teams       
-            </Typography>
+            <Typography variant="h2">Number of teams</Typography>
+            {/* Info icon with hover effect for team number */}
             <BiInfoCircle
-                size={20}
-                onMouseEnter={() => setOnHover(3)}
-                onMouseLeave={() => setOnHover(0)}
-              />
-            <div>{onHover === 3 && <InfoText content="Decide how many teams you want to have. You can have at most 6 teams." />}</div>
+              size={20}
+              onMouseEnter={() => setOnHover(3)}
+              onMouseLeave={() => setOnHover(0)}
+            />
+            {/* Tooltip with team number information */}
+            <div>
+              {onHover === 3 && (
+                <InfoText content="Select the number of teams, up to 6." />
+              )}
+            </div>
           </ScInfoContainer>
           <Spacer size={1} orientation="vertical" />
+          {/* Slider for selecting the number of teams */}
           <Slider
             min={1}
             max={6}
@@ -169,17 +189,22 @@ export default function GameSetup() {
           />
           <Spacer size={3} orientation="vertical" />
           <ScInfoContainer>
-            <Typography variant="h2">
-              Team names
-            </Typography>
+            <Typography variant="h2">Team names</Typography>
+            {/* Info icon with hover effect for team names */}
             <BiInfoCircle
-                size={20}
-                onMouseEnter={() => setOnHover(4)}
-                onMouseLeave={() => setOnHover(0)}
-              />
-            <div>{onHover === 4 && <InfoText content="Come up with a name for each team. You can also pick a color for the team." />}</div>
-            </ScInfoContainer>
+              size={20}
+              onMouseEnter={() => setOnHover(4)}
+              onMouseLeave={() => setOnHover(0)}
+            />
+            {/* Tooltip with team name information */}
+            <div>
+              {onHover === 4 && (
+                <InfoText content="Assign a name and color for each team." />
+              )}
+            </div>
+          </ScInfoContainer>
           <Spacer size={2} orientation="vertical" />
+          {/* Inputs for team names and colors */}
           <ScTeamsContainer>
             {teams.slice(0, sliderValue).map((team, index) => {
               return (
@@ -188,11 +213,13 @@ export default function GameSetup() {
                   label={"Team " + (index + 1)}
                   name={team.name}
                   setName={(newName) =>
-                    handleTeamChange(index, {name: newName})
+                    handleTeamChange(index, { name: newName })
                   }
                   color={team.color}
-                  setColor={(newColor)=> handleTeamChange(index, {color: newColor})}
-                  defaultColors={teams.map((team)=> team.color)}
+                  setColor={(newColor) =>
+                    handleTeamChange(index, { color: newColor })
+                  }
+                  defaultColors={teams.map((team) => team.color)}
                 />
               );
             })}
