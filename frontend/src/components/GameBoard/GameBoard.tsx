@@ -37,7 +37,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
                   onClick={() => onQuestionClick(categoryIndex, pointIndex)}
                   disabled={disabledCards[categoryIndex][pointIndex]}
                   owner={cardOwners[categoryIndex][pointIndex]}
-                  ownerColor={teamColors[cardOwners[categoryIndex][pointIndex] || ""]} // Assign team color
+                  ownerColor={
+                    teamColors[cardOwners[categoryIndex][pointIndex] || ""]
+                  } // Assign team color
                 />
               ))}
             </ScCard>

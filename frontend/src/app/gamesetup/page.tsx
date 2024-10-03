@@ -25,17 +25,17 @@ import { useRouter } from "next/navigation";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
-  { name: "", color: "#FF5C5C" },  
-  { name: "", color: "#43D17D" },  
-  { name: "", color: "#4A90E2" }, 
-  { name: "", color: "#F7D154" },  
-  { name: "", color: "#B45AD5" },  
+  { name: "", color: "#FF5C5C" },
+  { name: "", color: "#43D17D" },
+  { name: "", color: "#4A90E2" },
+  { name: "", color: "#F7D154" },
+  { name: "", color: "#B45AD5" },
   { name: "", color: "#2DCED6" },
 ];
 
 export default function GameSetup() {
   const router = useRouter();
-  
+
   // State for handling hover effect over info icons
   const [onHover, setOnHover] = useState(0);
 
@@ -43,7 +43,8 @@ export default function GameSetup() {
   const [categories, setCategories] = useState<string[]>(Array(6).fill(""));
   const [context, setContext] = useState<string>("");
   const [sliderValue, setSliderValue] = useState<number>(2);
-  const [teams, setTeams] = useState<{ name: string; color: string }[]>(defaultTeamObject);
+  const [teams, setTeams] =
+    useState<{ name: string; color: string }[]>(defaultTeamObject);
 
   // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
@@ -86,10 +87,10 @@ export default function GameSetup() {
     const gameObject: gameSetup = {
       categories: categories,
       context: context,
-      teams: teams.filter(team => team.name !== "")
-    }
-    await createGame(gameObject)
-    router.push("/gamecard")
+      teams: teams.filter((team) => team.name !== ""),
+    };
+    const gameId: string = await createGame(gameObject);
+    router.push(`/gamecard/${gameId}`);
   }
 
   return (
@@ -163,7 +164,7 @@ export default function GameSetup() {
           <Spacer size={2} orientation="vertical" />
           {/* Start game and exit buttons */}
           <div style={{ display: "flex" }}>
-             <Button label="START GAME" onClick={handleStartGame}/>
+            <Button label="START GAME" onClick={handleStartGame} />
             <Spacer size={3} orientation="horizontal" />
             <Link href="/" legacyBehavior>
               <Button label="EXIT" variant="danger" />
