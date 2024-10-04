@@ -11,8 +11,10 @@ import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
 import Link from "next/link";
 import Button from "../Button/Button";
+import DashboardProps from "./Dashboard.types";
 
-const Dashboard = () => {
+const Dashboard: React.FC<DashboardProps> = ({ teams }) => {
+  /* 
   const teams = [
     { name: "Team 1", money: "$0", color: "#FF5733" }, // Red
     { name: "Team 2", money: "$0", color: "#33FF57" }, // Green
@@ -21,6 +23,7 @@ const Dashboard = () => {
     { name: "Team 5", money: "$0", color: "#33FFF0" }, // Cyan
     { name: "Team 6", money: "$0", color: "#F3FF33" }, // Yellow
   ];
+  */
 
   return (
     <DashboardWrapper>
@@ -34,7 +37,7 @@ const Dashboard = () => {
               {team.name}
             </TeamName>
             <TeamMoney $isActive={index === 0} color={team.color}>
-              {team.money}
+              ${team.score}
             </TeamMoney>
           </TeamCard>
         ))}

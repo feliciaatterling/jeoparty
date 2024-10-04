@@ -1,2 +1,7 @@
 // frontend/src/components/Dashboard/Dashboard.types.ts
-// Eventuella props eller types definieras här.
+
+interface DashboardProps {
+  teams: { id: string; name: string; color: string; score: number }[];
+}
+
+export default DashboardProps;
