@@ -1,6 +1,6 @@
 import { gameSetup } from "./utils.types";
 
-const URL = "http://130.237.5.99:8000";
+const URL = "http://localhost:8000";
 
 async function createGame(gameSetup: gameSetup) {
   try {
@@ -12,8 +12,9 @@ async function createGame(gameSetup: gameSetup) {
       body: JSON.stringify(gameSetup),
     });
     if (response.ok) {
-      console.log("Game Created! :)");
-      return response.json();
+      const data = await response.json();
+      console.log(`Game Created with id ${data.gameId}! :)`);
+      return data.gameId;
     }
   } catch (error) {
     console.error(error);

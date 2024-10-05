@@ -42,7 +42,11 @@ router.post("/create", async (req, res) => {
   try {
     // Saves the data to the database
     const savedGame = await newGame.save();
-    res.status(201).json(savedGame);
+    res.status(201).json({
+      message: "Game created successfully",
+      gameId: savedGame._id, // Return the game ID here
+      savedGame,
+    });
   } catch (error) {
     res.status(500).json({ error: "Failed to create game" });
   }

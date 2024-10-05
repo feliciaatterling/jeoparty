@@ -90,7 +90,11 @@ export default function Home() {
     <HomeWrapper>
       {/* Left: Dashboard (Sidebar for teams) */}
       <DashboardWrapper>
-        <Dashboard />
+        {gameData ? (
+          <Dashboard teams={gameData.teams} />
+        ) : (
+          <h1 style={{ color: "white" }}>Loading...</h1>
+        )}
       </DashboardWrapper>
 
       {/* Right: GameCard (Question and answer section) */}
@@ -114,6 +118,7 @@ export default function Home() {
               disabledCards={disabledCards} // Pass disabledCards state to GameBoard
               cardOwners={cardOwners} // Pass cardOwners state to GameBoard
               teamColors={teamColors} // Pass teamColors object to GameBoard
+              categories={gameData.categories}
             />
           )
         ) : (

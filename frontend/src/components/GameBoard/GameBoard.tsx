@@ -8,6 +8,7 @@ interface GameBoardProps {
   disabledCards: boolean[][];
   cardOwners: (string | null)[][];
   teamColors: { [key: string]: string }; // Maps team names to colors
+  categories: string[];
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -15,9 +16,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
   disabledCards,
   cardOwners,
   teamColors,
+  categories,
 }) => {
   const points = [200, 400, 600, 800, 1000];
-  const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
 
   return (
     <ScGameBoard>
