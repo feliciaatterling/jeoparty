@@ -70,6 +70,16 @@ export default function Home() {
   };
 
   const handleBackToBoard = () => {
+    // TODO:  1. Change currentTurnId in database from type string to number
+    //        to better handle next turn functionality (is now a number as type string in db)
+    //        2. Post change of currentTurnId to database for persistance
+    if (gameData) {
+      const nextTurnId = (
+        (Number(gameData.currentTurnTeamId) + 1) %
+        4
+      ).toString();
+      setGameData({ ...gameData, currentTurnTeamId: nextTurnId });
+    }
     setQuestion(false);
   };
 
@@ -91,7 +101,10 @@ export default function Home() {
       {/* Left: Dashboard (Sidebar for teams) */}
       <DashboardWrapper>
         {gameData ? (
-          <Dashboard teams={gameData.teams} />
+          <Dashboard
+            teams={gameData.teams}
+            currentTurnId={gameData.currentTurnTeamId}
+          />
         ) : (
           <h1 style={{ color: "white" }}>Loading...</h1>
         )}
@@ -99,12 +112,25 @@ export default function Home() {
 
       {/* Right: GameCard (Question and answer section) */}
       <GameCardWrapper>
-        <Typography variant="h1" align="center">
-          {"Team 1's turn!"}
-        </Typography>
+        {gameData ? (
+          <Typography variant="h1" align="center">
+            {
+              // Maybe move this functionality to a utils.ts file?
+              gameData.teams.filter((team) => {
+                return team.id === gameData.currentTurnTeamId;
+              })[0].name + "'s turn!"
+            }
+          </Typography>
+        ) : (
+          <h1>Loading...</h1>
+        )}
         <Spacer size={2} orientation="vertical" />
         {gameData ? (
           question ? (
+            // We might want to move the GameCard component into the GameBoard component for easier handling?
+            // That way we could send the prop QuestionColumn:
+            // {category: string, questions: {points: number, question: string, answer: string, isAnswered: boolean }}[]
+            // And clicking a card would trigger the rendering of the correct question
             <GameCard
               question="This person played The Fresh Prince of Bel Air."
               answer="Will Smith"

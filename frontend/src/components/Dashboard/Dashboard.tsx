@@ -13,7 +13,7 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
-const Dashboard: React.FC<DashboardProps> = ({ teams }) => {
+const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
   /* 
   const teams = [
     { name: "Team 1", money: "$0", color: "#FF5733" }, // Red
@@ -32,11 +32,15 @@ const Dashboard: React.FC<DashboardProps> = ({ teams }) => {
       {/* Render team cards */}
       <TeamsContainer>
         {teams.map((team, index) => (
-          <TeamCard key={index} $isActive={index === 0} color={team.color}>
-            <TeamName $isActive={index === 0} color={team.color}>
+          <TeamCard
+            key={index}
+            $isActive={team.id === currentTurnId}
+            color={team.color}
+          >
+            <TeamName $isActive={team.id === currentTurnId} color={team.color}>
               {team.name}
             </TeamName>
-            <TeamMoney $isActive={index === 0} color={team.color}>
+            <TeamMoney $isActive={team.id === currentTurnId} color={team.color}>
               ${team.score}
             </TeamMoney>
           </TeamCard>
