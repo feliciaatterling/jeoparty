@@ -1,29 +1,34 @@
 import React from "react";
 import ScPointCard from "@/components/PointCard/PointCard.styled";
-import Typography from "@/components/Typography/Typography";
 
 interface PointCardProps {
   points: number;
   category: string;
   onClick: () => void;
   disabled: boolean;
-  owner: string | null; // Owner can be string or null
-  ownerColor: string;    // Owner color to be passed from the GameBoard
+  owner: string | null; // Add owner prop
+  ownerColor?: string; // Optional team color prop
 }
 
-const PointCard: React.FC<PointCardProps> = ({ points, category, onClick, disabled, owner, ownerColor }) => {
+const PointCard: React.FC<PointCardProps> = ({
+  points,
+  category,
+  onClick,
+  disabled,
+  owner,
+  ownerColor, // Include ownerColor prop
+}) => {
   return (
     <ScPointCard
-      $disabled={disabled}
-      $teamColor={ownerColor} // Pass ownerColor to styled component
-      onClick={!disabled ? onClick : undefined} // Only allow clicks if not disabled
+      onClick={!disabled ? onClick : undefined}
+      disabled={disabled}
+      $disabled={disabled} // Pass $disabled prop to styled component
+      $teamColor={ownerColor} // Pass the team color to styled component
     >
-      {disabled && owner ? (
-        <Typography variant="p" color={`rgba(${ownerColor}, 0.9)`}>
-          {owner}
-        </Typography>
+      {disabled ? (
+        <span style={{ color: ownerColor || "white" }}>{owner}</span> // Set team name color to the team color
       ) : (
-        `$${points}`
+        `$${points}` // Display points when not disabled
       )}
     </ScPointCard>
   );
