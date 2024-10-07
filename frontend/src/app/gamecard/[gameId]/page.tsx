@@ -11,75 +11,94 @@ import GameData from "./utils.types";
 import { fetchGameData } from "./utils";
 import { useParams } from "next/navigation";
 
-// Team colors mapped to team names
-const teamColors = {
-  "Team 1": "255, 87, 51", // Red
-  "Team 2": "51, 255, 87", // Green
-  "Team 3": "51, 87, 255", // Blue
-  "Team 4": "255, 51, 161", // Pink
-  "Team 5": "51, 255, 240", // Cyan
-  "Team 6": "243, 255, 51", // Yellow
-};
-
 export default function Home() {
   // States for comunnication with backend and database
   const { gameId } = useParams() as { gameId: string }; // used to fetch the correct game model
   const [gameData, setGameData] = useState<GameData | null>(null); // Data fetched from database
   // TODO: Break up gameData for use in components below
 
-  const [question, setQuestion] = useState(false);
+  const [question, setQuestion] = useState<{
+    _id: string;
+    question: string;
+    answer: string;
+    points: number;
+    category: string;
+  } | null>(null);
 
-  // 2D array to track whether each PointCard is disabled
-  const points = [200, 400, 600, 800, 1000];
-  const categories = ["History", "Movies", "Art", "Science", "Books", "Music"];
-
+  /* 
   const [disabledCards, setDisabledCards] = useState<boolean[][]>(
     Array(categories.length).fill(Array(points.length).fill(false))
   );
+  */
 
   // 2D array to track which team picked each card
+  /* 
   const [cardOwners, setCardOwners] = useState<(string | null)[][]>(
     Array(categories.length).fill(Array(points.length).fill(null))
   );
+  */
 
   // Handle card click to set the question state, disable the clicked card, and assign card owner
-  const handleQuestionClick = (categoryIndex: number, pointIndex: number) => {
-    setQuestion(true);
+  const handleQuestionClick = (questionObject: {
+    _id: string;
+    question: string;
+    answer: string;
+    points: number;
+    category: string;
+  }) => {
+    setQuestion(questionObject);
 
     // Update the specific card to be disabled
-    const updatedDisabledCards = disabledCards.map((row, catIdx) =>
-      catIdx === categoryIndex
-        ? row.map((disabled, pointIdx) =>
-            pointIdx === pointIndex ? true : disabled
-          )
-        : row
-    );
+    /* 
+   const updatedDisabledCards = disabledCards.map((row, catIdx) =>
+   catIdx === categoryIndex
+   ? row.map((disabled, pointIdx) =>
+   pointIdx === pointIndex ? true : disabled
+  )
+  : row
+);
 
-    // Assign the current team to the clicked card (for example, "Team 1")
-    const updatedCardOwners = cardOwners.map((row, catIdx) =>
-      catIdx === categoryIndex
-        ? row.map((owner, pointIdx) =>
-            pointIdx === pointIndex ? "Team 1" : owner
-          )
-        : row
-    );
+// Assign the current team to the clicked card (for example, "Team 1")
+const updatedCardOwners = cardOwners.map((row, catIdx) =>
+catIdx === categoryIndex
+? row.map((owner, pointIdx) =>
+pointIdx === pointIndex ? "Team 1" : owner
+)
+: row
+);
+*/
 
-    setDisabledCards(updatedDisabledCards);
-    setCardOwners(updatedCardOwners);
+    // setDisabledCards(updatedDisabledCards);
+    // setCardOwners(updatedCardOwners);
   };
 
   const handleBackToBoard = () => {
-    // TODO:  1. Change currentTurnId in database from type string to number
-    //        to better handle next turn functionality (is now a number as type string in db)
-    //        2. Post change of currentTurnId to database for persistance
-    if (gameData) {
-      const nextTurnId = (
-        (Number(gameData.currentTurnTeamId) + 1) %
-        gameData.teams.length
-      ).toString();
-      setGameData({ ...gameData, currentTurnTeamId: nextTurnId });
+    if (gameData && question) {
+      // Find the category that contains the question
+      const updatedQuestions = gameData.questions.map((category) => {
+        // For each category, map through the question cards
+        const updatedQuestionCards = category.questionCards.map((qCard) => {
+          // If the question matches the selected question, update isAnswered
+          if (qCard._id === question._id) {
+            return { ...qCard, isAnswered: gameData.currentTurnTeamId };
+          }
+          return qCard;
+        });
+
+        // Return the updated category with the modified question card
+        return { ...category, questionCards: updatedQuestionCards };
+      });
+
+      // Update the gameData state with the modified questions array
+      setGameData({
+        ...gameData,
+        questions: updatedQuestions,
+        currentTurnTeamId:
+          (Number(gameData.currentTurnTeamId) + 1) % gameData.teams.length,
+      });
     }
-    setQuestion(false);
+
+    setQuestion(null); // Close the question modal
   };
 
   async function getGameData(): Promise<void> {
@@ -95,6 +114,7 @@ export default function Home() {
     getGameData();
   }, [gameId]);
 
+  console.log(gameData?.teams);
   return (
     <HomeWrapper>
       {/* Left: Dashboard (Sidebar for teams) */}
@@ -117,7 +137,7 @@ export default function Home() {
               // Maybe move this functionality to a utils.ts file?
               gameData.teams.filter((team) => {
                 return team.id === gameData.currentTurnTeamId;
-              })[0].name + "'s turn!"
+              })[0]?.name + "'s turn!"
             }
           </Typography>
         ) : (
@@ -131,18 +151,15 @@ export default function Home() {
             // {category: string, questions: {points: number, question: string, answer: string, isAnswered: boolean }}[]
             // And clicking a card would trigger the rendering of the correct question
             <GameCard
-              question="This person played The Fresh Prince of Bel Air."
-              answer="Will Smith"
-              category="Movies"
-              value={200}
+              question={question.question}
+              answer={question.answer}
+              category={question.category}
+              value={question.points}
               onBack={handleBackToBoard}
             />
           ) : (
             <GameBoard
               onQuestionClick={handleQuestionClick}
-              disabledCards={disabledCards} // Pass disabledCards state to GameBoard
-              cardOwners={cardOwners} // Pass cardOwners state to GameBoard
-              teamColors={teamColors} // Pass teamColors object to GameBoard
               questions={gameData.questions}
             />
           )

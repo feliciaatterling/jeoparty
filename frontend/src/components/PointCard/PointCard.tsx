@@ -3,16 +3,14 @@ import ScPointCard from "@/components/PointCard/PointCard.styled";
 
 interface PointCardProps {
   points: number;
-  category: string;
   onClick: () => void;
   disabled: boolean;
-  owner: string | null; // Add owner prop
+  owner: number | null; // Add owner prop
   ownerColor?: string; // Optional team color prop
 }
 
 const PointCard: React.FC<PointCardProps> = ({
   points,
-  category,
   onClick,
   disabled,
   owner,

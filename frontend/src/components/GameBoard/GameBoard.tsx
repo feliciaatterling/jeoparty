@@ -4,26 +4,27 @@ import { ScGameBoard, ScCategory, ScCard } from "./GameBoard.styled";
 import Typography from "@/components/Typography/Typography";
 
 interface GameBoardProps {
-  onQuestionClick: (categoryIndex: number, pointIndex: number) => void;
-  disabledCards: boolean[][];
-  cardOwners: (string | null)[][];
-  teamColors: { [key: string]: string }; // Maps team names to colors
+  onQuestionClick: (questionObject: {
+    _id: string;
+    question: string;
+    answer: string;
+    points: number;
+    category: string;
+  }) => void;
   questions: {
     category: string;
     questionCards: {
+      _id: string;
       points: number;
       question: string;
       answer: string;
-      isAnswered: boolean;
+      isAnswered: number | null;
     }[];
   }[];
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
   onQuestionClick,
-  disabledCards,
-  cardOwners,
-  teamColors,
   questions,
 }) => {
   return (
@@ -40,13 +41,18 @@ const GameBoard: React.FC<GameBoardProps> = ({
                 <PointCard
                   key={`${categoryIndex}-${questionIndex}`}
                   points={question.points}
-                  category={category.category}
-                  onClick={() => onQuestionClick(categoryIndex, questionIndex)}
-                  disabled={disabledCards[categoryIndex][questionIndex]}
-                  owner={cardOwners[categoryIndex][questionIndex]}
-                  ownerColor={
-                    teamColors[cardOwners[categoryIndex][questionIndex] || ""]
-                  } // Assign team color
+                  onClick={() =>
+                    onQuestionClick({
+                      _id: question._id,
+                      question: question.question,
+                      answer: question.answer,
+                      points: question.points,
+                      category: category.category,
+                    })
+                  }
+                  disabled={question.isAnswered ? true : false}
+                  owner={question.isAnswered}
+                  ownerColor={"red"} // Assign team color
                 />
               ))}
             </ScCard>

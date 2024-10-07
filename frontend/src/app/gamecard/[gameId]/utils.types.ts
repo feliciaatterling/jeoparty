@@ -2,7 +2,7 @@ interface GameData {
   categories: string[];
   context: string;
   teams: {
-    id: string;
+    id: number;
     name: string;
     color: string;
     score: number;
@@ -10,13 +10,14 @@ interface GameData {
   questions: {
     category: string;
     questionCards: {
+      _id: string;
       points: number;
       question: string;
       answer: string;
-      isAnswered: boolean;
+      isAnswered: number | null;
     }[];
   }[];
-  currentTurnTeamId: string;
+  currentTurnTeamId: number;
   isGameOver: boolean;
 }
 
