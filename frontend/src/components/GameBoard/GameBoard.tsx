@@ -8,7 +8,15 @@ interface GameBoardProps {
   disabledCards: boolean[][];
   cardOwners: (string | null)[][];
   teamColors: { [key: string]: string }; // Maps team names to colors
-  categories: string[];
+  questions: {
+    category: string;
+    questionCards: {
+      points: number;
+      question: string;
+      answer: string;
+      isAnswered: boolean;
+    }[];
+  }[];
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -16,30 +24,28 @@ const GameBoard: React.FC<GameBoardProps> = ({
   disabledCards,
   cardOwners,
   teamColors,
-  categories,
+  questions,
 }) => {
-  const points = [200, 400, 600, 800, 1000];
-
   return (
     <ScGameBoard>
       {/* Render each category and its cards */}
       <ScCategory>
-        {categories.map((title, categoryIndex) => (
+        {questions.map((category, categoryIndex) => (
           <div key={categoryIndex}>
             <Typography variant="h3" color="white" align="center">
-              {title}
+              {category.category}
             </Typography>
             <ScCard>
-              {points.map((point, pointIndex) => (
+              {category.questionCards.map((question, questionIndex) => (
                 <PointCard
-                  key={`${categoryIndex}-${pointIndex}`}
-                  points={point}
-                  category={title}
-                  onClick={() => onQuestionClick(categoryIndex, pointIndex)}
-                  disabled={disabledCards[categoryIndex][pointIndex]}
-                  owner={cardOwners[categoryIndex][pointIndex]}
+                  key={`${categoryIndex}-${questionIndex}`}
+                  points={question.points}
+                  category={category.category}
+                  onClick={() => onQuestionClick(categoryIndex, questionIndex)}
+                  disabled={disabledCards[categoryIndex][questionIndex]}
+                  owner={cardOwners[categoryIndex][questionIndex]}
                   ownerColor={
-                    teamColors[cardOwners[categoryIndex][pointIndex] || ""]
+                    teamColors[cardOwners[categoryIndex][questionIndex] || ""]
                   } // Assign team color
                 />
               ))}

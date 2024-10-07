@@ -25,7 +25,6 @@ export default function Home() {
   // States for comunnication with backend and database
   const { gameId } = useParams() as { gameId: string }; // used to fetch the correct game model
   const [gameData, setGameData] = useState<GameData | null>(null); // Data fetched from database
-
   // TODO: Break up gameData for use in components below
 
   const [question, setQuestion] = useState(false);
@@ -76,7 +75,7 @@ export default function Home() {
     if (gameData) {
       const nextTurnId = (
         (Number(gameData.currentTurnTeamId) + 1) %
-        4
+        gameData.teams.length
       ).toString();
       setGameData({ ...gameData, currentTurnTeamId: nextTurnId });
     }
@@ -144,7 +143,7 @@ export default function Home() {
               disabledCards={disabledCards} // Pass disabledCards state to GameBoard
               cardOwners={cardOwners} // Pass cardOwners state to GameBoard
               teamColors={teamColors} // Pass teamColors object to GameBoard
-              categories={gameData.categories}
+              questions={gameData.questions}
             />
           )
         ) : (
