@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
 import React from "react";
 import Podium from "@/components/Podium/Podium"; // Podium component import
 import { PageWrapper } from "./page.styled"; // Import the styled PageWrapper component
+import { deleteGameData } from "./utils";
+import { useParams } from "next/navigation";
 
 // Define the players with their original colors
 const players = [
@@ -12,19 +14,27 @@ const players = [
 ];
 
 const ResultsPage: React.FC = () => {
-  const handlePlayAgain = () => {
-    console.log("Play again clicked");
-    // Logic to restart the game
+  const { gameId } = useParams() as { gameId: string };
+
+  async function deleteGame() {
+    await deleteGameData(gameId);
+  }
+
+  const handlePlayAgain = async () => {
+    await deleteGame();
   };
 
-  const handleExit = () => {
-    console.log("Exit clicked");
-    // Logic to exit or redirect to home
+  const handleExit = async () => {
+    await deleteGame();
   };
 
   return (
     <PageWrapper>
-      <Podium players={players} onPlayAgain={handlePlayAgain} onExit={handleExit} />
+      <Podium
+        players={players}
+        onPlayAgain={handlePlayAgain}
+        onExit={handleExit}
+      />
     </PageWrapper>
   );
 };

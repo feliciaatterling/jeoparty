@@ -170,4 +170,24 @@ router.put("/update/:gameId", async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+  const gameId = req.params.id; // Extract game ID from the request parameters
+
+  try {
+    // Find the game by ID and delete it
+    const deletedGame = await GameModel.findByIdAndDelete(gameId);
+
+    // If no game is found, send a 404 error
+    if (!deletedGame) {
+      return res.status(404).json({ error: "Game not found" });
+    }
+
+    // If the game is deleted, send a success message
+    res.status(200).json({ message: "Game deleted successfully", deletedGame });
+  } catch (error) {
+    // If there's an error, send a 500 status code
+    res.status(500).json({ error: "Failed to delete game" });
+  }
+});
+
 module.exports = router;
