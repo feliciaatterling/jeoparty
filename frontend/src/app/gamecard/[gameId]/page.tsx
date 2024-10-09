@@ -8,7 +8,7 @@ import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
-import { fetchGameData } from "./utils";
+import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 
 export default function Home() {
@@ -32,6 +32,31 @@ export default function Home() {
     category: string;
   }) => {
     setQuestion(questionObject);
+
+    changeGameData();
+
+    // Update the specific card to be disabled
+    /* 
+   const updatedDisabledCards = disabledCards.map((row, catIdx) =>
+   catIdx === categoryIndex
+   ? row.map((disabled, pointIdx) =>
+   pointIdx === pointIndex ? true : disabled
+  )
+  : row
+);
+
+// Assign the current team to the clicked card (for example, "Team 1")
+const updatedCardOwners = cardOwners.map((row, catIdx) =>
+catIdx === categoryIndex
+? row.map((owner, pointIdx) =>
+pointIdx === pointIndex ? "Team 1" : owner
+)
+: row
+);
+*/
+
+    // setDisabledCards(updatedDisabledCards);
+    // setCardOwners(updatedCardOwners);
   };
 
   const handleBackToBoard = (isCorrect: boolean) => {
@@ -67,6 +92,7 @@ export default function Home() {
     }
   
     setQuestion(null); // Close the question modal
+    changeGameData()
   };
   
 
@@ -78,6 +104,22 @@ export default function Home() {
       console.log("Could not fetch GameData");
     }
   }
+
+  async function changeGameData(): Promise<void> {
+    if (!gameId || !gameData) {
+      console.error("Missing gameId or gameData for updating");
+      return;
+    }
+  
+    const updatedGameData: GameData | null = await updateGameData(gameId, gameData);
+  
+    if (updatedGameData) {
+      setGameData(updatedGameData);  // Update the state with the new game data
+    } else {
+      console.error("Could not update GameData");
+    }
+  }
+  
 
   useEffect(() => {
     getGameData();
