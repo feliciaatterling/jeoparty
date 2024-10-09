@@ -124,7 +124,7 @@ router.post("/create", async (req, res) => {
 // get game session by ID
 router.get("/:id", async (req, res) => {
   const gameId = req.params.id; // Id from frontend UI
-  console.log(gameId)
+  console.log(gameId);
 
   try {
     // Fetch the game by its MongoDB-generated ID
@@ -152,8 +152,8 @@ router.put("/update/:gameId", async (req, res) => {
     // Find the game by its ID and update it with new data
     const updatedGame = await GameModel.findByIdAndUpdate(
       gameId,
-      { 
-        $set: updatedData // Update the fields with the data from req.body
+      {
+        $set: updatedData, // Update the fields with the data from req.body
       },
       { new: true } // Return the updated document after modification
     );
@@ -164,10 +164,7 @@ router.put("/update/:gameId", async (req, res) => {
     }
 
     // Send the updated game data back as the response
-    res.status(200).json({
-      message: "Game updated successfully",
-      updatedGame
-    });
+    res.status(200).json(updatedGame);
   } catch (error) {
     res.status(500).json({ error: "Failed to update game" });
   }

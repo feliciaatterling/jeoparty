@@ -14,7 +14,7 @@ interface GameData {
       points: number;
       question: string;
       answer: string;
-      isAnswered: number | null;
+      isAnswered: string | null;
     }[];
   }[];
   currentTurnTeamId: number;

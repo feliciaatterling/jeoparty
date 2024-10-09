@@ -10,8 +10,6 @@ interface GameBoardProps {
     answer: string;
     points: number;
     category: string;
-    cardOwners: (string | null)[][]; 
-    teamColors: { [key: string]: string };
   }) => void;
   questions: {
     category: string;
@@ -20,37 +18,27 @@ interface GameBoardProps {
       points: number;
       question: string;
       answer: string;
-      isAnswered: number | null;
+      isAnswered: string | null;
     }[];
   }[];
-  cardOwners: (string | null)[][]; 
-  teamColors: { [key: string]: string }; 
-  teams: { id: number; name: string; }[]; 
+  teams: { id: number; name: string; color: string; score: number }[];
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
   onQuestionClick,
   questions,
-  cardOwners,
-  teamColors,
   teams,
 }) => {
   return (
     <ScGameBoard>
       <ScCategory>
-        {questions.map((category, categoryIndex) => (
+        {questions?.map((category, categoryIndex) => (
           <div key={categoryIndex}>
             <Typography variant="h3" color="white" align="center">
               {category.category}
             </Typography>
             <ScCard>
               {category.questionCards.map((question, questionIndex) => {
-                const ownerName = question.isAnswered 
-                  ? teams.find(team => team.id === question.isAnswered)?.name || null 
-                  : null;
-
-                const ownerColor = ownerName ? teamColors[ownerName] : "transparent"; // Get the correct team color
-
                 return (
                   <PointCard
                     key={`${categoryIndex}-${questionIndex}`}
@@ -62,13 +50,17 @@ const GameBoard: React.FC<GameBoardProps> = ({
                         answer: question.answer,
                         points: question.points,
                         category: category.category,
-                        cardOwners,
-                        teamColors,
                       })
                     }
                     disabled={!!question.isAnswered} // Check if question is answered
-                    owner={ownerName}
-                    ownerColor={ownerColor} // Pass the correct team color
+                    owner={question.isAnswered}
+                    ownerColor={
+                      question.isAnswered
+                        ? teams.filter(
+                            (team) => team.id.toString() === question.isAnswered
+                          )[0].color
+                        : "red"
+                    } // Pass the correct team color
                   />
                 );
               })}

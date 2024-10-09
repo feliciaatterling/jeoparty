@@ -20,7 +20,7 @@ const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
       <Spacer size={3} orientation="vertical" />
       {/* Render team cards */}
       <TeamsContainer>
-        {teams.map((team, index) => (
+        {teams?.map((team, index) => (
           <TeamCard
             key={index}
             $isActive={team.id === currentTurnId}

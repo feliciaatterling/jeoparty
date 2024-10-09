@@ -12,8 +12,8 @@ import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 
 export default function Home() {
-  const { gameId } = useParams() as { gameId: string }; 
-  const [gameData, setGameData] = useState<GameData | null>(null); 
+  const { gameId } = useParams() as { gameId: string };
+  const [gameData, setGameData] = useState<GameData | null>(null);
 
   const [question, setQuestion] = useState<{
     _id: string;
@@ -32,69 +32,47 @@ export default function Home() {
     category: string;
   }) => {
     setQuestion(questionObject);
-
-    changeGameData();
-
-    // Update the specific card to be disabled
-    /* 
-   const updatedDisabledCards = disabledCards.map((row, catIdx) =>
-   catIdx === categoryIndex
-   ? row.map((disabled, pointIdx) =>
-   pointIdx === pointIndex ? true : disabled
-  )
-  : row
-);
-
-// Assign the current team to the clicked card (for example, "Team 1")
-const updatedCardOwners = cardOwners.map((row, catIdx) =>
-catIdx === categoryIndex
-? row.map((owner, pointIdx) =>
-pointIdx === pointIndex ? "Team 1" : owner
-)
-: row
-);
-*/
-
-    // setDisabledCards(updatedDisabledCards);
-    // setCardOwners(updatedCardOwners);
   };
 
   const handleBackToBoard = (isCorrect: boolean) => {
     if (gameData && question) {
-      const points = isCorrect ? question.points : 0; 
-  
+      const points = isCorrect ? question.points : 0;
+
       const updatedTeams = gameData.teams.map((team) => {
         if (team.id === gameData.currentTurnTeamId) {
           return { ...team, score: team.score + points }; // Update score for the current team
         }
         return team; // Return the unchanged team
       });
-  
+
       // Updating the questions to mark the question as answered
       const updatedQuestions = gameData.questions.map((category) => {
         const updatedQuestionCards = category.questionCards.map((qCard) => {
           // Mark the question as answered
           if (qCard._id === question._id) {
-            return { ...qCard, isAnswered: gameData.currentTurnTeamId }; // Set the current team ID
+            return {
+              ...qCard,
+              isAnswered: gameData.currentTurnTeamId.toString(),
+            }; // Set the current team ID
           }
           return qCard; // Return unchanged question card
         });
         return { ...category, questionCards: updatedQuestionCards }; // Return updated category
       });
-  
+
       // Update the gameData with new scores and current turn ID
-      setGameData({
+      const updatedGamedata: GameData = {
         ...gameData,
         questions: updatedQuestions,
         teams: updatedTeams,
-        currentTurnTeamId: (gameData.currentTurnTeamId + 1) % gameData.teams.length, // Rotate to the next team
-      });
+        currentTurnTeamId:
+          (gameData.currentTurnTeamId + 1) % gameData.teams.length, // Rotate to the next team
+      };
+      setGameData(updatedGamedata);
+      setQuestion(null); // Close the question modal
+      changeGameData(updatedGamedata);
     }
-  
-    setQuestion(null); // Close the question modal
-    changeGameData()
   };
-  
 
   async function getGameData(): Promise<void> {
     const fetchedGameData: GameData | null = await fetchGameData(gameId);
@@ -105,35 +83,18 @@ pointIdx === pointIndex ? "Team 1" : owner
     }
   }
 
-  async function changeGameData(): Promise<void> {
-    if (!gameId || !gameData) {
+  async function changeGameData(updatedGamedata: GameData): Promise<void> {
+    if (!gameId || !updatedGamedata) {
       console.error("Missing gameId or gameData for updating");
       return;
     }
-  
-    const updatedGameData: GameData | null = await updateGameData(gameId, gameData);
-  
-    if (updatedGameData) {
-      setGameData(updatedGameData);  // Update the state with the new game data
-    } else {
-      console.error("Could not update GameData");
-    }
+
+    updateGameData(gameId, updatedGamedata);
   }
-  
 
   useEffect(() => {
     getGameData();
   }, [gameId]);
-
-  const cardOwners = gameData?.questions.map(category =>
-    category.questionCards.map(qCard => 
-      qCard.isAnswered ? gameData.teams.find(team => team.id === qCard.isAnswered)?.name || null : null
-    )
-  ) || [];
-
-  const teamColors = gameData ? 
-    Object.fromEntries(gameData.teams.map(team => [team.name, team.color])) 
-    : {}; // Ensure teamColors is an object
 
   return (
     <HomeWrapper>
@@ -151,7 +112,9 @@ pointIdx === pointIndex ? "Team 1" : owner
       <GameCardWrapper>
         {gameData ? (
           <Typography variant="h1" align="center">
-            {gameData.teams.filter((team) => team.id === gameData.currentTurnTeamId)[0]?.name + "'s turn!"}
+            {gameData.teams?.filter(
+              (team) => team.id === gameData.currentTurnTeamId
+            )[0].name + "'s turn!"}
           </Typography>
         ) : (
           <h1>Loading...</h1>
@@ -170,8 +133,6 @@ pointIdx === pointIndex ? "Team 1" : owner
             <GameBoard
               onQuestionClick={handleQuestionClick}
               questions={gameData.questions}
-              cardOwners={cardOwners} // Pass cardOwners
-              teamColors={teamColors} // Pass teamColors
               teams={gameData.teams} // Pass teams for lookup
             />
           )

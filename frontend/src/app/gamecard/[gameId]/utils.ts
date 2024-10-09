@@ -12,15 +12,19 @@ export async function fetchGameData(gameId: string): Promise<GameData | null> {
       return null;
     }
   } catch (error) {
+    console.error(error);
     return null;
   }
 }
 
-export async function updateGameData(gameId: string, gameData: GameData): Promise<GameData | null> {
+export async function updateGameData(
+  gameId: string,
+  gameData: GameData
+): Promise<GameData | null> {
   try {
     const response = await fetch(`${URL}/game/update/${gameId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(gameData),
     });
 
@@ -29,10 +33,9 @@ export async function updateGameData(gameId: string, gameData: GameData): Promis
     }
 
     const updatedGameData: GameData = await response.json();
-    return updatedGameData;  // Return the updated game data if needed
+    return updatedGameData; // Return the updated game data if needed
   } catch (error) {
     console.error("Error updating game data:", error);
-    return null;  // Return null if there's an error
+    return null; // Return null if there's an error
   }
 }
-
