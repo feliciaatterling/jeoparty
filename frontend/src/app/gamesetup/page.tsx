@@ -84,11 +84,22 @@ export default function GameSetup() {
   };
 
   async function handleStartGame() {
+    // Check if all teams have names
+    const allTeamsNamed = teams
+      .slice(0, sliderValue)
+      .every((team) => team.name.trim() !== "");
+
+    if (!allTeamsNamed) {
+      alert("Please provide a name for each team before starting the game.");
+      return; // Prevent the game from starting
+    }
+
     const gameObject: gameSetup = {
       categories: categories,
       context: context,
       teams: teams.filter((team) => team.name !== ""),
     };
+
     const gameId: string = await createGame(gameObject);
     router.push(`/gamecard/${gameId}`);
   }
