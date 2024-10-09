@@ -13,7 +13,7 @@ interface GameCardProps {
   answer: string;
   category: string;
   value: number;
-  onBack: () => void;
+  onBack: (isCorrect: boolean) => void; // Update onBack to accept isCorrect
 }
 
 const GameCard: React.FC<GameCardProps> = ({
@@ -67,9 +67,17 @@ const GameCard: React.FC<GameCardProps> = ({
           <Spacer size={1} orientation="vertical" />
 
           <AnswerButtonsWrapper>
-            <Button label="YES" onClick={onBack} variant="primary" />
+          <Button
+              label="YES"
+              onClick={() => onBack(true)} // Pass true for correct
+              variant="primary"
+            />
             <Spacer size={3} orientation="horizontal" />
-            <Button label="NO" onClick={onBack} variant="secondary" />
+            <Button
+              label="NO"
+              onClick={() => onBack(false)} // Pass false for incorrect
+              variant="secondary"
+            />
           </AnswerButtonsWrapper>
         </>
       )}

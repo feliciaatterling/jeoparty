@@ -72,8 +72,17 @@ pointIdx === pointIndex ? "Team 1" : owner
     // setCardOwners(updatedCardOwners);
   };
 
-  const handleBackToBoard = () => {
+  const handleBackToBoard = (isCorrect: boolean) => {
     if (gameData && question) {
+      const points = isCorrect ? question.points : 0; // Points to be added based on the answer
+  
+      const updatedTeams = gameData.teams.map((team) => {
+        if (team.id === gameData.currentTurnTeamId) {
+          return { ...team, score: team.score + points }; // Update score if the team answered correctly
+        }
+        return team;
+      });
+      
       // Find the category that contains the question
       const updatedQuestions = gameData.questions.map((category) => {
         // For each category, map through the question cards
@@ -93,6 +102,7 @@ pointIdx === pointIndex ? "Team 1" : owner
       setGameData({
         ...gameData,
         questions: updatedQuestions,
+        teams: updatedTeams, // Update the teams with new scores
         currentTurnTeamId:
           (Number(gameData.currentTurnTeamId) + 1) % gameData.teams.length,
       });
@@ -134,11 +144,10 @@ pointIdx === pointIndex ? "Team 1" : owner
         {gameData ? (
           <Typography variant="h1" align="center">
             {
-              // Maybe move this functionality to a utils.ts file?
-              gameData.teams.filter((team) => {
-                return team.id === gameData.currentTurnTeamId;
-              })[0]?.name + "'s turn!"
-            }
+            gameData.teams.filter((team) => {
+              return team.id === gameData.currentTurnTeamId;
+            })[0]?.name + "'s turn!"
+          }
           </Typography>
         ) : (
           <h1>Loading...</h1>

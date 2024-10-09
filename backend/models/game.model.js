@@ -24,7 +24,7 @@ const gameSchema = new mongoose.Schema({
       ],
     },
   ],
-  currentTurnTeamId: String,
+  currentTurnTeamId: Number,
   isGameOver: Boolean,
 });
 
