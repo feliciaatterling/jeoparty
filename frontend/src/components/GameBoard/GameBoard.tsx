@@ -53,7 +53,13 @@ const GameBoard: React.FC<GameBoardProps> = ({
                       })
                     }
                     disabled={!!question.isAnswered} // Check if question is answered
-                    owner={question.isAnswered}
+                    owner={
+                      question.isAnswered
+                        ? teams.filter(
+                            (team) => team.id.toString() === question.isAnswered
+                          )[0].name
+                        : null
+                    }
                     ownerColor={
                       question.isAnswered
                         ? teams.filter(
