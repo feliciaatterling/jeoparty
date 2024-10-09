@@ -10,6 +10,8 @@ interface GameBoardProps {
     answer: string;
     points: number;
     category: string;
+    cardOwners: (string | null)[][]; 
+    teamColors: { [key: string]: string };
   }) => void;
   questions: {
     category: string;
@@ -21,15 +23,20 @@ interface GameBoardProps {
       isAnswered: number | null;
     }[];
   }[];
+  cardOwners: (string | null)[][]; 
+  teamColors: { [key: string]: string }; 
+  teams: { id: number; name: string; }[]; 
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
   onQuestionClick,
   questions,
+  cardOwners,
+  teamColors,
+  teams,
 }) => {
   return (
     <ScGameBoard>
-      {/* Render each category and its cards */}
       <ScCategory>
         {questions.map((category, categoryIndex) => (
           <div key={categoryIndex}>
@@ -37,24 +44,34 @@ const GameBoard: React.FC<GameBoardProps> = ({
               {category.category}
             </Typography>
             <ScCard>
-              {category.questionCards.map((question, questionIndex) => (
-                <PointCard
-                  key={`${categoryIndex}-${questionIndex}`}
-                  points={question.points}
-                  onClick={() =>
-                    onQuestionClick({
-                      _id: question._id,
-                      question: question.question,
-                      answer: question.answer,
-                      points: question.points,
-                      category: category.category,
-                    })
-                  }
-                  disabled={question.isAnswered ? true : false}
-                  owner={question.isAnswered}
-                  ownerColor={"red"} // Assign team color
-                />
-              ))}
+              {category.questionCards.map((question, questionIndex) => {
+                const ownerName = question.isAnswered 
+                  ? teams.find(team => team.id === question.isAnswered)?.name || null 
+                  : null;
+
+                const ownerColor = ownerName ? teamColors[ownerName] : "transparent"; // Get the correct team color
+
+                return (
+                  <PointCard
+                    key={`${categoryIndex}-${questionIndex}`}
+                    points={question.points}
+                    onClick={() =>
+                      onQuestionClick({
+                        _id: question._id,
+                        question: question.question,
+                        answer: question.answer,
+                        points: question.points,
+                        category: category.category,
+                        cardOwners,
+                        teamColors,
+                      })
+                    }
+                    disabled={!!question.isAnswered} // Check if question is answered
+                    owner={ownerName}
+                    ownerColor={ownerColor} // Pass the correct team color
+                  />
+                );
+              })}
             </ScCard>
           </div>
         ))}

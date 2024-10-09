@@ -5,8 +5,8 @@ interface PointCardProps {
   points: number;
   onClick: () => void;
   disabled: boolean;
-  owner: number | null; // Add owner prop
-  ownerColor?: string; // Optional team color prop
+  owner: string | null;
+  ownerColor: string;
 }
 
 const PointCard: React.FC<PointCardProps> = ({
@@ -23,10 +23,12 @@ const PointCard: React.FC<PointCardProps> = ({
       $disabled={disabled} // Pass $disabled prop to styled component
       $teamColor={ownerColor} // Pass the team color to styled component
     >
-      {disabled ? (
-        <span style={{ color: ownerColor || "white" }}>{owner}</span> // Set team name color to the team color
+      {disabled && owner ? ( // If the card is disabled, show team name
+        <div style={{ color: ownerColor }}>
+          {owner} {/* Display team name */}
+        </div>
       ) : (
-        `$${points}` // Display points when not disabled
+        `$${points}` // Otherwise, show the points
       )}
     </ScPointCard>
   );

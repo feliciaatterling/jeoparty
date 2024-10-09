@@ -1,26 +1,32 @@
-"use client";
 import styled from "styled-components";
 
-// Styles for the GameBoard container
 export const ScGameBoard = styled.div`
   padding: 32px;
   background-color: #ffffff10;
   border-radius: 8px;
 `;
 
-// Styles for category row, ensuring centered text and flexible width
 export const ScCategory = styled.div`
   display: flex;
   flex-direction: row;
   text-align: center;
   color: white;
-  justify-content: center;
   width: auto;
+  justify-content: center;
+
+  > div {
+    flex: 1; // Allow equal distribution of space
+    max-width: 140px; // Set a max width for each category
+    overflow: hidden; // Hide overflow text
+    text-overflow: ellipsis; // Add ellipsis for overflowing text
+    white-space: nowrap; // Prevent wrapping
+  }
 `;
 
-// Styles for individual cards in a column layout
 export const ScCard = styled.div`
   display: flex;
   flex-direction: column;
+  width: 140px; // Fixed width for point cards
   text-align: center;
+  margin: 5px; // Optional: add some margin
 `;
