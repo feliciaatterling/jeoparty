@@ -8,7 +8,7 @@ import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
-import { fetchGameData } from "./utils";
+import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 
 export default function Home() {
@@ -47,6 +47,7 @@ export default function Home() {
     category: string;
   }) => {
     setQuestion(questionObject);
+    changeGameData();
 
     // Update the specific card to be disabled
     /* 
@@ -109,6 +110,7 @@ pointIdx === pointIndex ? "Team 1" : owner
     }
 
     setQuestion(null); // Close the question modal
+    changeGameData()
   };
 
   async function getGameData(): Promise<void> {
@@ -119,6 +121,22 @@ pointIdx === pointIndex ? "Team 1" : owner
       console.log("Could not fetch GameData");
     }
   }
+
+  async function changeGameData(): Promise<void> {
+    if (!gameId || !gameData) {
+      console.error("Missing gameId or gameData for updating");
+      return;
+    }
+  
+    const updatedGameData: GameData | null = await updateGameData(gameId, gameData);
+  
+    if (updatedGameData) {
+      setGameData(updatedGameData);  // Update the state with the new game data
+    } else {
+      console.error("Could not update GameData");
+    }
+  }
+  
 
   useEffect(() => {
     getGameData();
