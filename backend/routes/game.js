@@ -2,45 +2,111 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const GameModel = require("../models/game.model.js");
 const questions = require("../dummy_data.json");
-console.log("Questions data: ", questions);
+const { OpenAI } = require("openai");
+require("dotenv").config();
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  organization: "org-iwb6332LtDeXzETWJ2VaCxUr",
+  project: "proj_oT6YCJaH6GeYngHAEXgiiYnA",
+});
 
 // Create new game session
 router.post("/create", async (req, res) => {
-  const teams = req.body.teams; // {name: "name", color: "color"}[] recieved from frontend UI
+  const teams = req.body.teams; // {name: "name", color: "color"}[] received from frontend UI
+  const context = req.body.context; // Context of the game
+  const categories = req.body.categories; // Array of 6 categories
 
-  // Formats the team data for database
+  // Format the team data for the database
   const formattedTeams = teams.map((team, i) => {
     return { id: i, name: team.name, color: team.color, score: 0 };
   });
 
-  // Formats the question data for database
-  const formattedQuestions = questions.Questions?.map((categoryObj) => {
-    return {
-      category: categoryObj.category,
-      questionCards: categoryObj.questionCards?.map((question, i) => {
-        return {
-          id: i,
-          points: question.points,
-          question: question.question,
-          answer: question.answer,
-          isAnswered: null,
-        };
-      }),
-    };
-  });
-
-  // Creates new instance of a game in db
-  const newGame = new GameModel({
-    categories: req.body.categories,
-    context: req.body.context,
-    teams: formattedTeams,
-    questions: formattedQuestions,
-    currentTurnTeamId: formattedTeams[0].id,
-    isGameOver: false,
-  });
-
   try {
-    // Saves the data to the database
+    // Call OpenAI to generate questions for each category
+    const categoryPromises = categories.map(async (category) => {
+      const prompt = `
+        You are generating trivia questions for a game based on the context "${context}".
+        Generate 5 trivia questions in the category "${category}" and return them in this JSON format:
+
+        {
+          "category": "${category}",
+          "questionCards": [
+            {
+              "points": 200,
+              "question": "<Question 1>",
+              "answer": "<Answer 1>"
+            },
+            {
+              "points": 400,
+              "question": "<Question 2>",
+              "answer": "<Answer 2>"
+            },
+            {
+              "points": 600,
+              "question": "<Question 3>",
+              "answer": "<Answer 3>"
+            },
+            {
+              "points": 800,
+              "question": "<Question 4>",
+              "answer": "<Answer 4>"
+            },
+            {
+              "points": 1000,
+              "question": "<Question 5>",
+              "answer": "<Answer 5>"
+            }
+          ]
+        }
+      `;
+
+      // Call OpenAI API
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        max_tokens: 500,
+        n: 1,
+      });
+
+      return JSON.parse(response.choices[0].message.content); // Parse the OpenAI response
+    });
+
+    // Wait for all categories to finish generating questions
+    const openAIQuestions = await Promise.all(categoryPromises);
+
+    // Format the OpenAI-generated questions for the database
+    const formattedQuestions = openAIQuestions.map((categoryObj) => {
+      return {
+        category: categoryObj.category,
+        questionCards: categoryObj.questionCards?.map((question, i) => {
+          return {
+            id: i,
+            points: question.points,
+            question: question.question,
+            answer: question.answer,
+            isAnswered: null,
+          };
+        }),
+      };
+    });
+
+    // Create a new instance of a game in the database
+    const newGame = new GameModel({
+      categories: req.body.categories,
+      context: req.body.context,
+      teams: formattedTeams,
+      questions: formattedQuestions,
+      currentTurnTeamId: formattedTeams[0].id,
+      isGameOver: false,
+    });
+
+    // Save the game to the database
     const savedGame = await newGame.save();
     res.status(201).json({
       message: "Game created successfully",
@@ -48,7 +114,10 @@ router.post("/create", async (req, res) => {
       savedGame,
     });
   } catch (error) {
-    res.status(500).json({ error: "Failed to create game" });
+    console.error("Error creating game:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to create game", details: error.message });
   }
 });
 
