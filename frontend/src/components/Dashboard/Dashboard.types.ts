@@ -1,8 +1,8 @@
 // frontend/src/components/Dashboard/Dashboard.types.ts
 
 interface DashboardProps {
-  teams: { id: string; name: string; color: string; score: number }[];
-  currentTurnId: string;
+  teams: { id: number; name: string; color: string; score: number }[];
+  currentTurnId: number;
 }
 
 export default DashboardProps;

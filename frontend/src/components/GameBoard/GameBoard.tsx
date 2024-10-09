@@ -4,43 +4,55 @@ import { ScGameBoard, ScCategory, ScCard } from "./GameBoard.styled";
 import Typography from "@/components/Typography/Typography";
 
 interface GameBoardProps {
-  onQuestionClick: (categoryIndex: number, pointIndex: number) => void;
-  disabledCards: boolean[][];
-  cardOwners: (string | null)[][];
-  teamColors: { [key: string]: string }; // Maps team names to colors
-  categories: string[];
+  onQuestionClick: (questionObject: {
+    _id: string;
+    question: string;
+    answer: string;
+    points: number;
+    category: string;
+  }) => void;
+  questions: {
+    category: string;
+    questionCards: {
+      _id: string;
+      points: number;
+      question: string;
+      answer: string;
+      isAnswered: number | null;
+    }[];
+  }[];
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
   onQuestionClick,
-  disabledCards,
-  cardOwners,
-  teamColors,
-  categories,
+  questions,
 }) => {
-  const points = [200, 400, 600, 800, 1000];
-
   return (
     <ScGameBoard>
       {/* Render each category and its cards */}
       <ScCategory>
-        {categories.map((title, categoryIndex) => (
+        {questions.map((category, categoryIndex) => (
           <div key={categoryIndex}>
             <Typography variant="h3" color="white" align="center">
-              {title}
+              {category.category}
             </Typography>
             <ScCard>
-              {points.map((point, pointIndex) => (
+              {category.questionCards.map((question, questionIndex) => (
                 <PointCard
-                  key={`${categoryIndex}-${pointIndex}`}
-                  points={point}
-                  category={title}
-                  onClick={() => onQuestionClick(categoryIndex, pointIndex)}
-                  disabled={disabledCards[categoryIndex][pointIndex]}
-                  owner={cardOwners[categoryIndex][pointIndex]}
-                  ownerColor={
-                    teamColors[cardOwners[categoryIndex][pointIndex] || ""]
-                  } // Assign team color
+                  key={`${categoryIndex}-${questionIndex}`}
+                  points={question.points}
+                  onClick={() =>
+                    onQuestionClick({
+                      _id: question._id,
+                      question: question.question,
+                      answer: question.answer,
+                      points: question.points,
+                      category: category.category,
+                    })
+                  }
+                  disabled={question.isAnswered ? true : false}
+                  owner={question.isAnswered}
+                  ownerColor={"red"} // Assign team color
                 />
               ))}
             </ScCard>

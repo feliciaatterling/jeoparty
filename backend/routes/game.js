@@ -23,7 +23,7 @@ router.post("/create", async (req, res) => {
           points: question.points,
           question: question.question,
           answer: question.answer,
-          isAnswered: false,
+          isAnswered: null,
         };
       }),
     };

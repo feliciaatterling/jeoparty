@@ -14,17 +14,6 @@ import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
 const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
-  /* 
-  const teams = [
-    { name: "Team 1", money: "$0", color: "#FF5733" }, // Red
-    { name: "Team 2", money: "$0", color: "#33FF57" }, // Green
-    { name: "Team 3", money: "$0", color: "#3357FF" }, // Blue
-    { name: "Team 4", money: "$0", color: "#FF33A1" }, // Pink
-    { name: "Team 5", money: "$0", color: "#33FFF0" }, // Cyan
-    { name: "Team 6", money: "$0", color: "#F3FF33" }, // Yellow
-  ];
-  */
-
   return (
     <DashboardWrapper>
       <Logo size="medium" />
