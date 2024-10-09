@@ -40,7 +40,7 @@ const GameCard: React.FC<GameCardProps> = ({
       {isQuestionMode ? (
         <>
           <Spacer size={3} orientation="vertical" />
-          <Typography variant="h2" align="center">
+          <Typography variant="h2" align="center" style={{ fontSize: "3rem" }}>
             {question}
           </Typography>
           <Spacer size={3} orientation="vertical" />
@@ -56,7 +56,12 @@ const GameCard: React.FC<GameCardProps> = ({
       ) : (
         <>
           <Spacer size={3} orientation="vertical" />
-          <Typography variant="h2" color="white" align="center">
+          <Typography
+            variant="h2"
+            color="white"
+            align="center"
+            style={{ fontSize: "4rem" }}
+          >
             Who Is {answer}?
           </Typography>
           <Spacer size={3} orientation="vertical" />
@@ -67,7 +72,7 @@ const GameCard: React.FC<GameCardProps> = ({
           <Spacer size={1} orientation="vertical" />
 
           <AnswerButtonsWrapper>
-          <Button
+            <Button
               label="YES"
               onClick={() => onBack(true)} // Pass true for correct
               variant="primary"
