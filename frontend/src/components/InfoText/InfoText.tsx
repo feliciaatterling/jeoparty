@@ -14,7 +14,8 @@ const InfoText: React.FC<InfoTextProps> = ({ content }) => {
     <ScInfoText>
       {/* Map through each line and render it as a paragraph */}
       {lines.map((line, index) => (
-        <p key={index} style={{ margin: "0" }}> {/* Set margin to 0 for consistent spacing */}
+        <p key={index} style={{ margin: "0" }}>
+          {/* Set margin to 0 for consistent spacing */}
           {line}
         </p>
       ))}

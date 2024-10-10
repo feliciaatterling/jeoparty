@@ -3,8 +3,9 @@ interface TeamNameColorPickerProps {
   name: string;
   setName: (newValue: string) => void;
   color: string;
-  setColor: (newValue:string) => void;
-  defaultColors: string[]
+  setColor: (newValue: string) => void;
+  defaultColors: string[];
+  error: boolean;
 }
 
 export default TeamNameColorPickerProps;
