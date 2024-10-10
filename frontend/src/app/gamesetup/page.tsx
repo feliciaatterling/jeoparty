@@ -17,11 +17,11 @@ import { useState } from "react";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
 import Link from "next/link";
-import { BiInfoCircle } from "react-icons/bi";
 import InfoText from "@/components/InfoText/InfoText";
 import { gameSetup } from "./utils.types";
 import { createGame } from "./utils";
 import { useRouter } from "next/navigation";
+import InfoIcon from "@/components/InfoIcon/InfoIcon";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
@@ -45,6 +45,8 @@ export default function GameSetup() {
   const [sliderValue, setSliderValue] = useState<number>(2);
   const [teams, setTeams] =
     useState<{ name: string; color: string }[]>(defaultTeamObject);
+
+  const [teamNameErrors, setTeamNameErrors] = useState(Array(6).fill(false));
 
   // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
@@ -83,15 +85,19 @@ export default function GameSetup() {
     );
   };
 
-  async function handleStartGame() {
-    // This checks if all teams have names
-    const allTeamsNamed = teams
+  // Validation and submission logic
+  const validateTeamNames = () => {
+    const errors = teams
       .slice(0, sliderValue)
-      .every((team) => team.name.trim() !== "");
+      .map((team) => team.name.trim() === "");
+    setTeamNameErrors(errors);
+    return errors.every((error) => !error);
+  };
 
-    if (!allTeamsNamed) {
-      alert("Please provide a name for each team before starting the game.");
-      return; // Prevents the game from starting
+  async function handleStartGame() {
+    // Validate the team names before starting the game
+    if (!validateTeamNames()) {
+      return;
     }
 
     const gameObject: gameSetup = {
@@ -114,15 +120,11 @@ export default function GameSetup() {
           <ScInfoContainer>
             <Typography variant="h2">Categories</Typography>
             {/* Info icon with hover effect for categories */}
-            <BiInfoCircle
-              size={20}
-              onMouseEnter={() => setOnHover(1)}
-              onMouseLeave={() => setOnHover(0)}
-            />
+            <InfoIcon onHoverId={1} onHover={setOnHover} />
             {/* Tooltip with category information */}
             <div>
               {onHover === 1 && (
-                <InfoText content="You can choose up to 6 categories. Leave any empty, and AI will generate them." />
+                <InfoText content="Choose up to 6 categories. Leave any empty, and our AI will generate them in line with the context." />
               )}
             </div>
           </ScInfoContainer>
@@ -152,11 +154,7 @@ export default function GameSetup() {
           <ScInfoContainer>
             <Typography variant="h2">Context</Typography>
             {/* Info icon with hover effect for context */}
-            <BiInfoCircle
-              size={20}
-              onMouseEnter={() => setOnHover(2)}
-              onMouseLeave={() => setOnHover(0)}
-            />
+            <InfoIcon onHoverId={2} onHover={setOnHover} />
             {/* Tooltip with context information */}
             <div>
               {onHover === 2 && (
@@ -186,15 +184,11 @@ export default function GameSetup() {
         {/* Team settings section */}
         <ScTeamSettings>
           <Typography variant="h1">Team settings</Typography>
-          <Spacer size={2} orientation="vertical" />
+          <Spacer size={3} orientation="vertical" />
           <ScInfoContainer>
             <Typography variant="h2">Number of teams</Typography>
             {/* Info icon with hover effect for team number */}
-            <BiInfoCircle
-              size={20}
-              onMouseEnter={() => setOnHover(3)}
-              onMouseLeave={() => setOnHover(0)}
-            />
+            <InfoIcon onHoverId={3} onHover={setOnHover} />
             {/* Tooltip with team number information */}
             <div>
               {onHover === 3 && (
@@ -216,11 +210,7 @@ export default function GameSetup() {
           <ScInfoContainer>
             <Typography variant="h2">Team names</Typography>
             {/* Info icon with hover effect for team names */}
-            <BiInfoCircle
-              size={20}
-              onMouseEnter={() => setOnHover(4)}
-              onMouseLeave={() => setOnHover(0)}
-            />
+            <InfoIcon onHoverId={4} onHover={setOnHover} />
             {/* Tooltip with team name information */}
             <div>
               {onHover === 4 && (
@@ -245,9 +235,15 @@ export default function GameSetup() {
                     handleTeamChange(index, { color: newColor })
                   }
                   defaultColors={teams.map((team) => team.color)}
+                  error={teamNameErrors[index]}
                 />
               );
             })}
+            {teamNameErrors.includes(true) && (
+              <Typography variant="meta" color="#ef5350">
+                Please assign all teams a name!
+              </Typography>
+            )}
           </ScTeamsContainer>
         </ScTeamSettings>
       </ScContainer>
