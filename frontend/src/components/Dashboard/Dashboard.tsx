@@ -13,7 +13,11 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
-const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
+const Dashboard: React.FC<DashboardProps & { gameId: string }> = ({
+  teams,
+  currentTurnId,
+  gameId,
+}) => {
   return (
     <DashboardWrapper>
       <Logo size="medium" />
@@ -39,7 +43,8 @@ const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
       {/* Button group for game controls */}
       <ButtonGroup>
         <Button label="EDIT GAME" />
-        <Link href="/" legacyBehavior>
+
+        <Link href={`/result/${gameId}`} legacyBehavior>
           <Button variant="danger" label="END GAME" />
         </Link>
       </ButtonGroup>
