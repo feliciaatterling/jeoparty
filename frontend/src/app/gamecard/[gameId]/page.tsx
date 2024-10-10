@@ -103,6 +103,7 @@ export default function Home() {
           <Dashboard
             teams={gameData.teams}
             currentTurnId={gameData.currentTurnTeamId}
+            gameId={gameId} // Pass gameId to the Dashboard
           />
         ) : (
           <h1 style={{ color: "white" }}>Loading...</h1>
