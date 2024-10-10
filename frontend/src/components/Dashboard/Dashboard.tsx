@@ -44,7 +44,7 @@ const Dashboard: React.FC<DashboardProps & { gameId: string }> = ({
       <ButtonGroup>
         <Button label="EDIT GAME" />
 
-        <Link href={`/result/${gameId}`} legacyBehavior>
+        <Link href={`/results/${gameId}`} legacyBehavior>
           <Button variant="danger" label="END GAME" />
         </Link>
       </ButtonGroup>
