@@ -175,15 +175,30 @@ router.delete("/delete/:id", async (req, res) => {
 
   try {
     // Find the game by ID and delete it
-    const deletedGame = await GameModel.findByIdAndDelete(gameId);
+    const gameToDelete = await GameModel.findById(gameId);
 
     // If no game is found, send a 404 error
-    if (!deletedGame) {
+    if (!gameToDelete) {
       return res.status(404).json({ error: "Game not found" });
     }
 
     // If the game is deleted, send a success message
-    res.status(200).json({ message: "Game deleted successfully", deletedGame });
+    res.status(200).json({ message: "Game deleted successfully", gameToDelete });
+
+    // Schedule deletion for after 10 mins
+    setTimeout(async () => {
+      try {
+        const deletedGame = await GameModel.findByIdAndDelete(gameId);
+        if (deletedGame) {
+          console.log(`Game with ID ${gameId} deleted successfully.`);
+        } else {
+          console.log(`Game with ID ${gameId} not found or already deleted.`);
+        }
+      } catch (error) {
+        console.error(`Error deleting game with ID ${gameId}:`, error);
+      }
+    }, 10 * 60000); // 10 minutes delay
+
   } catch (error) {
     // If there's an error, send a 500 status code
     res.status(500).json({ error: "Failed to delete game" });
