@@ -9,12 +9,11 @@ import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation"; // Added useRouter for redirection
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
   const [gameData, setGameData] = useState<GameData | null>(null);
-
   const [question, setQuestion] = useState<{
     _id: string;
     question: string;
@@ -22,6 +21,31 @@ export default function Home() {
     points: number;
     category: string;
   } | null>(null);
+  
+  const router = useRouter(); // Use router for navigation
+
+  // Fetch game data from the backend
+  async function getGameData(): Promise<void> {
+    const fetchedGameData: GameData | null = await fetchGameData(gameId);
+    if (fetchedGameData) {
+      setGameData(fetchedGameData);
+    } else {
+      console.log("Could not fetch GameData");
+    }
+  }
+
+  // Push updated game data to the backend
+  async function changeGameData(updatedGamedata: GameData): Promise<void> {
+    if (!gameId || !updatedGamedata) {
+      console.error("Missing gameId or gameData for updating");
+      return;
+    }
+    await updateGameData(gameId, updatedGamedata);
+  }
+
+  useEffect(() => {
+    getGameData();
+  }, [gameId]);
 
   // Handle card click to set the question state
   const handleQuestionClick = (questionObject: {
@@ -34,6 +58,7 @@ export default function Home() {
     setQuestion(questionObject);
   };
 
+  // Handle logic for moving back to the board and updating the score
   const handleBackToBoard = (isCorrect: boolean) => {
     if (gameData && question) {
       const points = isCorrect ? question.points : 0;
@@ -42,25 +67,22 @@ export default function Home() {
         if (team.id === gameData.currentTurnTeamId) {
           return { ...team, score: team.score + points }; // Update score for the current team
         }
-        return team; // Return the unchanged team
+        return team; // Return unchanged team
       });
 
-      // Updating the questions to mark the question as answered
       const updatedQuestions = gameData.questions.map((category) => {
         const updatedQuestionCards = category.questionCards.map((qCard) => {
-          // Mark the question as answered
           if (qCard._id === question._id) {
             return {
               ...qCard,
               isAnswered: gameData.currentTurnTeamId.toString(),
-            }; // Set the current team ID
+            };
           }
-          return qCard; // Return unchanged question card
+          return qCard;
         });
-        return { ...category, questionCards: updatedQuestionCards }; // Return updated category
+        return { ...category, questionCards: updatedQuestionCards };
       });
 
-      // Update the gameData with new scores and current turn ID
       const updatedGamedata: GameData = {
         ...gameData,
         questions: updatedQuestions,
@@ -68,42 +90,30 @@ export default function Home() {
         currentTurnTeamId:
           (gameData.currentTurnTeamId + 1) % gameData.teams.length, // Rotate to the next team
       };
+
       setGameData(updatedGamedata);
       setQuestion(null); // Close the question modal
       changeGameData(updatedGamedata);
     }
   };
 
-  async function getGameData(): Promise<void> {
-    const fetchedGameData: GameData | null = await fetchGameData(gameId);
-    if (fetchedGameData) {
-      setGameData(fetchedGameData);
+  // Handle end game button click
+  const handleEndGame = () => {
+    if (gameId) {
+      router.push(`/results/${gameId}`);
     } else {
-      console.log("Could not fetch GameData");
+      console.error("Game ID is missing.");
     }
-  }
-
-  async function changeGameData(updatedGamedata: GameData): Promise<void> {
-    if (!gameId || !updatedGamedata) {
-      console.error("Missing gameId or gameData for updating");
-      return;
-    }
-
-    updateGameData(gameId, updatedGamedata);
-  }
-
-  useEffect(() => {
-    getGameData();
-  }, [gameId]);
+  };
 
   return (
     <HomeWrapper>
       <DashboardWrapper>
         {gameData ? (
           <Dashboard
-            teams={gameData.teams}
-            currentTurnId={gameData.currentTurnTeamId}
-            gameId={gameId} // Pass gameId to the Dashboard
+          teams={gameData.teams}
+          currentTurnId={gameData.currentTurnTeamId}
+          gameId={gameId} 
           />
         ) : (
           <h1 style={{ color: "white" }}>Loading...</h1>
@@ -112,15 +122,19 @@ export default function Home() {
 
       <GameCardWrapper>
         {gameData ? (
-          <Typography variant="h1" align="center">
-            {gameData.teams?.filter(
-              (team) => team.id === gameData.currentTurnTeamId
-            )[0].name + "'s turn!"}
-          </Typography>
+          <>
+            <Typography variant="h1" align="center">
+              {
+                gameData.teams?.filter(
+                  (team) => team.id === gameData.currentTurnTeamId
+                )[0]?.name + "'s turn!"
+              }
+            </Typography>
+            <Spacer size={2} orientation="vertical" />
+          </>
         ) : (
           <h1>Loading...</h1>
         )}
-        <Spacer size={2} orientation="vertical" />
         {gameData ? (
           question ? (
             <GameCard
