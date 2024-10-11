@@ -74,6 +74,22 @@ export default function Home() {
     }
   };
 
+  // Handler to adjust team scores from the dashboard
+  const handleScoreChange = (teamId: number, amount: number) => {
+    if (gameData) {
+      const updatedTeams = gameData.teams.map((team) => {
+        if (team.id === teamId) {
+          return { ...team, score: team.score + amount };
+        }
+        return team;
+      });
+
+      const updatedGamedata = { ...gameData, teams: updatedTeams };
+      setGameData(updatedGamedata);
+      changeGameData(updatedGamedata); // Update the backend
+    }
+  };
+
   async function getGameData(): Promise<void> {
     const fetchedGameData: GameData | null = await fetchGameData(gameId);
     if (fetchedGameData) {
@@ -104,6 +120,7 @@ export default function Home() {
             teams={gameData.teams}
             currentTurnId={gameData.currentTurnTeamId}
             gameId={gameId} // Pass gameId to the Dashboard
+            onScoreChange={handleScoreChange} // Pass the score change handler
           />
         ) : (
           <h1 style={{ color: "white" }}>Loading...</h1>

@@ -32,7 +32,11 @@ export const TeamCard = styled.div<TeamCardProps>`
   padding: 10px;
   border-radius: 8px;
   text-align: center;
-  border: ${(props) => (!props.$isActive ? `2px solid ${props.color}` : "none")};
+  border: ${(props) =>
+    !props.$isActive ? `2px solid ${props.color}` : "none"};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const TeamName = styled.div<TeamCardProps>`
@@ -44,6 +48,10 @@ export const TeamName = styled.div<TeamCardProps>`
 export const TeamMoney = styled.div<TeamCardProps>`
   font-size: 14px;
   color: ${(props) => (props.$isActive ? "white" : "black")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
 `;
 
 export const ButtonGroup = styled.div`
@@ -52,4 +60,5 @@ export const ButtonGroup = styled.div`
   gap: 10px;
   margin-top: auto;
   width: 100%;
+  align-items: center;
 `;
