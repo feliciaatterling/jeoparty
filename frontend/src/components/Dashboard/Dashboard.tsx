@@ -9,7 +9,7 @@ import {
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
-import { useRouter } from "next/navigation";  // Router hook for navigation
+import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
@@ -20,7 +20,7 @@ const Dashboard: React.FC<
   }
 > = ({ teams, currentTurnId, gameId, onScoreChange }) => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const router = useRouter();  // Use router for navigation to results page
+  const router = useRouter(); // Use router for navigation to results page
 
   // Toggle edit mode for plus/minus buttons
   const handleEditToggle = () => {
@@ -98,11 +98,7 @@ const Dashboard: React.FC<
         />
 
         {/* End Game button with navigation to results page */}
-        <Button
-          variant="danger"
-          label="END GAME"
-          onClick={handleEndGame}
-        />
+        <Button variant="danger" label="END GAME" onClick={handleEndGame} />
       </ButtonGroup>
     </DashboardWrapper>
   );
