@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
-
 const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId, gameId }) => {
   const router = useRouter();
 
@@ -25,7 +24,6 @@ const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId, gameId }) =
       console.error("Game ID is missing.");
     }
   };
-
   return (
     <DashboardWrapper>
       <Logo size="medium" />

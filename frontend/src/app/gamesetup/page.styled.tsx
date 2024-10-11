@@ -18,6 +18,11 @@ const ScContainer = styled.div`
   border-radius: 8px;
 `;
 
+const ScLoadingContainer = styled(ScContainer)`
+  justify-content: center;
+  align-items: center;
+`;
+
 // Game settings section (60% width)
 const ScGameSettings = styled.div`
   padding: 48px;
@@ -65,6 +70,7 @@ const ScInfoContainer = styled.div`
 export {
   ScWrap,
   ScContainer,
+  ScLoadingContainer,
   ScGameSettings,
   ScTeamSettings,
   ScCategoryGrid,
