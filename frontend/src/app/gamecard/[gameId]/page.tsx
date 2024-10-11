@@ -21,7 +21,7 @@ export default function Home() {
     points: number;
     category: string;
   } | null>(null);
-  
+
   const router = useRouter(); // Use router for navigation
 
   // Fetch game data from the backend
@@ -97,6 +97,11 @@ export default function Home() {
     }
   };
 
+  // Function to handle closing the question without answering it
+  const handleCloseQuestion = () => {
+    setQuestion(null); // Reset the question state, closing the GameCard
+  };
+
   // Handler to adjust team scores from the dashboard
   const handleScoreChange = (teamId: number, amount: number) => {
     if (gameData) {
@@ -141,11 +146,9 @@ export default function Home() {
         {gameData ? (
           <>
             <Typography variant="h1" align="center">
-              {
-                gameData.teams?.filter(
-                  (team) => team.id === gameData.currentTurnTeamId
-                )[0]?.name + "'s turn!"
-              }
+              {gameData.teams?.filter(
+                (team) => team.id === gameData.currentTurnTeamId
+              )[0]?.name + "'s turn!"}
             </Typography>
             <Spacer size={2} orientation="vertical" />
           </>
@@ -160,6 +163,7 @@ export default function Home() {
               category={question.category}
               value={question.points}
               onBack={handleBackToBoard}
+              onClose={handleCloseQuestion} // Pass the handleCloseQuestion function
             />
           ) : (
             <GameBoard

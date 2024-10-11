@@ -87,3 +87,18 @@ export const AnswerButton = styled.button<{ correct?: boolean }>`
       props.correct ? "#45a049" : "#c74646"}; /* Hover color change */
   }
 `;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+
+  &:hover {
+    color: red;
+  }
+`;

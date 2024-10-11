@@ -3,6 +3,7 @@ import {
   GameCardWrapper,
   AnswerButtonsWrapper,
   ModeTag,
+  CloseButton,
 } from "./GameCard.styled";
 import Button from "../Button/Button";
 import Spacer from "../Spacer/Spacer";
@@ -13,7 +14,8 @@ interface GameCardProps {
   answer: string;
   category: string;
   value: number;
-  onBack: (isCorrect: boolean) => void; // Update onBack to accept isCorrect
+  onBack: (isCorrect: boolean) => void;
+  onClose: () => void;
 }
 
 const GameCard: React.FC<GameCardProps> = ({
@@ -22,6 +24,7 @@ const GameCard: React.FC<GameCardProps> = ({
   category,
   value,
   onBack,
+  onClose,
 }) => {
   const [isQuestionMode, setIsQuestionMode] = useState(true);
 
@@ -31,6 +34,9 @@ const GameCard: React.FC<GameCardProps> = ({
 
   return (
     <GameCardWrapper>
+      {/* Use the CloseButton from GameCard.styled.ts */}
+      <CloseButton onClick={onClose}>X</CloseButton>
+
       <ModeTag>
         <Typography variant="meta" color="#D3D3D3" align="center">
           {category} ${value}
