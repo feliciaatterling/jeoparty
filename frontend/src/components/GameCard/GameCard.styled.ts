@@ -11,6 +11,7 @@ export const GameCardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 552px;
+  position: relative;
 `;
 
 // Tag displaying the category and value
@@ -94,7 +95,7 @@ export const CloseButton = styled.button`
   right: 10px;
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
   color: white;
 
