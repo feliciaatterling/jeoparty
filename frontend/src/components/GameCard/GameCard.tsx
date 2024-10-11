@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GameCardWrapper,
   AnswerButtonsWrapper,
@@ -31,6 +31,23 @@ const GameCard: React.FC<GameCardProps> = ({
   const handleToggleMode = () => {
     setIsQuestionMode(!isQuestionMode);
   };
+
+  useEffect(() => {
+    // Function to handle "esc" key press
+    const handleEscPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    // Attach event listener when the component mounts
+    document.addEventListener("keydown", handleEscPress);
+
+    // Clean up event listener when the component unmounts
+    return () => {
+      document.removeEventListener("keydown", handleEscPress);
+    };
+  }, [onClose]);
 
   return (
     <GameCardWrapper>
