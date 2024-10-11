@@ -9,7 +9,7 @@ import {
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
-import Link from "next/link";
+import { useRouter } from "next/navigation";  // Router hook for navigation
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
@@ -20,9 +20,20 @@ const Dashboard: React.FC<
   }
 > = ({ teams, currentTurnId, gameId, onScoreChange }) => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const router = useRouter();  // Use router for navigation to results page
 
+  // Toggle edit mode for plus/minus buttons
   const handleEditToggle = () => {
     setIsEditMode((prevMode) => !prevMode); // Toggle edit mode
+  };
+
+  // Function to handle end game, redirects to results page
+  const handleEndGame = () => {
+    if (gameId) {
+      router.push(`/results/${gameId}`); // Redirect to results page with gameId
+    } else {
+      console.error("Game ID is missing.");
+    }
   };
 
   return (
@@ -41,7 +52,7 @@ const Dashboard: React.FC<
               {team.name}
             </TeamName>
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* Render plus/minus buttons*/}
+              {/* Render plus/minus buttons only if in edit mode */}
               {isEditMode && (
                 <>
                   {/* Minus button to lower score by 100$ */}
@@ -80,15 +91,18 @@ const Dashboard: React.FC<
 
       {/* Button group for game controls */}
       <ButtonGroup>
+        {/* Toggle button for edit mode */}
         <Button
           label={isEditMode ? "FINISH EDITING" : "EDIT GAME"}
           onClick={handleEditToggle}
         />
 
-        {/* Link to results with gameId */}
-        <Link href={`/results/${gameId}`} legacyBehavior>
-          <Button variant="danger" label="END GAME" />
-        </Link>
+        {/* End Game button with navigation to results page */}
+        <Button
+          variant="danger"
+          label="END GAME"
+          onClick={handleEndGame}
+        />
       </ButtonGroup>
     </DashboardWrapper>
   );

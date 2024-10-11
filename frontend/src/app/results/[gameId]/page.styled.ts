@@ -10,14 +10,22 @@ export const PageWrapper = styled.div`
   box-sizing: border-box;      /* Include padding and border in the element's total width and height */
 `;
 
-// Helper function to convert hex to rgba for translucent backgrounds
-const hexToRgba = (hex: string, opacity: number) => {
-  const bigint = parseInt(hex.replace("#", ""), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
-  return `rgba(${r},${g},${b},${opacity})`;
+// Utility function to convert HEX to RGBA
+const hexToRgba = (hex: string, alpha: number) => {
+  hex = hex.replace(/^#/, '');
+  let r: number, g: number, b: number;
+  if (hex.length === 3) {
+    r = parseInt(hex[0] + hex[0], 16);
+    g = parseInt(hex[1] + hex[1], 16);
+    b = parseInt(hex[2] + hex[2], 16);
+  } else {
+    r = parseInt(hex.slice(0, 2), 16);
+    g = parseInt(hex.slice(2, 4), 16);
+    b = parseInt(hex.slice(4, 6), 16);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
+
 
 // Styling for the podium positions
 export const PodiumSpot = styled.div<{ color: string }>`
