@@ -58,7 +58,7 @@ const Dashboard: React.FC<
                   {/* Minus button to lower score by 100$ */}
                   <button
                     onClick={() => onScoreChange(team.id, -100)}
-                    style={{ marginRight: "10px" }}
+                    style={{ marginRight: "10px", cursor: "pointer" }}
                   >
                     -
                   </button>
@@ -78,7 +78,7 @@ const Dashboard: React.FC<
                   {/* Plus button to increase score by 100$ */}
                   <button
                     onClick={() => onScoreChange(team.id, 100)}
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: "10px", cursor: "pointer" }}
                   >
                     +
                   </button>
