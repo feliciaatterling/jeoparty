@@ -9,11 +9,23 @@ import {
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 
-const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
+
+const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId, gameId }) => {
+  const router = useRouter();
+
+  // Define handleEndGame function to redirect to the results page
+  const handleEndGame = () => {
+    if (gameId) {
+      router.push(`/results/${gameId}`); // Redirect to the results page with the gameId
+    } else {
+      console.error("Game ID is missing.");
+    }
+  };
+
   return (
     <DashboardWrapper>
       <Logo size="medium" />
@@ -39,9 +51,11 @@ const Dashboard: React.FC<DashboardProps> = ({ teams, currentTurnId }) => {
       {/* Button group for game controls */}
       <ButtonGroup>
         <Button label="EDIT GAME" />
-        <Link href="/" legacyBehavior>
-          <Button variant="danger" label="END GAME" />
-        </Link>
+        <Button
+          variant="danger"
+          label="END GAME"
+          onClick={handleEndGame}
+        />
       </ButtonGroup>
     </DashboardWrapper>
   );
