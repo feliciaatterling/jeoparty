@@ -58,15 +58,6 @@ const ScTeamsContainer = styled.div`
   gap: 16px;
 `;
 
-// Small container for info display
-const ScInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center;
-  color: white;
-`;
-
 export {
   ScWrap,
   ScContainer,
@@ -76,5 +67,4 @@ export {
   ScCategoryGrid,
   ScGridItem,
   ScTeamsContainer,
-  ScInfoContainer,
 };

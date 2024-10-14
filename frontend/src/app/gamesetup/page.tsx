@@ -5,7 +5,6 @@ import {
   ScContainer,
   ScGameSettings,
   ScGridItem,
-  ScInfoContainer,
   ScLoadingContainer,
   ScTeamsContainer,
   ScTeamSettings,
@@ -22,7 +21,6 @@ import InfoText from "@/components/InfoText/InfoText";
 import { gameSetup } from "./utils.types";
 import { createGame } from "./utils";
 import { useRouter } from "next/navigation";
-import InfoIcon from "@/components/InfoIcon/InfoIcon";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 // Default team settings for the color picker
