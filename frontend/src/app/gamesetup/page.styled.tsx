@@ -61,7 +61,7 @@ const ScTeamsContainer = styled.div`
 // Small container for info display
 const ScInfoContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 5px;
   align-items: center;
   color: white;

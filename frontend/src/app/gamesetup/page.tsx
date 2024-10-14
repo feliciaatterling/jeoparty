@@ -158,17 +158,11 @@ export default function GameSetup() {
           <ScGameSettings>
             <Typography variant="h1">Jeopardy settings</Typography>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Categories</Typography>
-              {/* Info icon with hover effect for categories */}
-              <InfoIcon onHoverId={1} onHover={setOnHover} />
-              {/* Tooltip with category information */}
-              <div>
-                {onHover === 1 && (
-                  <InfoText content="Choose up to 6 categories. Leave any empty, and our AI will generate them in line with the context." />
-                )}
-              </div>
-            </ScInfoContainer>
+            <Typography variant="h2">Categories</Typography>
+            {/* Info icon with hover effect for categories */}
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Choose up to 6 categories or let our AI generate them in line with the context.</Typography>
+        
             <Spacer size={2} orientation="vertical" />
             {/* Grid for category inputs */}
             <ScCategoryGrid>
@@ -192,17 +186,12 @@ export default function GameSetup() {
               })}
             </ScCategoryGrid>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Context</Typography>
+            
+            <Typography variant="h2">Context</Typography>
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Provide context for AI-generated questions.</Typography>
               {/* Info icon with hover effect for context */}
-              <InfoIcon onHoverId={2} onHover={setOnHover} />
-              {/* Tooltip with context information */}
-              <div>
-                {onHover === 2 && (
-                  <InfoText content="Provide context for AI-generated questions. For example, describe the occasion." />
-                )}
-              </div>
-            </ScInfoContainer>
+              
             <Spacer size={2} orientation="vertical" />
             {/* Input for context description */}
             <Input
@@ -226,17 +215,9 @@ export default function GameSetup() {
           <ScTeamSettings>
             <Typography variant="h1">Team settings</Typography>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Number of teams</Typography>
-              {/* Info icon with hover effect for team number */}
-              <InfoIcon onHoverId={3} onHover={setOnHover} />
-              {/* Tooltip with team number information */}
-              <div>
-                {onHover === 3 && (
-                  <InfoText content="Select the number of teams, up to 6." />
-                )}
-              </div>
-            </ScInfoContainer>
+            <Typography variant="h2">Number of teams</Typography>
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Select the number of teams, up to 6.</Typography>
             <Spacer size={1} orientation="vertical" />
             {/* Slider for selecting the number of teams */}
             <Slider
@@ -248,17 +229,9 @@ export default function GameSetup() {
               setValue={handleSlider}
             />
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
               <Typography variant="h2">Team names</Typography>
-              {/* Info icon with hover effect for team names */}
-              <InfoIcon onHoverId={4} onHover={setOnHover} />
-              {/* Tooltip with team name information */}
-              <div>
-                {onHover === 4 && (
-                  <InfoText content="Assign a name and color for each team." />
-                )}
-              </div>
-            </ScInfoContainer>
+              <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Assign a name and color for each team.</Typography>
             <Spacer size={2} orientation="vertical" />
             {/* Inputs for team names and colors */}
             <ScTeamsContainer>
