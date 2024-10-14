@@ -189,7 +189,7 @@ export default function Home() {
         </Typography>
         <Spacer orientation="vertical" size={2} />
         <Typography variant="meta" style={{ color: "#484b72" }}>
-          Developed by Felicia Atterling, Emily Nillson, Olle Sköld and Patrik
+          Developed by Felicia Atterling, Emily Nilsson, Olle Sköld, and Patrik
           Larsson 2024
         </Typography>
       </ScFooterContainer>

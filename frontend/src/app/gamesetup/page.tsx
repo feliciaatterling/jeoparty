@@ -27,12 +27,12 @@ import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
-  { name: "", color: "#FF5C5C" },
-  { name: "", color: "#43D17D" },
   { name: "", color: "#4A90E2" },
   { name: "", color: "#F7D154" },
   { name: "", color: "#B45AD5" },
   { name: "", color: "#2DCED6" },
+  { name: "", color: "#FF5C5C" },
+  { name: "", color: "#43D17D" },
 ];
 
 export default function GameSetup() {
@@ -286,7 +286,6 @@ export default function GameSetup() {
                 </Typography>
               )}
 
-                {/* Show error message for team name length exceeding 25 characters */}
               {teamNameLengthErrors.includes(true) && (
                 <Typography variant="meta" color="#ef5350">
                   Team names must be under 25 characters!
