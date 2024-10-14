@@ -18,5 +18,8 @@
     "mongoos": "^0.0.1-security",
     "mongoose": "^8.7.0",
     "openai": "^4.67.3"
-  }
+  },
+  "engines": {
+  "node": "20.x"
+}
 }
