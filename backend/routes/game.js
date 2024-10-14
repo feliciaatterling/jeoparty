@@ -4,6 +4,7 @@ const GameModel = require("../models/game.model.js");
 const questions = require("../dummy_data.json");
 const { OpenAI } = require("openai");
 require("dotenv").config();
+const { generateCreativePrompt } = require("../utils/promptGenerator");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -22,59 +23,53 @@ router.post("/create", async (req, res) => {
     return { id: i, name: team.name, color: team.color, score: 0 };
   });
 
+  let previousCategories = []; // To track previous categories and questions
+
   try {
-    // Call OpenAI to generate questions for each category
+    // Generate OpenAI question sets for each category
     const categoryPromises = categories.map(async (category) => {
-      const prompt = `
-        You are generating trivia questions for a game based on the context "${context}".
-        Generate 5 trivia questions in the category "${category}" and return them in this JSON format:
+      // Generate the prompt with previous context
+      const prompt = generateCreativePrompt(
+        context,
+        category,
+        previousCategories
+      );
 
-        {
-          "category": "${category}",
-          "questionCards": [
+      try {
+        // Call OpenAI API inside the try/catch block
+        const response = await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
             {
-              "points": 200,
-              "question": "<Question 1>",
-              "answer": "<Answer 1>"
+              role: "user",
+              content: prompt,
             },
-            {
-              "points": 400,
-              "question": "<Question 2>",
-              "answer": "<Answer 2>"
-            },
-            {
-              "points": 600,
-              "question": "<Question 3>",
-              "answer": "<Answer 3>"
-            },
-            {
-              "points": 800,
-              "question": "<Question 4>",
-              "answer": "<Answer 4>"
-            },
-            {
-              "points": 1000,
-              "question": "<Question 5>",
-              "answer": "<Answer 5>"
-            }
-          ]
-        }
-      `;
+          ],
+          max_tokens: 500,
+          n: 1,
+        });
 
-      // Call OpenAI API
-      const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        max_tokens: 500,
-        n: 1,
-      });
+        let content = response.choices[0].message.content;
 
-      return JSON.parse(response.choices[0].message.content); // Parse the OpenAI response
+        // Sanitize the response by removing markdown-like code fences
+        content = content.replace(/```json|```/g, "").trim();
+
+        // Parse the JSON response
+        const parsedResponse = JSON.parse(content);
+
+        // Add this category to the previousCategories list
+        previousCategories.push(parsedResponse);
+
+        return parsedResponse;
+      } catch (error) {
+        console.error(
+          `Error parsing OpenAI response for category "${category}":`,
+          error.message
+        );
+        throw new Error(
+          `Failed to parse OpenAI response for category "${category}"`
+        );
+      }
     });
 
     // Wait for all categories to finish generating questions
@@ -124,7 +119,6 @@ router.post("/create", async (req, res) => {
 // get game session by ID
 router.get("/:id", async (req, res) => {
   const gameId = req.params.id; // Id from frontend UI
-  console.log(gameId);
 
   try {
     // Fetch the game by its MongoDB-generated ID
@@ -145,8 +139,6 @@ router.get("/:id", async (req, res) => {
 router.put("/update/:gameId", async (req, res) => {
   const { gameId } = req.params; // Extract game ID from the request parameters
   const updatedData = req.body; // Data sent from the frontend to update the game
-
-  console.log(updatedData);
 
   try {
     // Find the game by its ID and update it with new data
@@ -183,7 +175,9 @@ router.delete("/delete/:id", async (req, res) => {
     }
 
     // If the game is deleted, send a success message
-    res.status(200).json({ message: "Game deleted successfully", gameToDelete });
+    res
+      .status(200)
+      .json({ message: "Game deleted successfully", gameToDelete });
 
     // Schedule deletion for after 10 mins
     setTimeout(async () => {
@@ -198,7 +192,6 @@ router.delete("/delete/:id", async (req, res) => {
         console.error(`Error deleting game with ID ${gameId}:`, error);
       }
     }, 10 * 60000); // 10 minutes delay
-
   } catch (error) {
     // If there's an error, send a 500 status code
     res.status(500).json({ error: "Failed to delete game" });

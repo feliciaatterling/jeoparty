@@ -9,7 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
-import { useParams, useRouter } from "next/navigation"; // Added useRouter for redirection
+import { useParams } from "next/navigation"; // Added useRouter for redirection
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
@@ -22,7 +22,7 @@ export default function Home() {
     category: string;
   } | null>(null);
 
-  const router = useRouter(); // Use router for navigation
+  //const router = useRouter(); // Use router for navigation
 
   // Fetch game data from the backend
   async function getGameData(): Promise<void> {
@@ -115,15 +115,6 @@ export default function Home() {
       const updatedGamedata = { ...gameData, teams: updatedTeams };
       setGameData(updatedGamedata);
       changeGameData(updatedGamedata); // Update the backend
-    }
-  };
-
-  // Handle end game button click
-  const handleEndGame = () => {
-    if (gameId) {
-      router.push(`/results/${gameId}`);
-    } else {
-      console.error("Game ID is missing.");
     }
   };
 
