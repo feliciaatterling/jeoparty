@@ -2,11 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
+require("dotenv").config();
 
 const app = express();
 
@@ -16,9 +12,6 @@ const homeRouter = require("./routes/home.js");
 //const PORT = 8000;
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 const uri = process.env.MONGODB_URI;
 
