@@ -22,7 +22,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   onEndGame,
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const router = useRouter();
 
   // Get the team with the highest score
   const highestScore = Math.max(...teams.map((team) => team.score));
@@ -32,17 +31,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     setIsEditMode((prevMode) => !prevMode);
   };
 
-  const handleEndGame = () => {
-    if (gameId) {
-      router.push(`/results/${gameId}`);
-    } else {
-      console.error("Game ID is missing.");
-    }
-  };
-
   return (
     <DashboardWrapper>
-      <Logo size="medium"/>
+      <Logo size="medium" />
       <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams?.map((team, index) => (
@@ -52,11 +43,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             color={team.color}
           >
             {/* Show crown if the team has the highest score */}
-            {team === highestTeam && (
-              <CrownIcon>
-                👑
-              </CrownIcon> 
-            )}
+            {team === highestTeam && <CrownIcon>👑</CrownIcon>}
             <TeamName $isActive={team.id === currentTurnId} color={team.color}>
               {team.name}
             </TeamName>
@@ -68,29 +55,32 @@ const Dashboard: React.FC<DashboardProps> = ({
                 width: "100%",
               }}
             >
- <TeamMoneyContainer>
-    {isEditMode && (
-      <ScoreButton
-        onClick={() => onScoreChange(team.id, -100)}
-        action="subtract"
-        teamColor={team.color}
-        isActive={team.id === currentTurnId}
-      />
-    )}
+              <TeamMoneyContainer>
+                {isEditMode && (
+                  <ScoreButton
+                    onClick={() => onScoreChange(team.id, -100)}
+                    action="subtract"
+                    teamColor={team.color}
+                    isActive={team.id === currentTurnId}
+                  />
+                )}
 
-    <TeamMoney $isActive={team.id === currentTurnId} color={team.color}>
-      ${team.score}
-    </TeamMoney>
+                <TeamMoney
+                  $isActive={team.id === currentTurnId}
+                  color={team.color}
+                >
+                  ${team.score}
+                </TeamMoney>
 
-    {isEditMode && (
-      <ScoreButton
-        onClick={() => onScoreChange(team.id, 100)}
-        action="add"
-        teamColor={team.color}
-        isActive={team.id === currentTurnId}
-      />
-    )}
-  </TeamMoneyContainer>
+                {isEditMode && (
+                  <ScoreButton
+                    onClick={() => onScoreChange(team.id, 100)}
+                    action="add"
+                    teamColor={team.color}
+                    isActive={team.id === currentTurnId}
+                  />
+                )}
+              </TeamMoneyContainer>
             </div>
           </TeamCard>
         ))}
@@ -102,8 +92,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           onClick={handleEditToggle}
         />
 
-        <Button variant="danger" label="END GAME" onClick={handleEndGame} />
-
+        <Button variant="danger" label="END GAME" onClick={onEndGame} />
       </ButtonGroup>
     </DashboardWrapper>
   );

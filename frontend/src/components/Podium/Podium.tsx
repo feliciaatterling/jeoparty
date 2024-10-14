@@ -26,16 +26,6 @@ interface PodiumProps {
   onExit: () => void;
 }
 
-// Utility function to convert HEX to RGBA for transparency
-const hexToRgba = (hex: string | undefined, alpha: number) => {
-  if (!hex) {
-    return `rgba(0, 0, 0, ${alpha})`;
-  }
-
-  const [r, g, b] = hex.match(/\w\w/g)!.map((x) => parseInt(x, 16));
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
-
 // Function to generate a gradient for tied players
 const generateGradient = (colors: string[]) => {
   if (colors.length === 1) {
@@ -98,13 +88,22 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
         {/* Second Place Podium */}
         {groupedPlayers.length >= 2 && (
           <SecondPlace
-            color={generateGradient(groupedPlayers[1].players.map((player) => player.color))}
+            color={generateGradient(
+              groupedPlayers[1].players.map((player) => player.color)
+            )}
             $delay={2}
           >
             <PlayerInfo>
-              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[1].players)} {/* Names with "&" */}
+                  {formatTiedNames(groupedPlayers[1].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
               </div>
               <Typography variant="meta" color="white">
@@ -117,13 +116,22 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
         {/* First Place Podium */}
         {groupedPlayers.length >= 1 && (
           <FirstPlace
-            color={generateGradient(groupedPlayers[0].players.map((player) => player.color))}
+            color={generateGradient(
+              groupedPlayers[0].players.map((player) => player.color)
+            )}
             $delay={3}
           >
             <PlayerInfo>
-              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[0].players)} {/* Names with "&" */}
+                  {formatTiedNames(groupedPlayers[0].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
               </div>
               <Typography variant="meta" color="white">
@@ -136,13 +144,22 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
         {/* Third Place Podium */}
         {groupedPlayers.length >= 3 && (
           <ThirdPlace
-            color={generateGradient(groupedPlayers[2].players.map((player) => player.color))}
+            color={generateGradient(
+              groupedPlayers[2].players.map((player) => player.color)
+            )}
             $delay={1}
           >
             <PlayerInfo>
-              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[2].players)} {/* Names with "&" */}
+                  {formatTiedNames(groupedPlayers[2].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
               </div>
               <Typography variant="meta" color="white">
