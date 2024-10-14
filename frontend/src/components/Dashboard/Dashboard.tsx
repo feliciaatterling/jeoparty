@@ -11,17 +11,16 @@ import {
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
-import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 import ScoreButton from "../ScoreButton/ScoreButton";
 
-const Dashboard: React.FC<
-  DashboardProps & {
-    gameId: string;
-    onScoreChange: (teamId: number, amount: number) => void;
-  }
-> = ({ teams, currentTurnId, gameId, onScoreChange }) => {
+const Dashboard: React.FC<DashboardProps> = ({
+  teams,
+  currentTurnId,
+  onScoreChange,
+  onEndGame,
+}) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
 
@@ -102,7 +101,9 @@ const Dashboard: React.FC<
           label={isEditMode ? "DONE EDITING" : "EDIT GAME"}
           onClick={handleEditToggle}
         />
+
         <Button variant="danger" label="END GAME" onClick={handleEndGame} />
+
       </ButtonGroup>
     </DashboardWrapper>
   );

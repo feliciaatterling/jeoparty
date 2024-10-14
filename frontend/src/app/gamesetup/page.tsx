@@ -5,7 +5,6 @@ import {
   ScContainer,
   ScGameSettings,
   ScGridItem,
-  ScInfoContainer,
   ScLoadingContainer,
   ScTeamsContainer,
   ScTeamSettings,
@@ -18,11 +17,9 @@ import { useState } from "react";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
 import Link from "next/link";
-import InfoText from "@/components/InfoText/InfoText";
 import { gameSetup } from "./utils.types";
 import { createGame } from "./utils";
 import { useRouter } from "next/navigation";
-import InfoIcon from "@/components/InfoIcon/InfoIcon";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 // Default team settings for the color picker
@@ -39,7 +36,6 @@ export default function GameSetup() {
   const router = useRouter();
 
   // State for handling hover effect over info icons and loading state
-  const [onHover, setOnHover] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   // State for category input, context description, slider value, and team details
@@ -50,7 +46,7 @@ export default function GameSetup() {
     useState<{ name: string; color: string }[]>(defaultTeamObject);
   const [teamNameErrors, setTeamNameErrors] = useState(Array(6).fill(false));
   const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(Array(6).fill(false));
-
+  const [startGameError, setStartGameError] = useState(false);
 
   // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
@@ -83,7 +79,7 @@ export default function GameSetup() {
     newValue: { name?: string; color?: string }
   ) => {
     const newName = newValue.name?.slice(0, 25); // Restrict to 25 characters
-  
+
     // Check if the name exceeds the limit
     if (newValue.name && newValue.name.length > 25) {
       setTeamNameLengthErrors((prevErrors) =>
@@ -94,7 +90,7 @@ export default function GameSetup() {
         prevErrors.map((error, i) => (i === index ? false : error))
       );
     }
-  
+
     setTeams((prevTeams) =>
       prevTeams.map((team, i) =>
         i === index
@@ -103,25 +99,26 @@ export default function GameSetup() {
       )
     );
   };
-  
 
   // Validation and submission logic
   const validateTeamNames = () => {
     const emptyErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.trim() === "");
-  
+
     // Check for both empty names and length errors
     const lengthErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.length > 25);
-  
+
     setTeamNameErrors(emptyErrors);
     setTeamNameLengthErrors(lengthErrors);
-  
-    return emptyErrors.every((error) => !error) && lengthErrors.every((error) => !error);
+
+    return (
+      emptyErrors.every((error) => !error) &&
+      lengthErrors.every((error) => !error)
+    );
   };
-  
 
   async function handleStartGame() {
     // Validate the team names before starting the game
@@ -139,7 +136,12 @@ export default function GameSetup() {
       };
 
       const gameId: string = await createGame(gameObject);
-      router.push(`/gamecard/${gameId}`);
+      if (gameId) {
+        router.push(`/gamecard/${gameId}`)
+      } else {
+        setStartGameError(true);
+      }
+      
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -158,17 +160,11 @@ export default function GameSetup() {
           <ScGameSettings>
             <Typography variant="h1">Jeopardy settings</Typography>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Categories</Typography>
-              {/* Info icon with hover effect for categories */}
-              <InfoIcon onHoverId={1} onHover={setOnHover} />
-              {/* Tooltip with category information */}
-              <div>
-                {onHover === 1 && (
-                  <InfoText content="Choose up to 6 categories. Leave any empty, and our AI will generate them in line with the context." />
-                )}
-              </div>
-            </ScInfoContainer>
+            <Typography variant="h2">Categories</Typography>
+            {/* Info icon with hover effect for categories */}
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Choose up to 6 categories or let our AI generate them in line with the context.</Typography>
+        
             <Spacer size={2} orientation="vertical" />
             {/* Grid for category inputs */}
             <ScCategoryGrid>
@@ -192,17 +188,12 @@ export default function GameSetup() {
               })}
             </ScCategoryGrid>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Context</Typography>
+            
+            <Typography variant="h2">Context</Typography>
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Provide context for AI-generated questions.</Typography>
               {/* Info icon with hover effect for context */}
-              <InfoIcon onHoverId={2} onHover={setOnHover} />
-              {/* Tooltip with context information */}
-              <div>
-                {onHover === 2 && (
-                  <InfoText content="Provide context for AI-generated questions. For example, describe the occasion." />
-                )}
-              </div>
-            </ScInfoContainer>
+              
             <Spacer size={2} orientation="vertical" />
             {/* Input for context description */}
             <Input
@@ -220,23 +211,21 @@ export default function GameSetup() {
                 <Button label="EXIT" variant="danger" />
               </Link>
             </div>
+            <Spacer size={3} orientation="vertical"/>
+            {startGameError && (
+              <Typography variant="meta" color="#ef5350">
+                Something went wrong, try again!
+              </Typography>
+              )}
           </ScGameSettings>
 
           {/* Team settings section */}
           <ScTeamSettings>
             <Typography variant="h1">Team settings</Typography>
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
-              <Typography variant="h2">Number of teams</Typography>
-              {/* Info icon with hover effect for team number */}
-              <InfoIcon onHoverId={3} onHover={setOnHover} />
-              {/* Tooltip with team number information */}
-              <div>
-                {onHover === 3 && (
-                  <InfoText content="Select the number of teams, up to 6." />
-                )}
-              </div>
-            </ScInfoContainer>
+            <Typography variant="h2">Number of teams</Typography>
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Select the number of teams, up to 6.</Typography>
             <Spacer size={1} orientation="vertical" />
             {/* Slider for selecting the number of teams */}
             <Slider
@@ -248,17 +237,9 @@ export default function GameSetup() {
               setValue={handleSlider}
             />
             <Spacer size={3} orientation="vertical" />
-            <ScInfoContainer>
               <Typography variant="h2">Team names</Typography>
-              {/* Info icon with hover effect for team names */}
-              <InfoIcon onHoverId={4} onHover={setOnHover} />
-              {/* Tooltip with team name information */}
-              <div>
-                {onHover === 4 && (
-                  <InfoText content="Assign a name and color for each team." />
-                )}
-              </div>
-            </ScInfoContainer>
+              <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">Assign a name and color for each team.</Typography>
             <Spacer size={2} orientation="vertical" />
             {/* Inputs for team names and colors */}
             <ScTeamsContainer>
@@ -286,12 +267,13 @@ export default function GameSetup() {
                 </Typography>
               )}
 
+              {/* Show error message for team name length exceeding 25 characters */}
               {teamNameLengthErrors.includes(true) && (
                 <Typography variant="meta" color="#ef5350">
                   Team names must be under 25 characters!
                 </Typography>
               )}
-              </ScTeamsContainer>
+            </ScTeamsContainer>
           </ScTeamSettings>
         </ScContainer>
       )}

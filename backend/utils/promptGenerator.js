@@ -30,6 +30,7 @@ const generateCreativePrompt = (
 
     Here are the previously generated categories and their questions for context:
     ${previousCategoryInfo}
+    Do not use the same category or question multiple times, and try to be varying but very connected to the context!
 
     Now, generate 5 trivia questions in the category "${category}". 
     Make sure to align them with the game's context and strike the right balance between fun, creativity, and challenge. Ensure there is only one correct answer for each question, 

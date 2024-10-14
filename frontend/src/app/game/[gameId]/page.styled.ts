@@ -20,3 +20,13 @@ export const GameCardWrapper = styled.div`
   width: 100%;
   padding: 32px;
 `;
+
+export const ScLoadingContainer = styled.div`
+  display: flex;
+  width: 70vw;
+  height: 85vh;
+  background-color: #ffffff10;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+`;
