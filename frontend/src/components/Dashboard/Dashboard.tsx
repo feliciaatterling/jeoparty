@@ -10,30 +10,20 @@ import {
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
-import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
 import ScoreButton from "../ScoreButton/ScoreButton";
 
-const Dashboard: React.FC<
-  DashboardProps & {
-    gameId: string;
-    onScoreChange: (teamId: number, amount: number) => void;
-  }
-> = ({ teams, currentTurnId, gameId, onScoreChange }) => {
+const Dashboard: React.FC<DashboardProps> = ({
+  teams,
+  currentTurnId,
+  onScoreChange,
+  onEndGame,
+}) => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const router = useRouter(); // Use router for navigation to results page
 
   const handleEditToggle = () => {
     setIsEditMode((prevMode) => !prevMode); // Toggle edit mode
-  };
-
-  const handleEndGame = () => {
-    if (gameId) {
-      router.push(`/results/${gameId}`); // Redirect to results page with gameId
-    } else {
-      console.error("Game ID is missing.");
-    }
   };
 
   return (
@@ -51,15 +41,15 @@ const Dashboard: React.FC<
             <TeamName $isActive={team.id === currentTurnId} color={team.color}>
               {team.name}
             </TeamName>
-            
+
             <ButtonScoreContainer>
               {isEditMode && (
                 <ScoreButton
-                onClick={() => onScoreChange(team.id, 100)}
-                action="add"
-                teamColor={team.color}
-                isActive={team.id === currentTurnId}
-              />
+                  onClick={() => onScoreChange(team.id, 100)}
+                  action="add"
+                  teamColor={team.color}
+                  isActive={team.id === currentTurnId}
+                />
               )}
 
               {/* Team score */}
@@ -72,11 +62,11 @@ const Dashboard: React.FC<
 
               {isEditMode && (
                 <ScoreButton
-                onClick={() => onScoreChange(team.id, -100)}
-                action="subtract"
-                teamColor={team.color}
-                isActive={team.id === currentTurnId}
-              />
+                  onClick={() => onScoreChange(team.id, -100)}
+                  action="subtract"
+                  teamColor={team.color}
+                  isActive={team.id === currentTurnId}
+                />
               )}
             </ButtonScoreContainer>
           </TeamCard>
@@ -90,7 +80,7 @@ const Dashboard: React.FC<
           onClick={handleEditToggle}
         />
 
-        <Button variant="danger" label="END GAME" onClick={handleEndGame} />
+        <Button variant="danger" label="END GAME" onClick={onEndGame} />
       </ButtonGroup>
     </DashboardWrapper>
   );

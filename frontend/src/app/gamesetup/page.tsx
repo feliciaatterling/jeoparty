@@ -49,8 +49,9 @@ export default function GameSetup() {
   const [teams, setTeams] =
     useState<{ name: string; color: string }[]>(defaultTeamObject);
   const [teamNameErrors, setTeamNameErrors] = useState(Array(6).fill(false));
-  const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(Array(6).fill(false));
-
+  const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(
+    Array(6).fill(false)
+  );
 
   // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
@@ -83,7 +84,7 @@ export default function GameSetup() {
     newValue: { name?: string; color?: string }
   ) => {
     const newName = newValue.name?.slice(0, 25); // Restrict to 25 characters
-  
+
     // Check if the name exceeds the limit
     if (newValue.name && newValue.name.length > 25) {
       setTeamNameLengthErrors((prevErrors) =>
@@ -94,7 +95,7 @@ export default function GameSetup() {
         prevErrors.map((error, i) => (i === index ? false : error))
       );
     }
-  
+
     setTeams((prevTeams) =>
       prevTeams.map((team, i) =>
         i === index
@@ -103,25 +104,26 @@ export default function GameSetup() {
       )
     );
   };
-  
 
   // Validation and submission logic
   const validateTeamNames = () => {
     const emptyErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.trim() === "");
-  
+
     // Check for both empty names and length errors
     const lengthErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.length > 25);
-  
+
     setTeamNameErrors(emptyErrors);
     setTeamNameLengthErrors(lengthErrors);
-  
-    return emptyErrors.every((error) => !error) && lengthErrors.every((error) => !error);
+
+    return (
+      emptyErrors.every((error) => !error) &&
+      lengthErrors.every((error) => !error)
+    );
   };
-  
 
   async function handleStartGame() {
     // Validate the team names before starting the game
@@ -139,7 +141,7 @@ export default function GameSetup() {
       };
 
       const gameId: string = await createGame(gameObject);
-      router.push(`/gamecard/${gameId}`);
+      router.push(`/game/${gameId}`);
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -286,13 +288,13 @@ export default function GameSetup() {
                 </Typography>
               )}
 
-                {/* Show error message for team name length exceeding 25 characters */}
+              {/* Show error message for team name length exceeding 25 characters */}
               {teamNameLengthErrors.includes(true) && (
                 <Typography variant="meta" color="#ef5350">
                   Team names must be under 25 characters!
                 </Typography>
               )}
-              </ScTeamsContainer>
+            </ScTeamsContainer>
           </ScTeamSettings>
         </ScContainer>
       )}

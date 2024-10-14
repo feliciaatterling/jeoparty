@@ -3,13 +3,20 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import GameCard from "@/components/GameCard/GameCard";
-import { HomeWrapper, DashboardWrapper, GameCardWrapper } from "./page.styled";
+import {
+  HomeWrapper,
+  DashboardWrapper,
+  GameCardWrapper,
+  ScLoadingContainer,
+} from "./page.styled";
 import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation"; // Added useRouter for redirection
+import LoadingBar from "@/components/LoadingBar/LoadingBar";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
@@ -21,14 +28,16 @@ export default function Home() {
     points: number;
     category: string;
   } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  //const router = useRouter(); // Use router for navigation
+  const router = useRouter(); // Use router for navigation
 
   // Fetch game data from the backend
   async function getGameData(): Promise<void> {
     const fetchedGameData: GameData | null = await fetchGameData(gameId);
     if (fetchedGameData) {
       setGameData(fetchedGameData);
+      setIsLoading(false);
     } else {
       console.log("Could not fetch GameData");
     }
@@ -42,10 +51,6 @@ export default function Home() {
     }
     await updateGameData(gameId, updatedGamedata);
   }
-
-  useEffect(() => {
-    getGameData();
-  }, [gameId]);
 
   // Handle card click to set the question state
   const handleQuestionClick = (questionObject: {
@@ -110,7 +115,7 @@ export default function Home() {
           return { ...team, score: team.score + amount };
         }
         return team;
-      }); 
+      });
 
       const updatedGamedata = { ...gameData, teams: updatedTeams };
       setGameData(updatedGamedata);
@@ -118,55 +123,74 @@ export default function Home() {
     }
   };
 
-  return (
-    <HomeWrapper>
-      <DashboardWrapper>
-        {gameData ? (
-          <Dashboard
-            teams={gameData.teams}
-            currentTurnId={gameData.currentTurnTeamId}
-            gameId={gameId} // Pass gameId to the Dashboard
-            onScoreChange={handleScoreChange} // Pass the score change handler
-          />
-        ) : (
-          <h1 style={{ color: "white" }}>Loading...</h1>
-        )}
-      </DashboardWrapper>
+  const handleEndGame = () => {
+    if (gameId) {
+      router.push(`/results/${gameId}`); // Redirect to results page with gameId
+    } else {
+      console.error("Game ID is missing.");
+    }
+  };
 
-      <GameCardWrapper>
-        {gameData ? (
-          <>
-            <Typography variant="h1" align="center">
-              {gameData.teams?.filter(
-                (team) => team.id === gameData.currentTurnTeamId
-              )[0]?.name + "'s turn!"}
-            </Typography>
-            <Spacer size={2} orientation="vertical" />
-          </>
-        ) : (
-          <h1>Loading...</h1>
-        )}
-        {gameData ? (
-          question ? (
-            <GameCard
-              question={question.question}
-              answer={question.answer}
-              category={question.category}
-              value={question.points}
-              onBack={handleBackToBoard}
-              onClose={handleCloseQuestion} // Pass the handleCloseQuestion function
-            />
-          ) : (
-            <GameBoard
-              onQuestionClick={handleQuestionClick}
-              questions={gameData.questions}
-              teams={gameData.teams} // Pass teams for lookup
-            />
-          )
-        ) : (
-          <h1 style={{ color: "white" }}>Loading...</h1>
-        )}
-      </GameCardWrapper>
+  useEffect(() => {
+    getGameData();
+  }, [gameId]);
+
+  return (
+    <HomeWrapper
+      style={
+        isLoading ? { justifyContent: "center", alignItems: "center" } : {}
+      }
+    >
+      {isLoading ? (
+        <ScLoadingContainer>
+          <LoadingBar message="Loading your game, please wait!" />
+        </ScLoadingContainer>
+      ) : (
+        <>
+          {gameData && (
+            <DashboardWrapper>
+              <Dashboard
+                teams={gameData.teams}
+                currentTurnId={gameData.currentTurnTeamId}
+                onScoreChange={handleScoreChange} // Pass the score change handler
+                onEndGame={handleEndGame}
+              />
+            </DashboardWrapper>
+          )}
+
+          <GameCardWrapper>
+            {gameData && (
+              <>
+                <Typography variant="h1" align="center">
+                  {gameData.teams.filter(
+                    (team) => team.id === gameData!.currentTurnTeamId
+                  )[0]?.name + "'s turn!"}
+                </Typography>
+                <Spacer size={2} orientation="vertical" />
+              </>
+            )}
+
+            {question ? (
+              <GameCard
+                question={question.question}
+                answer={question.answer}
+                category={question.category}
+                value={question.points}
+                onBack={handleBackToBoard}
+                onClose={handleCloseQuestion} // Pass the handleCloseQuestion function
+              />
+            ) : (
+              gameData && (
+                <GameBoard
+                  onQuestionClick={handleQuestionClick}
+                  questions={gameData.questions}
+                  teams={gameData.teams} // Pass teams for lookup
+                />
+              )
+            )}
+          </GameCardWrapper>
+        </>
+      )}
     </HomeWrapper>
   );
 }
