@@ -17,7 +17,6 @@ import { useState } from "react";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
 import Link from "next/link";
-import InfoText from "@/components/InfoText/InfoText";
 import { gameSetup } from "./utils.types";
 import { createGame } from "./utils";
 import { useRouter } from "next/navigation";
@@ -37,7 +36,6 @@ export default function GameSetup() {
   const router = useRouter();
 
   // State for handling hover effect over info icons and loading state
-  const [onHover, setOnHover] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   // State for category input, context description, slider value, and team details
@@ -48,6 +46,7 @@ export default function GameSetup() {
     useState<{ name: string; color: string }[]>(defaultTeamObject);
   const [teamNameErrors, setTeamNameErrors] = useState(Array(6).fill(false));
   const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(Array(6).fill(false));
+  const [startGameError, setStartGameError] = useState(false);
 
 
   // Handles slider value changes for number of teams
@@ -137,7 +136,8 @@ export default function GameSetup() {
       };
 
       const gameId: string = await createGame(gameObject);
-      router.push(`/gamecard/${gameId}`);
+      gameId ? router.push(`/gamecard/${gameId}`) : setStartGameError(true);
+      
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -207,6 +207,12 @@ export default function GameSetup() {
                 <Button label="EXIT" variant="danger" />
               </Link>
             </div>
+            <Spacer size={3} orientation="vertical"/>
+            {startGameError && (
+              <Typography variant="meta" color="#ef5350">
+                Something went wrong, try again!
+              </Typography>
+              )}
           </ScGameSettings>
 
           {/* Team settings section */}
@@ -257,7 +263,7 @@ export default function GameSetup() {
                 </Typography>
               )}
 
-                {/* Show error message for team name length exceeding 25 characters */}
+              {/* Show error message for team name length exceeding 25 characters */}
               {teamNameLengthErrors.includes(true) && (
                 <Typography variant="meta" color="#ef5350">
                   Team names must be under 25 characters!
