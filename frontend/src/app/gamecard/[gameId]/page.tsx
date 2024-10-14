@@ -22,7 +22,7 @@ export default function Home() {
     category: string;
   } | null>(null);
 
-  const router = useRouter(); // Use router for navigation
+  //const router = useRouter(); // Use router for navigation
 
   // Fetch game data from the backend
   async function getGameData(): Promise<void> {
