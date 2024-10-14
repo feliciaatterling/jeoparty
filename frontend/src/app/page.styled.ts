@@ -46,3 +46,10 @@ export const ScHowToCard = styled.div`
   border: 2px solid #ffffff20;
   border-radius: 8px;
 `;
+
+export const Sc404Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+`
