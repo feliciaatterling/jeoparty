@@ -48,7 +48,6 @@ export default function GameSetup() {
   const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(Array(6).fill(false));
   const [startGameError, setStartGameError] = useState(false);
 
-
   // Handles slider value changes for number of teams
   const handleSlider = (newValue: number) => {
     setSliderValue(newValue);
@@ -80,7 +79,7 @@ export default function GameSetup() {
     newValue: { name?: string; color?: string }
   ) => {
     const newName = newValue.name?.slice(0, 25); // Restrict to 25 characters
-  
+
     // Check if the name exceeds the limit
     if (newValue.name && newValue.name.length > 25) {
       setTeamNameLengthErrors((prevErrors) =>
@@ -91,7 +90,7 @@ export default function GameSetup() {
         prevErrors.map((error, i) => (i === index ? false : error))
       );
     }
-  
+
     setTeams((prevTeams) =>
       prevTeams.map((team, i) =>
         i === index
@@ -100,25 +99,26 @@ export default function GameSetup() {
       )
     );
   };
-  
 
   // Validation and submission logic
   const validateTeamNames = () => {
     const emptyErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.trim() === "");
-  
+
     // Check for both empty names and length errors
     const lengthErrors = teams
       .slice(0, sliderValue)
       .map((team) => team.name.length > 25);
-  
+
     setTeamNameErrors(emptyErrors);
     setTeamNameLengthErrors(lengthErrors);
-  
-    return emptyErrors.every((error) => !error) && lengthErrors.every((error) => !error);
+
+    return (
+      emptyErrors.every((error) => !error) &&
+      lengthErrors.every((error) => !error)
+    );
   };
-  
 
   async function handleStartGame() {
     // Validate the team names before starting the game
@@ -273,7 +273,7 @@ export default function GameSetup() {
                   Team names must be under 25 characters!
                 </Typography>
               )}
-              </ScTeamsContainer>
+            </ScTeamsContainer>
           </ScTeamSettings>
         </ScContainer>
       )}

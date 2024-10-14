@@ -1,7 +1,8 @@
 interface DashboardProps {
   teams: { id: number; name: string; color: string; score: number }[];
   currentTurnId: number;
-  gameId: string; // Add gameId here
+  onScoreChange: (teamId: number, amount: number) => void;
+  onEndGame: () => void;
 }
 
 export default DashboardProps;
