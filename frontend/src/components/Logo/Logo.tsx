@@ -12,7 +12,7 @@ const Logo: React.FC<LogoProps> = ({ size = "medium" }) => {
   return (
     <LogoWrapper size={size}>
       <Image
-        src="/images/JEOPARTY.png"
+        src="/images/Jeoparty_Logo.png"
         alt="JeoParty Logo"
         fill
         priority // Priority for LCP optimization
