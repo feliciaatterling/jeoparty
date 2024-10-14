@@ -13,7 +13,12 @@ const app = express();
 const gameRouter = require("./routes/game.js");
 const homeRouter = require("./routes/home.js");
 
-const PORT = 8000;
+//const PORT = 8000;
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 const uri = process.env.MONGODB_URI;
 
