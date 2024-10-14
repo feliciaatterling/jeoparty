@@ -23,7 +23,9 @@ interface ScPointCardProps {
 }
 
 const ScPointCard = styled.button<ScPointCardProps>`
-  padding: 26px 34px;
+  padding: 20px; // Adjusted padding
+  width: 120px;  // Set a fixed width
+  height: 69px; // Set a fixed height
   background: ${({ $disabled, $teamColor }) =>
     $disabled && $teamColor
       ? hexToRgba($teamColor, 0.5) // Convert HEX to RGBA with 50% transparency
@@ -35,6 +37,10 @@ const ScPointCard = styled.button<ScPointCardProps>`
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? "0.8" : "1")};
   pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
   &:hover {
     cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
@@ -43,6 +49,14 @@ const ScPointCard = styled.button<ScPointCardProps>`
   &:focus {
     background-color: ${({ $disabled }) =>
       $disabled ? "rgba(150, 150, 150, 1)" : "blue"};
+  }
+
+  div {
+    width: 100%;
+    white-space: nowrap; // Keep text on one line
+    overflow: hidden; // Hide overflow
+    text-overflow: ellipsis; // Show ellipsis for overflow text
+    font-size: clamp(0.8rem, 1vw, 1.2rem); // Adjust font size based on available space
   }
 `;
 

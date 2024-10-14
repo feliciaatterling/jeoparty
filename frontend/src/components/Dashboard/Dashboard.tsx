@@ -6,12 +6,14 @@ import {
   TeamName,
   TeamMoney,
   ButtonGroup,
+  ButtonScoreContainer,
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import DashboardProps from "./Dashboard.types";
+import ScoreButton from "../ScoreButton/ScoreButton";
 
 const Dashboard: React.FC<
   DashboardProps & {
@@ -22,12 +24,10 @@ const Dashboard: React.FC<
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter(); // Use router for navigation to results page
 
-  // Toggle edit mode for plus/minus buttons
   const handleEditToggle = () => {
     setIsEditMode((prevMode) => !prevMode); // Toggle edit mode
   };
 
-  // Function to handle end game, redirects to results page
   const handleEndGame = () => {
     if (gameId) {
       router.push(`/results/${gameId}`); // Redirect to results page with gameId
@@ -51,18 +51,15 @@ const Dashboard: React.FC<
             <TeamName $isActive={team.id === currentTurnId} color={team.color}>
               {team.name}
             </TeamName>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {/* Render plus/minus buttons only if in edit mode */}
+            
+            <ButtonScoreContainer>
               {isEditMode && (
-                <>
-                  {/* Minus button to lower score by 100$ */}
-                  <button
-                    onClick={() => onScoreChange(team.id, -100)}
-                    style={{ marginRight: "10px", cursor: "pointer" }}
-                  >
-                    -
-                  </button>
-                </>
+                <ScoreButton
+                onClick={() => onScoreChange(team.id, 100)}
+                action="add"
+                teamColor={team.color}
+                isActive={team.id === currentTurnId}
+              />
               )}
 
               {/* Team score */}
@@ -74,30 +71,25 @@ const Dashboard: React.FC<
               </TeamMoney>
 
               {isEditMode && (
-                <>
-                  {/* Plus button to increase score by 100$ */}
-                  <button
-                    onClick={() => onScoreChange(team.id, 100)}
-                    style={{ marginLeft: "10px", cursor: "pointer" }}
-                  >
-                    +
-                  </button>
-                </>
+                <ScoreButton
+                onClick={() => onScoreChange(team.id, -100)}
+                action="subtract"
+                teamColor={team.color}
+                isActive={team.id === currentTurnId}
+              />
               )}
-            </div>
+            </ButtonScoreContainer>
           </TeamCard>
         ))}
       </TeamsContainer>
 
       {/* Button group for game controls */}
       <ButtonGroup>
-        {/* Toggle button for edit mode */}
         <Button
-          label={isEditMode ? "FINISH EDITING" : "EDIT GAME"}
+          label={isEditMode ? "DONE EDITING" : "EDIT GAME"}
           onClick={handleEditToggle}
         />
 
-        {/* End Game button with navigation to results page */}
         <Button variant="danger" label="END GAME" onClick={handleEndGame} />
       </ButtonGroup>
     </DashboardWrapper>
