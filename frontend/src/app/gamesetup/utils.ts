@@ -1,8 +1,10 @@
 import { gameSetup } from "./utils.types";
 
-const URL = "http://localhost:8000";
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 async function createGame(gameSetup: gameSetup) {
+  console.log(URL);
+
   try {
     const response = await fetch(`${URL}/game/create`, {
       method: "POST",

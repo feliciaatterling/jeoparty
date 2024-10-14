@@ -1,4 +1,4 @@
-const URL = "http://localhost:8000";
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export interface GameData {
   _id: string;
