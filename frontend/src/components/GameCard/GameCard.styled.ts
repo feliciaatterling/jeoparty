@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-// The container for the GameCard
+// Shared styles for both question and answer text
+const TextBase = styled.h1`
+  font-size: clamp(1.5rem, 4vw, 3rem); // Dynamically adjust font size
+  line-height: 1.4;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 90%; // Limit width to ensure readability
+  font-weight: bold;
+`;
+
 export const GameCardWrapper = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
@@ -21,21 +30,9 @@ export const ModeTag = styled.h3`
   margin-bottom: 20px;
 `;
 
-// Text for the question
-export const QuestionText = styled.h1`
-  font-size: 30px;
-  line-height: 1.4;
-  margin-bottom: 30px;
-  text-align: center;
-`;
-
-// Text for the answer
-export const AnswerText = styled.h1`
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-align: center;
-`;
+// Reuse the same base style for both question and answer text
+export const QuestionText = TextBase;
+export const AnswerText = TextBase;
 
 // Text for "Did you get the question right?"
 export const SmallText = styled.p`
@@ -57,7 +54,7 @@ export const AnswerButtonsWrapper = styled.div`
 export const ShowAnswerButton = styled.button`
   background-color: #43b3f4; /* Blue for Show Answer */
   color: white;
-  padding: 12px 24px;
+  padding: 12px 24px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -69,23 +66,21 @@ export const ShowAnswerButton = styled.button`
   }
 `;
 
-// Buttons for if answer is right or wrong
+// Buttons for if the answer is right or wrong
 export const AnswerButton = styled.button<{ correct?: boolean }>`
   background-color: ${(props) => (props.correct ? "#4caf50" : "#d64d4d")};
   color: white;
-  padding: 12px 32px; /* Increase padding to give more space */
+  padding: 12px 32px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
-  white-space: nowrap; /* Ensure the text doesn't wrap */
-  display: inline-block;
-  width: auto; /* Let the width adjust automatically based on the content */
-  min-width: 150px; /* Set a minimum width to make sure it's not too small */
+  white-space: nowrap;
+  width: auto;
+  min-width: 150px;
 
   &:hover {
-    background-color: ${(props) =>
-      props.correct ? "#45a049" : "#c74646"}; /* Hover color change */
+    background-color: ${(props) => (props.correct ? "#45a049" : "#c74646")};
   }
 `;
 

@@ -110,7 +110,7 @@ export default function Home() {
           return { ...team, score: team.score + amount };
         }
         return team;
-      });
+      }); 
 
       const updatedGamedata = { ...gameData, teams: updatedTeams };
       setGameData(updatedGamedata);
