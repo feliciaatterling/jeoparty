@@ -1,6 +1,5 @@
 "use client";
 import { Sc404Wrapper, ScButtonContainer, ScDescriptionContainer } from "./page.styled";
-import Logo from "@/components/Logo/Logo";
 import Spacer from "@/components/Spacer/Spacer";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
