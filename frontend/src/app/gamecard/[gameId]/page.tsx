@@ -9,7 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
-import { useParams, useRouter } from "next/navigation"; // Added useRouter for redirection
+import { useParams } from "next/navigation"; // Added useRouter for redirection
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
