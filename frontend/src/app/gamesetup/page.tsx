@@ -136,7 +136,11 @@ export default function GameSetup() {
       };
 
       const gameId: string = await createGame(gameObject);
-      gameId ? router.push(`/gamecard/${gameId}`) : setStartGameError(true);
+      if (gameId) {
+        router.push(`/gamecard/${gameId}`)
+      } else {
+        setStartGameError(true);
+      }
       
     } catch (error) {
       console.error(error);
