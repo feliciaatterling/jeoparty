@@ -126,10 +126,10 @@ export default function Home() {
                 fontWeight: 300,
                 color: "#ffffff90",
               }}
-            >
+            >{`
               In Jeopardy, you must respond in the form of a question. If the
               question is "the first US president", your answer should be "Who
-              is George Washington!"
+              is George Washington!"`}
             </Typography>
           </ScHowToCard>
           <ScHowToCard>

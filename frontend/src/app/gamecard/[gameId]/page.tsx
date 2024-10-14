@@ -118,15 +118,6 @@ export default function Home() {
     }
   };
 
-  // Handle end game button click
-  const handleEndGame = () => {
-    if (gameId) {
-      router.push(`/results/${gameId}`);
-    } else {
-      console.error("Game ID is missing.");
-    }
-  };
-
   return (
     <HomeWrapper>
       <DashboardWrapper>
