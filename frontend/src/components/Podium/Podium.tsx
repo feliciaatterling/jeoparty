@@ -29,7 +29,6 @@ interface PodiumProps {
 // Utility function to convert HEX to RGBA for transparency
 const hexToRgba = (hex: string | undefined, alpha: number) => {
   if (!hex) {
-    // Return a default color (e.g., transparent) if hex is undefined or null
     return `rgba(0, 0, 0, ${alpha})`;
   }
 
@@ -37,9 +36,23 @@ const hexToRgba = (hex: string | undefined, alpha: number) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
+// Function to generate a gradient for tied players
+const generateGradient = (colors: string[]) => {
+  if (colors.length === 1) {
+    return colors[0]; // If there's only one player, return the single color
+  }
+  return `linear-gradient(45deg, ${colors.join(", ")})`;
+};
+
+// Utility to format tied player names with "&"
+const formatTiedNames = (players: Player[]) => {
+  const names = players.map((player) => player.name);
+  return names.length > 1 ? names.join(" & ") : names[0];
+};
+
 const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
-  // Sort players by score in descending order and select the top 3
-  const topPlayers = [...players].sort((a, b) => b.score - a.score).slice(0, 3);
+  // Sort players by score in descending order
+  const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
   // State for controlling confetti
   const [showConfetti, setShowConfetti] = useState(false);
@@ -49,9 +62,29 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
     const timer = setTimeout(() => {
       setShowConfetti(true);
     }, 3000);
-
     return () => clearTimeout(timer); // Clean up timer on component unmount
   }, []);
+
+  // Helper function to group tied players by score
+  const groupByScore = (players: Player[]) => {
+    const groupedPlayers: { score: number; players: Player[] }[] = [];
+
+    players.forEach((player) => {
+      const existingGroup = groupedPlayers.find(
+        (group) => group.score === player.score
+      );
+
+      if (existingGroup) {
+        existingGroup.players.push(player);
+      } else {
+        groupedPlayers.push({ score: player.score, players: [player] });
+      }
+    });
+
+    return groupedPlayers;
+  };
+
+  const groupedPlayers = groupByScore(sortedPlayers);
 
   return (
     <PodiumWrapper>
@@ -62,43 +95,58 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
       </Typography>
 
       <PodiumContainer>
-        {/* Second Place Podium - Only show if there is a second-place player */}
-        {topPlayers[1] && (
-          <SecondPlace color={hexToRgba(topPlayers[1]?.color, 0.5)} $delay={2}>
+        {/* Second Place Podium */}
+        {groupedPlayers.length >= 2 && (
+          <SecondPlace
+            color={generateGradient(groupedPlayers[1].players.map((player) => player.color))}
+            $delay={2}
+          >
             <PlayerInfo>
-              <Typography variant="p" color="white">
-                {topPlayers[1]?.name || "No Player"}
-              </Typography>
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <Typography variant="p" color="white">
+                  {formatTiedNames(groupedPlayers[1].players)} {/* Names with "&" */}
+                </Typography>
+              </div>
               <Typography variant="meta" color="white">
-                ${topPlayers[1]?.score || 0}
+                ${groupedPlayers[1].score}
               </Typography>
             </PlayerInfo>
           </SecondPlace>
         )}
 
-        {/* First Place Podium - Only show if there is a first-place player */}
-        {topPlayers[0] && (
-          <FirstPlace color={hexToRgba(topPlayers[0]?.color, 0.5)} $delay={3}>
+        {/* First Place Podium */}
+        {groupedPlayers.length >= 1 && (
+          <FirstPlace
+            color={generateGradient(groupedPlayers[0].players.map((player) => player.color))}
+            $delay={3}
+          >
             <PlayerInfo>
-              <Typography variant="p" color="white">
-                {topPlayers[0]?.name || "No Player"}
-              </Typography>
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <Typography variant="p" color="white">
+                  {formatTiedNames(groupedPlayers[0].players)} {/* Names with "&" */}
+                </Typography>
+              </div>
               <Typography variant="meta" color="white">
-                ${topPlayers[0]?.score || 0}
+                ${groupedPlayers[0].score}
               </Typography>
             </PlayerInfo>
           </FirstPlace>
         )}
 
-        {/* Third Place Podium - Only show if there is a third-place player */}
-        {topPlayers[2] && (
-          <ThirdPlace color={hexToRgba(topPlayers[2]?.color, 0.5)} $delay={1}>
+        {/* Third Place Podium */}
+        {groupedPlayers.length >= 3 && (
+          <ThirdPlace
+            color={generateGradient(groupedPlayers[2].players.map((player) => player.color))}
+            $delay={1}
+          >
             <PlayerInfo>
-              <Typography variant="p" color="white">
-                {topPlayers[2]?.name || "No Player"}
-              </Typography>
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <Typography variant="p" color="white">
+                  {formatTiedNames(groupedPlayers[2].players)} {/* Names with "&" */}
+                </Typography>
+              </div>
               <Typography variant="meta" color="white">
-                ${topPlayers[2]?.score || 0}
+                ${groupedPlayers[2].score}
               </Typography>
             </PlayerInfo>
           </ThirdPlace>
@@ -117,7 +165,7 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
           width={window.innerWidth}
           height={window.innerHeight}
           recycle={false}
-          colors={topPlayers.map((player) => player.color)}
+          colors={sortedPlayers.map((player) => player.color)}
         />
       )}
     </PodiumWrapper>
@@ -125,4 +173,3 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
 };
 
 export default Podium;
-

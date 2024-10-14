@@ -5,25 +5,36 @@ interface TeamCardProps {
   color: string;
 }
 
+export const CrownIcon = styled.div`
+  position: absolute;
+  top: -19px; 
+  left: -15px; 
+  font-size: 32px; 
+  transform: rotate(-40deg); 
+`;
+
 export const DashboardWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   background-color: #ffffff10;
   padding: 32px;
   width: 300px;
   border-radius: 8px;
-  height: 100%;
+  height: 100vh;
   box-sizing: border-box;
   align-items: center;
 `;
 
 export const TeamsContainer = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);  /* Create 6 equal rows for the team cards */
   width: 100%;
-  gap: 7px;
-  margin-bottom: 20px;
+  height: 100%;  /* Ensure the container takes up full height of the parent */
+  gap: 8px;
+  padding-bottom: 20px;
 `;
 
 export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
@@ -33,10 +44,11 @@ export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   transition: transform 0.3s ease, opacity 0.3s ease;
   box-sizing: border-box;
-  height: 100%; /* Make sure each card takes up 1 row */
-  padding: 8px; /* Reduced padding to fit content */
+  height: 100%;
+  padding: 8px;
 
   ${({ $isActive, color }) =>
     $isActive
@@ -51,33 +63,37 @@ export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
   `}
 `;
 
-
-
-
 export const TeamName = styled.div<TeamCardProps>`
   font-size: 16px;
   font-weight: bold;
-  color: ${(props) => (props.$isActive ? "white" : "white")}; // Use team color for non-active, white for active
+  color: ${(props) => (props.$isActive ? "white" : "white")}; 
 `;
 
-export const TeamMoney = styled.div<TeamCardProps>`
+export const TeamMoney = styled.div<{ $isActive?: boolean; color?: string }>`
   font-size: 16px;
   color: ${(props) => (props.$isActive ? "white" : "white")};
   display: flex;
-  justify-content: center;  // Always center horizontally
-  align-items: center;      // Always center vertically
-  text-align: center;       // Ensure text is centered
-  width: auto;              // Allow auto width to keep flexibility
-  flex-shrink: 0;           // Prevent shrinking
-  padding: 0 8px;           // Add padding for better alignment with buttons
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+  padding: 0 8px;
   margin: 0 5px;
 `;
 
+export const TeamMoneyContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-top: 5px;
+`;
 
 export const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   margin-top: auto;
   width: 100%;
   align-items: center;
@@ -87,9 +103,9 @@ export const ButtonScoreContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;  // Small gap between the buttons and the points
-  width: 100%;  // Ensure it takes full width for proper centering
-  flex-shrink: 0;  // Prevent resizing when buttons are added
+  gap: 5px;
+  width: 100%;
+  flex-shrink: 0;
   margin-top: 5px;
   position: relative;
 `;

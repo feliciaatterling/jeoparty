@@ -24,12 +24,12 @@ import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
-  { name: "", color: "#FF5C5C" },
-  { name: "", color: "#43D17D" },
   { name: "", color: "#4A90E2" },
   { name: "", color: "#F7D154" },
   { name: "", color: "#B45AD5" },
   { name: "", color: "#2DCED6" },
+  { name: "", color: "#FF5C5C" },
+  { name: "", color: "#43D17D" },
 ];
 
 export default function GameSetup() {

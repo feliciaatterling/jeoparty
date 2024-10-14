@@ -21,6 +21,8 @@ export const GameCardWrapper = styled.div`
   align-items: center;
   height: 552px;
   position: relative;
+  width: calc(100% - 275px);
+  margin-left: 250px;
 `;
 
 // Tag displaying the category and value

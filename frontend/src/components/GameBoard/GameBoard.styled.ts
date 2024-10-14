@@ -6,10 +6,15 @@ export const ScGameBoard = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
+  width: calc(100% - 275px);
+  margin-left: 250px;
   max-width: 100%;
+  box-sizing: border-box;
 `;
+
 
 // Wrapper for each category and its respective point cards
 export const ScCategoryColumn = styled.div`
@@ -52,13 +57,13 @@ export const ScCategoryName = styled.div`
 
   h3 {
     font-size: clamp(0.6rem, 1.2vw, 1.5rem); // Dynamic font size based on available width
-    line-height: 1.1;
+    line-height: 1;
     text-align: center;
     display: block;
     white-space: normal; // Allow text to wrap
     overflow: hidden;
     word-break: break-word; // Break words to avoid overflow
-    max-height: 100%; // Ensure the text fits within the available space
+    max-height: 98%; // Ensure the text fits within the available space
     display: -webkit-box; // Ensure it works well in flexbox
     -webkit-line-clamp: 3; // Limit to 3 lines
     -webkit-box-orient: vertical; // Orientation for line clamping

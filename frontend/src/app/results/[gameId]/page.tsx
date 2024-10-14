@@ -16,13 +16,32 @@ interface Team {
 
 interface GameData {
   teams: Team[];
-  // Other properties related to the game
 }
 
 // Utility function to convert HEX color to RGBA
 function hexToRgba(hex: string, alpha: number) {
   const [r, g, b] = hex.match(/\w\w/g)!.map((x) => parseInt(x, 16));
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// Function to calculate rankings with ties
+function calculateRankings(teams: Team[]) {
+  const sortedTeams = teams.slice().sort((a, b) => b.score - a.score);
+  const rankings: { team: Team; rank: number }[] = [];
+  let currentRank = 1;
+
+  for (let i = 0; i < sortedTeams.length; i++) {
+    if (i > 0 && sortedTeams[i].score === sortedTeams[i - 1].score) {
+      // Same rank as previous team for a tie
+      rankings.push({ team: sortedTeams[i], rank: currentRank });
+    } else {
+      // New rank for non-tied team
+      rankings.push({ team: sortedTeams[i], rank: currentRank });
+      currentRank = i + 1 + 1; // Skip rank for ties
+    }
+  }
+
+  return rankings;
 }
 
 // Define the ResultsPage component
@@ -55,23 +74,26 @@ const ResultsPage: React.FC = () => {
     fetchData();
   }, [gameId]);
 
-  // Sort the teams based on their score in descending order
-  const sortedTeams = gameData?.teams.slice().sort((a: Team, b: Team) => b.score - a.score);
+  // If there's no game data, return early
+  if (!gameData) return null;
+
+  // Sort the teams and handle ties using the `calculateRankings` function
+  const rankedTeams = calculateRankings(gameData.teams);
 
   // Extract the top 3 teams for the podium
-  const players = sortedTeams
-    ? sortedTeams.slice(0, 3).map((team: Team) => ({
-        name: team.name,
-        score: team.score,
-        color: team.color,
-        rgbaColor: hexToRgba(team.color, 0.5), // Generate transparent version of team color
-      }))
-    : [];
+  const topTeams = rankedTeams
+    .slice(0, 3)
+    .map((rankedTeam) => ({
+      name: rankedTeam.team.name,
+      score: rankedTeam.team.score,
+      color: rankedTeam.team.color,
+      rgbaColor: hexToRgba(rankedTeam.team.color, 0.5), // Generate transparent version of team color
+    }));
 
   return (
     <PageWrapper>
       <Podium
-        players={players}
+        players={topTeams}
         onPlayAgain={handlePlayAgain}
         onExit={handleExit}
       />

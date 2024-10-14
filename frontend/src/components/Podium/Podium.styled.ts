@@ -25,16 +25,13 @@ export const PodiumWrapper = styled.div`
   color: white;
 `;
 
-// Title for the results
-export const Title = styled.h1`
-  font-size: 36px;
+// Title for the tie message
+export const TieMessage = styled.h2`
+  font-size: 32px;
   font-weight: bold;
-  color: #111c44;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 2px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  color: yellow; /* Optional color for the tie message */
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 // Container for the podium spots
@@ -58,7 +55,7 @@ export const PodiumSpot = styled.div<{ $delay: number; color?: string }>`
   border-radius: 2px;
   text-align: center;
   color: white;
-  background-color: ${(props) => props.color || "rgba(255, 255, 255, 0.1)"};
+  background: ${(props) => props.color || "rgba(255, 255, 255, 0.1)"};
   width: 200px;
   position: relative;
 
