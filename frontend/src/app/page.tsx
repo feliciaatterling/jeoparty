@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
 import {
@@ -19,6 +18,13 @@ import Spacer from "@/components/Spacer/Spacer";
 import Image from "next/image";
 
 export default function Home() {
+  const scrollToSection = () => {
+    const section = document.getElementById("how-to-play");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  };
+
   return (
     <HomeContainer>
       <Spacer orientation="vertical" size={4} />
@@ -48,21 +54,23 @@ export default function Home() {
       <Spacer orientation="vertical" size={3} />
 
       <ScButtonContainer>
-        <Link href="/gamesetup" passHref style={{ flex: 1 }}>
-          <Button label="LET'S PLAY" as="button" />
-        </Link>
+        <Button
+          label="LET'S PLAY"
+          as="button"
+          onClick={() => (window.location.href = "/gamesetup")}
+        />
         <Button
           label="HOW TO PLAY"
           variant="secondary"
           as="button"
-          style={{ flex: 1 }}
+          onClick={scrollToSection}
         />
       </ScButtonContainer>
 
       <Spacer orientation="vertical" size={4} />
       <Spacer orientation="vertical" size={3} />
 
-      <ScHowToPlayContainer>
+      <ScHowToPlayContainer id="how-to-play">
         <ScDemoContainer>
           <Image
             src="/images/mockup_jeoparty.png"
@@ -118,10 +126,10 @@ export default function Home() {
                 fontWeight: 300,
                 color: "#ffffff90",
               }}
-            >
+            >{`
               In Jeopardy, you must respond in the form of a question. If the
               question is "the first US president", your answer should be "Who
-              is George Washington!"
+              is George Washington!"`}
             </Typography>
           </ScHowToCard>
           <ScHowToCard>
@@ -164,9 +172,11 @@ export default function Home() {
         <Spacer orientation="vertical" size={1} />
 
         <div style={{ width: 225 }}>
-          <Link href="/gamesetup" passHref>
-            <Button label="LET'S PLAY" as="button" />
-          </Link>
+          <Button
+            label="LET'S PLAY"
+            as="button"
+            onClick={() => (window.location.href = "/gamesetup")}
+          />
         </div>
       </ScHowToPlayContainer>
       <Spacer orientation="vertical" size={4} />
