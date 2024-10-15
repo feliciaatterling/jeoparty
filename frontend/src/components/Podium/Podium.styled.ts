@@ -79,11 +79,11 @@ export const FirstPlace = styled(PodiumSpot)`
 `;
 
 export const SecondPlace = styled(PodiumSpot)`
-  height: calc(28vh - 20px);
+  height: calc(24vh - 20px);
 `;
 
 export const ThirdPlace = styled(PodiumSpot)`
-  height: calc(26vh - 20px);
+  height: calc(18vh - 20px);
 `;
 
 export const PlayerInfo = styled.div`
