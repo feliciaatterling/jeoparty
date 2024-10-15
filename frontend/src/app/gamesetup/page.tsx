@@ -45,7 +45,9 @@ export default function GameSetup() {
   const [teams, setTeams] =
     useState<{ name: string; color: string }[]>(defaultTeamObject);
   const [teamNameErrors, setTeamNameErrors] = useState(Array(6).fill(false));
-  const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(Array(6).fill(false));
+  const [teamNameLengthErrors, setTeamNameLengthErrors] = useState(
+    Array(6).fill(false)
+  );
   const [startGameError, setStartGameError] = useState(false);
 
   // Handles slider value changes for number of teams
@@ -137,11 +139,10 @@ export default function GameSetup() {
 
       const gameId: string = await createGame(gameObject);
       if (gameId) {
-        router.push(`/game/${gameId}`)
+        router.push(`/game/${gameId}`);
       } else {
         setStartGameError(true);
       }
-      
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -163,8 +164,11 @@ export default function GameSetup() {
             <Typography variant="h2">Categories</Typography>
             {/* Info icon with hover effect for categories */}
             <Spacer size={1} orientation="vertical" />
-            <Typography variant="meta" color="#ffffff8a">Choose up to 6 categories or let our AI generate them in line with the context.</Typography>
-        
+            <Typography variant="meta" color="#ffffff8a">
+              Choose up to 6 categories or let our AI generate them in line with
+              the context.
+            </Typography>
+
             <Spacer size={2} orientation="vertical" />
             {/* Grid for category inputs */}
             <ScCategoryGrid>
@@ -188,12 +192,14 @@ export default function GameSetup() {
               })}
             </ScCategoryGrid>
             <Spacer size={3} orientation="vertical" />
-            
+
             <Typography variant="h2">Context</Typography>
             <Spacer size={1} orientation="vertical" />
-            <Typography variant="meta" color="#ffffff8a">Provide context for AI-generated questions.</Typography>
-              {/* Info icon with hover effect for context */}
-              
+            <Typography variant="meta" color="#ffffff8a">
+              Provide context for AI-generated questions.
+            </Typography>
+            {/* Info icon with hover effect for context */}
+
             <Spacer size={2} orientation="vertical" />
             {/* Input for context description */}
             <Input
@@ -211,12 +217,12 @@ export default function GameSetup() {
                 <Button label="EXIT" variant="danger" />
               </Link>
             </div>
-            <Spacer size={3} orientation="vertical"/>
+            <Spacer size={3} orientation="vertical" />
             {startGameError && (
               <Typography variant="meta" color="#ef5350">
                 Something went wrong, try again!
               </Typography>
-              )}
+            )}
           </ScGameSettings>
 
           {/* Team settings section */}
@@ -225,7 +231,9 @@ export default function GameSetup() {
             <Spacer size={3} orientation="vertical" />
             <Typography variant="h2">Number of teams</Typography>
             <Spacer size={1} orientation="vertical" />
-            <Typography variant="meta" color="#ffffff8a">Select the number of teams, up to 6.</Typography>
+            <Typography variant="meta" color="#ffffff8a">
+              Select the number of teams, up to 6.
+            </Typography>
             <Spacer size={1} orientation="vertical" />
             {/* Slider for selecting the number of teams */}
             <Slider
@@ -237,9 +245,11 @@ export default function GameSetup() {
               setValue={handleSlider}
             />
             <Spacer size={3} orientation="vertical" />
-              <Typography variant="h2">Team names</Typography>
-              <Spacer size={1} orientation="vertical" />
-            <Typography variant="meta" color="#ffffff8a">Assign a name and color for each team.</Typography>
+            <Typography variant="h2">Team names</Typography>
+            <Spacer size={1} orientation="vertical" />
+            <Typography variant="meta" color="#ffffff8a">
+              Assign a name and color for each team.
+            </Typography>
             <Spacer size={2} orientation="vertical" />
             {/* Inputs for team names and colors */}
             <ScTeamsContainer>

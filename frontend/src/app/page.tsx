@@ -126,7 +126,8 @@ export default function Home() {
                 fontWeight: 300,
                 color: "#ffffff90",
               }}
-            >{`
+            >
+              {`
               In Jeopardy, you must respond in the form of a question. If the
               question is "the first US president", your answer should be "Who
               is George Washington!"`}
@@ -171,11 +172,12 @@ export default function Home() {
         </Typography>
         <Spacer orientation="vertical" size={1} />
 
-        <div style={{ width: 225 }}>
+        <div style={{ width: 275 }}>
           <Button
             label="LET'S PLAY"
             as="button"
             onClick={() => (window.location.href = "/gamesetup")}
+            style={{ padding: 16, fontSize: 18 }}
           />
         </div>
       </ScHowToPlayContainer>
