@@ -12,10 +12,18 @@ const ScWrap = styled.div`
 // Container for the game content
 const ScContainer = styled.div`
   display: flex;
-  width: 70vw;
-  height: 85vh;
+  width: 1000px;
+  max-height: 690px;
+  min-width: 1000px;
   background-color: #ffffff10;
   border-radius: 8px;
+
+  @media (min-width: 1920px) {
+    width: 1280px; /* Maximum limit for ultra-wide screens */
+  }
+  @media (min-width: 2560px) {
+    height: 750px;
+  }
 `;
 
 const ScLoadingContainer = styled(ScContainer)`
@@ -55,7 +63,7 @@ const ScGridItem = styled.div`
 const ScTeamsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 `;
 
 export {
