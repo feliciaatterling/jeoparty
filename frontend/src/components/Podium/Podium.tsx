@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import {
@@ -52,28 +54,6 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
   return (
     <PodiumWrapper>
       <PodiumContainer>
-        {/* First Place Podium */}
-        {podiumGroups.length >= 1 && (
-          <PodiumObject>
-            <FirstPlace
-              color={generateGradient(
-                podiumGroups[0].players.map((player) => player.color)
-              )}
-              $delay={3}
-            >
-              <PlayerInfo>
-                <Typography variant="p" color="white">
-                  {formatTiedNames(podiumGroups[0].players)} {/* Names with "&" */}
-                </Typography>
-                <Typography variant="meta" color="white">
-                  ${podiumGroups[0].score}
-                </Typography>
-              </PlayerInfo>
-            </FirstPlace>
-            <PlaceLabel>🥇 1st Place</PlaceLabel>
-          </PodiumObject>
-        )}
-
         {/* Second Place Podium */}
         {podiumGroups.length >= 2 && (
           <PodiumObject>
@@ -93,6 +73,28 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
               </PlayerInfo>
             </SecondPlace>
             <PlaceLabel>🥈 2nd Place</PlaceLabel>
+          </PodiumObject>
+        )}
+        
+        {/* First Place Podium */}
+        {podiumGroups.length >= 1 && (
+          <PodiumObject>
+            <FirstPlace
+              color={generateGradient(
+                podiumGroups[0].players.map((player) => player.color)
+              )}
+              $delay={3}
+            >
+              <PlayerInfo>
+                <Typography variant="p" color="white">
+                  {formatTiedNames(podiumGroups[0].players)} {/* Names with "&" */}
+                </Typography>
+                <Typography variant="meta" color="white">
+                  ${podiumGroups[0].score}
+                </Typography>
+              </PlayerInfo>
+            </FirstPlace>
+            <PlaceLabel>🥇 1st Place</PlaceLabel>
           </PodiumObject>
         )}
 
