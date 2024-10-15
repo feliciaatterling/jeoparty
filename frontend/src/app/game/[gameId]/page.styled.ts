@@ -8,15 +8,15 @@ export const HomeWrapper = styled.div`
   gap: 32px;
   box-sizing: border-box;
 `;
- 
+
 // Left section: Dashboard area
 export const DashboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 300px; 
+  max-width: 300px;
   height: 100vh;
   background-color: #ffffff10;
   padding: 32px;
@@ -25,9 +25,11 @@ export const DashboardWrapper = styled.div`
   position: relative;
 `;
 
-
 // Right section: GameCard area
 export const GameCardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   padding: 32px;
 `;

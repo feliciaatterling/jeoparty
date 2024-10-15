@@ -6,6 +6,7 @@ interface TypographyProps {
   color?: string;
   align?: "left" | "right" | "center";
   style?: React.CSSProperties; // This allows for custom styles
+  className?: string;
 }
 
 export default TypographyProps;

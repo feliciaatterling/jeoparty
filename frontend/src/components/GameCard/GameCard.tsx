@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   GameCardWrapper,
   AnswerButtonsWrapper,
-  ModeTag,
   CloseButton,
-  QuestionText,
-  AnswerText,
+  LargeText,
+  ScShowAnswerWrapper,
 } from "./GameCard.styled";
 import Button from "../Button/Button";
 import Spacer from "../Spacer/Spacer";
@@ -49,56 +48,84 @@ const GameCard: React.FC<GameCardProps> = ({
   }, [onClose]);
 
   return (
-    <GameCardWrapper>
-      <CloseButton onClick={onClose}>X</CloseButton>
-
-      <ModeTag>
-        <Typography variant="meta" color="#D3D3D3" align="center">
-          {category} ${value}
-        </Typography>
-      </ModeTag>
-
-      {isQuestionMode ? (
-        <>
-          <Spacer size={3} orientation="vertical" />
-          <QuestionText>{question}</QuestionText>
-          <Spacer size={3} orientation="vertical" />
-
-          <div style={{ width: 200 }}>
-            <Button
-              label="SHOW ANSWER"
-              variant="secondary"
-              onClick={handleToggleMode}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <Spacer size={3} orientation="vertical" />
-          <AnswerText> {answer}</AnswerText>
-          <Spacer size={3} orientation="vertical" />
-
-          <Typography variant="meta" color="#D3D3D3" align="center">
-            Did you get the question right?
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <GameCardWrapper>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <CloseButton style={{ opacity: 0, cursor: "default" }}>X</CloseButton>
+          <Typography
+            variant="h2"
+            color="#ffffff80"
+            align="center"
+            style={{ fontWeight: 400 }}
+          >
+            {category} ${value}
           </Typography>
-          <Spacer size={1} orientation="vertical" />
+          <CloseButton onClick={onClose}>X</CloseButton>
+        </div>
 
-          <AnswerButtonsWrapper>
-            <Button
-              label="YES"
-              onClick={() => onBack(true)}
-              variant="primary"
-            />
-            <Spacer size={3} orientation="horizontal" />
-            <Button
-              label="NO"
-              onClick={() => onBack(false)}
-              variant="secondary"
-            />
-          </AnswerButtonsWrapper>
-        </>
-      )}
-    </GameCardWrapper>
+        <Spacer size={4} orientation="vertical" />
+        {isQuestionMode ? (
+          <>
+            <LargeText variant="h1" align="center">
+              {question}
+            </LargeText>
+            <Spacer size={3} orientation="vertical" />
+
+            <ScShowAnswerWrapper>
+              <Button
+                label="SHOW ANSWER"
+                variant="secondary"
+                onClick={handleToggleMode}
+              />
+            </ScShowAnswerWrapper>
+            <Spacer orientation="vertical" size={2} />
+          </>
+        ) : (
+          <>
+            <LargeText variant="h1" align="center">
+              {answer}
+            </LargeText>
+            <Spacer size={3} orientation="vertical" />
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                maxWidth: 400,
+              }}
+            >
+              <Typography variant="meta" color="#D3D3D3" align="center">
+                Did you get the question right?
+              </Typography>
+              <Spacer size={1} orientation="vertical" />
+
+              <AnswerButtonsWrapper>
+                <Button
+                  label="YES"
+                  onClick={() => onBack(true)}
+                  variant="primary"
+                />
+                <Spacer size={3} orientation="horizontal" />
+                <Button
+                  label="NO"
+                  onClick={() => onBack(false)}
+                  variant="secondary"
+                />
+              </AnswerButtonsWrapper>
+            </div>
+            <Spacer orientation="vertical" size={2} />
+          </>
+        )}
+      </GameCardWrapper>
+    </div>
   );
 };
 

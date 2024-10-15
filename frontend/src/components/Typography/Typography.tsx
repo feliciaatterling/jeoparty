@@ -9,35 +9,51 @@ const Typography: React.FC<TypographyProps> = ({
   color = "white",
   align,
   style, // Accept the style prop
+  className,
 }) => {
   switch (variant) {
     case "h1":
       return (
-        <ScH1 style={{ color: color, textAlign: align, ...style }}>
+        <ScH1
+          className={className}
+          style={{ color: color, textAlign: align, ...style }}
+        >
           {children}
         </ScH1>
       );
     case "h2":
       return (
-        <ScH2 style={{ color: color, textAlign: align, ...style }}>
+        <ScH2
+          className={className}
+          style={{ color: color, textAlign: align, ...style }}
+        >
           {children}
         </ScH2>
       );
     case "h3":
       return (
-        <ScH3 style={{ color: color, textAlign: align, ...style }}>
+        <ScH3
+          className={className}
+          style={{ color: color, textAlign: align, ...style }}
+        >
           {children}
         </ScH3>
       );
     case "meta":
       return (
-        <ScMeta style={{ color: color, textAlign: align, ...style }}>
+        <ScMeta
+          className={className}
+          style={{ color: color, textAlign: align, ...style }}
+        >
           {children}
         </ScMeta>
       );
     default:
       return (
-        <ScP style={{ color: color, textAlign: align, ...style }}>
+        <ScP
+          className={className}
+          style={{ color: color, textAlign: align, ...style }}
+        >
           {children}
         </ScP>
       );

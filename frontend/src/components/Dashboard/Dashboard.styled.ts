@@ -7,10 +7,10 @@ interface TeamCardProps {
 
 export const CrownIcon = styled.div`
   position: absolute;
-  top: -19px; 
-  left: -15px; 
-  font-size: 32px; 
-  transform: rotate(-40deg); 
+  top: -19px;
+  left: -15px;
+  font-size: 32px;
+  transform: rotate(-40deg);
 `;
 
 export const DashboardWrapper = styled.div`
@@ -22,13 +22,11 @@ export const DashboardWrapper = styled.div`
   height: 100%;
   box-sizing: border-box;
 `;
- 
+
 export const TeamsContainer = styled.div`
   display: grid;
   width: 100%;
-  height: 150px;
   gap: 12px;
-  padding-bottom: 20px;
 `;
 
 export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
@@ -39,7 +37,9 @@ export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
   box-sizing: border-box;
   height: 100%;
   padding: 8px;
@@ -60,7 +60,7 @@ export const TeamCard = styled.div<{ $isActive?: boolean; color?: string }>`
 export const TeamName = styled.div<TeamCardProps>`
   font-size: 16px;
   font-weight: bold;
-  color: ${(props) => (props.$isActive ? "white" : "white")}; 
+  color: ${(props) => (props.$isActive ? "white" : "white")};
 `;
 
 export const TeamMoney = styled.div<{ $isActive?: boolean; color?: string }>`
@@ -87,7 +87,7 @@ export const TeamMoneyContainer = styled.div`
 export const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 12px;
   margin-top: auto;
   width: 100%;
   align-items: center;

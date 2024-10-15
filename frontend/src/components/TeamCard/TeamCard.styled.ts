@@ -5,14 +5,16 @@ export const TeamCardWrapper = styled.div<{ isActive: boolean; color: string }>`
   background-color: ${({ isActive, color }) =>
     isActive ? color : "transparent"};
   padding: 8px;
-  margin: 5px 0;
   border-radius: 8px;
   text-align: center;
-  cursor: pointer;
   box-sizing: border-box;
   width: 100%;
-  border: 2px solid ${({ isActive, color }) => (isActive ? "transparent" : color)};
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  border: 2px solid
+    ${({ isActive, color }) => (isActive ? "transparent" : color)};
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
   position: relative;
 
   ${(props) =>
@@ -62,9 +64,9 @@ export const TeamMoneyContainer = styled.div`
 // Crown icon styling
 export const CrownIcon = styled.div`
   position: absolute;
-  top: -19px; 
-  left: -15px; 
-  font-size: 32px; 
-  transform: rotate(-40deg); 
+  top: -19px;
+  left: -15px;
+  font-size: 32px;
+  transform: rotate(-40deg);
   z-index: 10;
 `;
