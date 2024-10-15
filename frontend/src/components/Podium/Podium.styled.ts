@@ -16,22 +16,13 @@ const fadeIn = keyframes`
 export const PodiumWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;  /* Center podiums vertically */
   align-items: center;
-  height: 100vh;
-  max-height: 100vh;
-  padding: 75px;
+  width: 100%;
+  height: 100%;  /* Set to 100% of the container */
+  padding: 0;  /* Remove extra padding */
   box-sizing: border-box;
   color: white;
-`;
-
-// Title for the tie message
-export const TieMessage = styled.h2`
-  font-size: 32px;
-  font-weight: bold;
-  color: yellow; /* Optional color for the tie message */
-  text-align: center;
-  margin-bottom: 20px;
 `;
 
 // Container for the podium spots
@@ -39,10 +30,19 @@ export const PodiumContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 30px;
+  gap: 10px;  /* Reduce gap between podiums */
   width: 100%;
-  max-width: 1000px;
-  margin-bottom: 10px;
+  max-width: 90vw;  /* Make sure the podiums take up available width */
+  flex-wrap: wrap; /* Allows podiums to wrap on smaller screens */
+  height: auto;
+
+  @media (min-width: 1200px) {
+    max-width: 80vw;
+  }
+
+  @media (max-width: 768px) {
+    gap: 5px;  /* Smaller gap on smaller screens */
+  }
 `;
 
 // Base styling for the podium spots with animation
@@ -51,58 +51,88 @@ export const PodiumSpot = styled.div<{ $delay: number; color?: string }>`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px;
   border-radius: 2px;
   text-align: center;
   color: white;
   background: ${(props) => props.color || "rgba(255, 255, 255, 0.1)"};
-  width: 200px;
+  width: 15vw;  /* Width based on viewport width */
   position: relative;
 
   opacity: 0;
   animation: ${fadeIn} 1s forwards;
   animation-delay: ${(props) => props.$delay}s;
+
+  @media (min-width: 1200px) {
+    width: 12vw; /* Slightly smaller on larger screens */
+    height: calc(30vh - 30px);
+  }
+
+  @media (max-width: 768px) {
+    width: 20vw; /* Smaller podiums on smaller screens */
+    height: calc(25vh - 30px);
+  }
 `;
 
-// Add PlayerInfo for positioning the player info at the top of the podium
+// Specific styles for the first, second, and third places
+export const FirstPlace = styled(PodiumSpot)`
+  height: calc(30vh - 20px);
+`;
+
+export const SecondPlace = styled(PodiumSpot)`
+  height: calc(28vh - 20px);
+`;
+
+export const ThirdPlace = styled(PodiumSpot)`
+  height: calc(26vh - 20px);
+`;
+
 export const PlayerInfo = styled.div`
   position: absolute;
   top: 10px;
   text-align: center;
 `;
 
-// Specific styles for the first, second, and third places
-export const FirstPlace = styled(PodiumSpot)`
-  height: 300px;
-`;
-
-export const SecondPlace = styled(PodiumSpot)`
-  height: 250px;
-`;
-
-export const ThirdPlace = styled(PodiumSpot)`
-  height: 200px;
-`;
-
 // Player name and score styling
 export const PlayerName = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 16px; /* Adjust font size on smaller screens */
+  }
 `;
 
 export const PlayerScore = styled.div`
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 5px;
+
+  @media (max-width: 768px) {
+    font-size: 14px; /* Adjust font size on smaller screens */
+  }
 `;
 
-// Button Container
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+export const PlaceLabel = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
   margin-top: 10px;
-  width: 100%; /* Ensure the container spans the full width */
-  max-width: 600px; 
-  padding: 0 20px; /* Padding to give some spacing on the sides */
-  box-sizing: border-box; /* Ensure padding is included in the element's total width */
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+// Add this missing PodiumObject component
+export const PodiumObject = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Gap between the podium and the place label */
+  width: auto;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Stack podiums vertically on smaller screens */
+  }
 `;
