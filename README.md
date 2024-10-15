@@ -20,6 +20,7 @@ https://jeoparty-puce.vercel.app/
 Link to our Figma: https://www.figma.com/design/Naz6CvGBCQqWv9vnRFxCNy/JeoParty?node-id=8-3&t=mj2fDfg0KbC6P95U-1 
 
 ### Archtitecture
+![Tech_graphic](https://github.com/user-attachments/assets/79eb07ab-6fdf-4036-8a99-c753d37d0992)
 
 ### Testing
 
