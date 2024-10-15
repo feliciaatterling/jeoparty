@@ -3,7 +3,6 @@ import {
   DashboardWrapper,
   TeamsContainer,
   ButtonGroup,
-  CrownIcon,
 } from "./Dashboard.styled";
 import Logo from "@/components/Logo/Logo";
 import Spacer from "../Spacer/Spacer";
