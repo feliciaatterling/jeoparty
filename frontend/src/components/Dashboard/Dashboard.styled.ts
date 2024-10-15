@@ -14,26 +14,20 @@ export const CrownIcon = styled.div`
 `;
 
 export const DashboardWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff10;
-  padding: 32px;
-  width: 300px;
-  border-radius: 8px;
-  height: 100vh;
-  box-sizing: border-box;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 `;
-
+ 
 export const TeamsContainer = styled.div`
   display: grid;
-  grid-template-rows: repeat(6, 1fr);  /* Create 6 equal rows for the team cards */
   width: 100%;
-  height: 100%;  /* Ensure the container takes up full height of the parent */
-  gap: 8px;
+  height: 150px;
+  gap: 12px;
   padding-bottom: 20px;
 `;
 

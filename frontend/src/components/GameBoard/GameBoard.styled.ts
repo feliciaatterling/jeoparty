@@ -8,13 +8,10 @@ export const ScGameBoard = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
-  width: calc(100% - 275px);
-  margin-left: 250px;
-  max-width: 100%;
+  flex-wrap: nowrap;
   box-sizing: border-box;
+  min-width: 1024px;
 `;
-
 
 // Wrapper for each category and its respective point cards
 export const ScCategoryColumn = styled.div`
@@ -23,28 +20,15 @@ export const ScCategoryColumn = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin: 0 5px; 
-  width: calc(100% / 6 - 10px); 
-  min-width: 100px;
-  max-width: 140px;
+  width: calc(100% / 6 - 10px);  
+  min-width: 140px;  
+  max-width: 180px;  
 
-  @media (max-width: 1200px) {
-    width: calc(100% / 5 - 10px); 
-  }
-
-  @media (max-width: 992px) {
-    width: calc(100% / 4 - 10px); 
-  }
-
-  @media (max-width: 768px) {
-    width: calc(100% / 3 - 10px); 
-  }
-
-  @media (max-width: 576px) {
-    width: calc(100% / 2 - 10px); 
+  @media (min-width: 1600px) {
+    width: calc(100% / 6 - 10px); 
   }
 `;
 
-// Category name wrapper ensuring dynamic text adjustment
 // Category name wrapper ensuring dynamic text adjustment
 export const ScCategoryName = styled.div`
   display: flex;
@@ -56,17 +40,17 @@ export const ScCategoryName = styled.div`
   overflow: hidden;
 
   h3 {
-    font-size: clamp(0.6rem, 1.2vw, 1.5rem); // Dynamic font size based on available width
+    font-size: clamp(0.6rem, 1.2vw, 1.5rem); 
     line-height: 1;
     text-align: center;
     display: block;
-    white-space: normal; // Allow text to wrap
+    white-space: normal; 
     overflow: hidden;
-    word-break: break-word; // Break words to avoid overflow
-    max-height: 98%; // Ensure the text fits within the available space
-    display: -webkit-box; // Ensure it works well in flexbox
-    -webkit-line-clamp: 3; // Limit to 3 lines
-    -webkit-box-orient: vertical; // Orientation for line clamping
+    word-break: break-word;
+    max-height: 98%; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;
 
