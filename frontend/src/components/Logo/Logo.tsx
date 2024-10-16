@@ -1,5 +1,3 @@
-// src/components/Logo/Logo.tsx
-
 import React from "react";
 import Image from "next/image";
 import { LogoWrapper } from "./Logo.styled"; // Import the styled component

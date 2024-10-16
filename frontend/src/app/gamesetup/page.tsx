@@ -21,6 +21,7 @@ import { gameSetup } from "./utils.types";
 import { createGame } from "./utils";
 import { useRouter } from "next/navigation";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
+import FlexDiv from "@/components/FlexDiv/FlexDiv";
 
 // Default team settings for the color picker
 const defaultTeamObject = [
@@ -35,7 +36,7 @@ const defaultTeamObject = [
 export default function GameSetup() {
   const router = useRouter();
 
-  // State for handling hover effect over info icons and loading state
+  // State for handling loading state
   const [isLoading, setIsLoading] = useState(false);
 
   // State for category input, context description, slider value, and team details
@@ -159,9 +160,10 @@ export default function GameSetup() {
           <ScGameSettings>
             <Typography variant="h1">Jeopardy settings</Typography>
             <Spacer size={3} orientation="vertical" />
+
             <Typography variant="h2">Categories</Typography>
-            {/* Info icon with hover effect for categories */}
             <Spacer size={1} orientation="vertical" />
+
             <Typography variant="meta" color="#ffffff8a">
               Choose up to 6 categories or let our AI generate them in line with
               the context.
@@ -196,7 +198,6 @@ export default function GameSetup() {
             <Typography variant="meta" color="#ffffff8a">
               Provide context for AI-generated questions.
             </Typography>
-            {/* Info icon with hover effect for context */}
 
             <Spacer size={2} orientation="vertical" />
             {/* Input for context description */}
@@ -208,13 +209,13 @@ export default function GameSetup() {
             />
             <Spacer size={2} orientation="vertical" />
             {/* Start game and exit buttons */}
-            <div style={{ display: "flex" }}>
+            <FlexDiv>
               <Button label="START GAME" onClick={handleStartGame} />
               <Spacer size={3} orientation="horizontal" />
               <Link href="/" legacyBehavior>
                 <Button label="EXIT" variant="danger" />
               </Link>
-            </div>
+            </FlexDiv>
             <Spacer size={3} orientation="vertical" />
             {startGameError && (
               <Typography variant="meta" color="#ef5350">

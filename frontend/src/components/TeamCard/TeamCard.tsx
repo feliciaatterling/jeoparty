@@ -16,15 +16,15 @@ const TeamCard: React.FC<TeamCardProps> = ({
   isEditMode,
   teamColor,
   highestTeam,
-  teamId, // Include team ID
-  onScoreChange, // Function to handle score change
+  teamId,
+  onScoreChange,
 }) => {
   return (
-    <TeamCardWrapper isActive={isActive} color={teamColor}>
+    <TeamCardWrapper $isActive={isActive} color={teamColor}>
       {/* Show crown if the team has the highest score */}
       {highestTeam && teamId === highestTeam.id && <CrownIcon>👑</CrownIcon>}
       
-      <TeamName isActive={isActive}>{teamName}</TeamName>
+      <TeamName>{teamName}</TeamName>
       
       <div
         style={{
@@ -37,21 +37,21 @@ const TeamCard: React.FC<TeamCardProps> = ({
         <TeamMoneyContainer>
           {isEditMode && (
             <ScoreButton
-              onClick={() => onScoreChange(teamId, -100)} // Pass both teamId and amount
+              onClick={() => onScoreChange(teamId, -100)}
               action="subtract"
               teamColor={teamColor}
-              isActive={isActive}
+              isActive={isActive} // Pass isActive here
             />
           )}
 
-          <TeamMoney isActive={isActive}>${score}</TeamMoney>
+          <TeamMoney>${score}</TeamMoney>
 
           {isEditMode && (
             <ScoreButton
-              onClick={() => onScoreChange(teamId, 100)} // Pass both teamId and amount
+              onClick={() => onScoreChange(teamId, 100)}
               action="add"
               teamColor={teamColor}
-              isActive={isActive}
+              isActive={isActive} // Pass isActive here
             />
           )}
         </TeamMoneyContainer>

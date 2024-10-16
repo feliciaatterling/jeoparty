@@ -1,8 +1,7 @@
 import React from "react";
-import { ModalWrapper, ModalCard, ModalContent, ModalButton } from "./GameOverModal.styled";
-import Button from "../Button/Button";
-import Typography from "../Typography/Typography";
-import Image from "next/image";
+import { ModalWrapper, ModalCard, ModalContent } from "./GameOverModal.styled"; // Styled components with Sc prefix
+import Button from "@/components/Button/Button";
+import Image from 'next/image';
 
 interface GameOverModalProps {
   onConfirm: () => void;
@@ -13,20 +12,15 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onConfirm }) => {
     <ModalWrapper>
       <ModalCard>
         <ModalContent>
-        <Image 
-            src="/images/GameOver.png" 
-            alt="Game Over" 
-            width={600}
-            height={300}
-            style={{ maxWidth: "100%", height: "auto" }}
+          <Image
+            src="/images/GameOver.png"
+            alt="Game Over"
+            width={600}  
+            height={300} 
+            style={{ maxWidth: "100%", height: "auto" }} 
             priority
           />
-          <Typography variant="p" color="white" align="center">
-            Well played!
-          </Typography>
-          <ModalButton>
-            <Button label="See Results" variant="secondary" onClick={onConfirm} />
-          </ModalButton>
+          <Button label="See Results" variant="secondary" onClick={onConfirm} />
         </ModalContent>
       </ModalCard>
     </ModalWrapper>

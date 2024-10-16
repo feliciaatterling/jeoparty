@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-export const PageWrapper = styled.div`
+export const ScPageWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
@@ -11,18 +10,17 @@ export const PageWrapper = styled.div`
   width: 100%;
 `;
 
-export const BackgroundWrapper = styled.div`
+export const ScBackgroundWrapper = styled.div`
   background-color: #ffffff10;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  width: 100%;
   max-width: 100%; /* Expands to full width */
-  padding: 30px;
+  padding: 64px;
   border-radius: 8px;
+  border: 2px solid #ffffff10;
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
 
   @media (min-width: 1200px) {
     max-width: 1200px;
@@ -43,7 +41,7 @@ export const BackgroundWrapper = styled.div`
 `;
 
 // Styling for the podium positions
-export const PodiumSpot = styled.div<{ color: string }>`
+export const ScPodiumSpot = styled.div<{ color: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +60,7 @@ export const PodiumSpot = styled.div<{ color: string }>`
 `;
 
 // Specific podium styles for first, second, and third place
-export const FirstPlace = styled(PodiumSpot)`
+export const FirstPlace = styled(ScPodiumSpot)`
   height: 300px;
 
   @media (min-width: 1200px) {
@@ -70,7 +68,7 @@ export const FirstPlace = styled(PodiumSpot)`
   }
 `;
 
-export const SecondPlace = styled(PodiumSpot)`
+export const SecondPlace = styled(ScPodiumSpot)`
   height: 250px;
 
   @media (min-width: 1200px) {
@@ -78,7 +76,7 @@ export const SecondPlace = styled(PodiumSpot)`
   }
 `;
 
-export const ThirdPlace = styled(PodiumSpot)`
+export const ThirdPlace = styled(ScPodiumSpot)`
   height: 200px;
 
   @media (min-width: 1200px) {
@@ -86,7 +84,7 @@ export const ThirdPlace = styled(PodiumSpot)`
   }
 `;
 
-export const ButtonContainer = styled.div`
+export const ScButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -102,53 +100,3 @@ export const ButtonContainer = styled.div`
     gap: 15px;
   }
 `;
-
-export const Scoreboard = styled.div`
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  @media (max-width: 768px) {
-    width: 100%; /* Full width on smaller screens */
-  }
-`;
-
-export const ScoreboardItem = styled.div<{ color: string }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${({ color }) => color};
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: white;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-
-export const ScoreboardTeamName = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-
-export const ScoreboardTeamScore = styled.div`
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-

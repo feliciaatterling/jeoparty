@@ -13,6 +13,7 @@ import {
   PodiumObject,
 } from "./Podium.styled";
 import Typography from "../Typography/Typography";
+import Spacer from "../Spacer/Spacer";
 
 interface Player {
   name: string;
@@ -64,9 +65,12 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
               $delay={2}
             >
               <PlayerInfo>
-                <Typography variant="p" color="white">
-                  {formatTiedNames(podiumGroups[1].players)} {/* Names with "&" */}
+                <Typography variant="h1" color="white">
+                  {formatTiedNames(podiumGroups[1].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
+                <Spacer size={0} orientation="vertical" />
+
                 <Typography variant="meta" color="white">
                   ${podiumGroups[1].score}
                 </Typography>
@@ -75,7 +79,7 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
             <PlaceLabel>🥈 2nd Place</PlaceLabel>
           </PodiumObject>
         )}
-        
+
         {/* First Place Podium */}
         {podiumGroups.length >= 1 && (
           <PodiumObject>
@@ -86,9 +90,11 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
               $delay={3}
             >
               <PlayerInfo>
-                <Typography variant="p" color="white">
-                  {formatTiedNames(podiumGroups[0].players)} {/* Names with "&" */}
+                <Typography variant="h1" color="white">
+                  {formatTiedNames(podiumGroups[0].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
+                <Spacer size={0} orientation="vertical" />
                 <Typography variant="meta" color="white">
                   ${podiumGroups[0].score}
                 </Typography>
@@ -108,9 +114,11 @@ const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
               $delay={1}
             >
               <PlayerInfo>
-                <Typography variant="p" color="white">
-                  {formatTiedNames(podiumGroups[2].players)} {/* Names with "&" */}
+                <Typography variant="h1" color="white">
+                  {formatTiedNames(podiumGroups[2].players)}{" "}
+                  {/* Names with "&" */}
                 </Typography>
+                <Spacer size={0} orientation="vertical" />
                 <Typography variant="meta" color="white">
                   ${podiumGroups[2].score}
                 </Typography>

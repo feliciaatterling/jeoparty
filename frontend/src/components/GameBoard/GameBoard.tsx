@@ -7,27 +7,8 @@ import {
   ScCard,
 } from "./GameBoard.styled";
 import Typography from "@/components/Typography/Typography";
-
-interface GameBoardProps {
-  onQuestionClick: (questionObject: {
-    _id: string;
-    question: string;
-    answer: string;
-    points: number;
-    category: string;
-  }) => void;
-  questions: {
-    category: string;
-    questionCards: {
-      _id: string;
-      points: number;
-      question: string;
-      answer: string;
-      isAnswered: string | null;
-    }[];
-  }[];
-  teams: { id: number; name: string; color: string; score: number }[];
-}
+import FlexDiv from "../FlexDiv/FlexDiv";
+import GameBoardProps from "./GameBoard.types";
 
 const GameBoard: React.FC<GameBoardProps> = ({
   onQuestionClick,
@@ -35,7 +16,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   teams,
 }) => {
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <FlexDiv justifyContent="center">
       <ScGameBoard>
         {questions?.map((category, categoryIndex) => (
           <ScCategoryColumn key={categoryIndex}>
@@ -64,9 +45,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
                         category: category.category,
                       })
                     }
-                    disabled={!!question.isAnswered} // Check if question is answered
+                    disabled={!!question.isAnswered}
                     owner={team ? team.name : null}
-                    ownerColor={team ? team.color : "red"} // Pass the correct team color
+                    ownerColor={team ? team.color : "red"} 
                   />
                 );
               })}
@@ -74,7 +55,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           </ScCategoryColumn>
         ))}
       </ScGameBoard>
-    </div>
+    </FlexDiv>
   );
 };
 
