@@ -24,7 +24,7 @@ export default function Home() {
   const isMobile = useIsMobile();
 
   const scrollToSection = () => {
-    const section = document.getElementById("how-to-play");
+    const section = document.getElementById("footer");
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "end" });
     }
@@ -139,7 +139,7 @@ export default function Home() {
         </div>
       </ScHowToPlayContainer>
       <Spacer orientation="vertical" size={4} />
-      <ScFooterContainer>
+      <ScFooterContainer id="footer">
         <Typography variant="h3">KTH Royal Institute of Technology</Typography>
         <Spacer orientation="vertical" size={0} />
 
