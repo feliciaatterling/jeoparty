@@ -45,9 +45,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
                         category: category.category,
                       })
                     }
-                    disabled={!!question.isAnswered} // Check if question is answered
+                    disabled={!!question.isAnswered}
                     owner={team ? team.name : null}
-                    ownerColor={team ? team.color : "red"} // Pass the correct team color
+                    ownerColor={team ? team.color : "red"} 
                   />
                 );
               })}

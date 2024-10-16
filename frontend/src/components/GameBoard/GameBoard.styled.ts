@@ -30,14 +30,13 @@ export const ScCategoryColumn = styled.div`
     width: 180px;
   }
   @media (min-width: 1920px) {
-    width: 220px; /* Maximum limit for ultra-wide screens */
+    width: 220px; 
     gap: 12px;
   }
   @media (min-width: 2560px) {
   }
 `;
 
-// Category name wrapper ensuring dynamic text adjustment
 export const ScCategoryName = styled.div`
   display: flex;
   justify-content: center;
@@ -49,16 +48,15 @@ export const ScCategoryName = styled.div`
 
   h3 {
     font-size: 18px;
-    line-height: 1;
+    line-height: 1.2; 
     text-align: center;
-    display: block;
-    white-space: normal;
-    overflow: hidden;
-    word-break: break-word;
-    max-height: 98%;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    word-break: break-word;
+    max-width: 100%; 
 
     @media (min-width: 1920px) {
       font-size: 24px;
@@ -67,6 +65,7 @@ export const ScCategoryName = styled.div`
     }
   }
 `;
+
 
 export const ScCard = styled.div`
   display: flex;
