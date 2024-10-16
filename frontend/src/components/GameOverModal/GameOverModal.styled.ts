@@ -14,14 +14,12 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalCard = styled.div`
-  //background: linear-gradient(180deg, rgba(60, 202, 231, 1) 10%, rgba(225, 27, 252, 1) 100%);
   background: linear-gradient(45deg, #0a0524, #0d156b);
   border-radius: 15px;
-  max-width: 800px;
-  max-height: 800px; 
   width: 90%; 
   height: 70%;
   display: flex;  
+  flex-direction: column;
   justify-content: center;  
   align-items: center;  
   box-sizing: border-box;
@@ -29,6 +27,8 @@ export const ModalCard = styled.div`
   padding: 20px;
   border: 2px solid #ffffff20;
   box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
+  max-width: 800px; 
+  max-height: 800px;
 `;
 
 export const ModalContent = styled.div`
@@ -38,18 +38,7 @@ export const ModalContent = styled.div`
   justify-content: center;
   gap: 30px; 
   width: 100%;
-`;
-
-export const ModalTitle = styled.h1`
-  font-size: 48px; 
-  color: white;
-  margin: 0;
-`;
-
-export const ModalMessage = styled.p`
-  font-size: 24px;
-  color: white;
-  margin-bottom: 40px; 
+  height: 100%; 
 `;
 
 export const ModalButton = styled.div`
