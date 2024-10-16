@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import GameCard from "@/components/GameCard/GameCard";
+import GameOverModal from "@/components/GameOverModal/GameOverModal"; 
 import {
   HomeWrapper,
   DashboardWrapper,
@@ -14,7 +15,7 @@ import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
-import { useParams } from "next/navigation"; // Added useRouter for redirection
+import { useParams } from "next/navigation"; 
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
 
@@ -29,8 +30,9 @@ export default function Home() {
     category: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
 
-  const router = useRouter(); // Use router for navigation
+  const router = useRouter(); 
 
   // Fetch game data from the backend
   async function getGameData(): Promise<void> {
@@ -70,9 +72,9 @@ export default function Home() {
 
       const updatedTeams = gameData.teams.map((team) => {
         if (team.id === gameData.currentTurnTeamId) {
-          return { ...team, score: team.score + points }; // Update score for the current team
+          return { ...team, score: team.score + points }; 
         }
-        return team; // Return unchanged team
+        return team; 
       });
 
       const updatedQuestions = gameData.questions.map((category) => {
@@ -93,18 +95,28 @@ export default function Home() {
         questions: updatedQuestions,
         teams: updatedTeams,
         currentTurnTeamId:
-          (gameData.currentTurnTeamId + 1) % gameData.teams.length, // Rotate to the next team
+          (gameData.currentTurnTeamId + 1) % gameData.teams.length, 
       };
 
       setGameData(updatedGamedata);
-      setQuestion(null); // Close the question modal
+      setQuestion(null);
       changeGameData(updatedGamedata);
+
+      // Check if all questions have been answered
+      const allAnswered = updatedQuestions.every((category) =>
+        category.questionCards.every((qCard) => qCard.isAnswered)
+      );
+
+      // If all questions are answered, show the game over modal
+      if (allAnswered) {
+        setIsGameOver(true);
+      }
     }
   };
 
   // Function to handle closing the question without answering it
   const handleCloseQuestion = () => {
-    setQuestion(null); // Reset the question state, closing the GameCard
+    setQuestion(null); 
   };
 
   // Handler to adjust team scores from the dashboard
@@ -119,13 +131,13 @@ export default function Home() {
 
       const updatedGamedata = { ...gameData, teams: updatedTeams };
       setGameData(updatedGamedata);
-      changeGameData(updatedGamedata); // Update the backend
+      changeGameData(updatedGamedata);
     }
   };
 
   const handleEndGame = () => {
     if (gameId) {
-      router.push(`/results/${gameId}`); // Redirect to results page with gameId
+      router.push(`/results/${gameId}`);
     } else {
       console.error("Game ID is missing.");
     }
@@ -152,7 +164,7 @@ export default function Home() {
               <Dashboard
                 teams={gameData.teams}
                 currentTurnId={gameData.currentTurnTeamId}
-                onScoreChange={handleScoreChange} // Pass the score change handler
+                onScoreChange={handleScoreChange} 
                 onEndGame={handleEndGame}
               />
             </DashboardWrapper>
@@ -177,18 +189,25 @@ export default function Home() {
                 category={question.category}
                 value={question.points}
                 onBack={handleBackToBoard}
-                onClose={handleCloseQuestion} // Pass the handleCloseQuestion function
+                onClose={handleCloseQuestion}
               />
             ) : (
               gameData && (
                 <GameBoard
                   onQuestionClick={handleQuestionClick}
                   questions={gameData.questions}
-                  teams={gameData.teams} // Pass teams for lookup
+                  teams={gameData.teams}
                 />
               )
             )}
           </GameCardWrapper>
+
+          {/* Show Game Over modal if the game is over */}
+          {isGameOver && (
+            <GameOverModal
+                onConfirm={handleEndGame} 
+        />
+          )}
         </>
       )}
     </HomeWrapper>
