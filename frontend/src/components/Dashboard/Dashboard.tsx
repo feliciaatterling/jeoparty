@@ -28,7 +28,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <DashboardWrapper>
-      <Logo size="medium"/> 
+      <Logo size="small"/> 
       <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams?.map((team, index) => (
