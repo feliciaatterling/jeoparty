@@ -8,7 +8,7 @@ interface TimerButtonProps {
 }
 
 const TimerButton: React.FC<TimerButtonProps> = ({ duration, label, onClick }) => {
-  const [fillPercentage, setFillPercentage] = useState(0);
+  const [fillPercentage, setFillPercentage] = useState(0); // Start with the button empty
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
@@ -31,17 +31,16 @@ const TimerButton: React.FC<TimerButtonProps> = ({ duration, label, onClick }) =
 
     animationFrameId = requestAnimationFrame(updateProgress); // Start animation
 
-    // Cleanup the animation on unmount
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => cancelAnimationFrame(animationFrameId); // Cleanup
   }, [duration]);
 
   return (
     <ScTimerButton
-      $fillPercentage={fillPercentage}
+      $fillPercentage={fillPercentage} // Control the background fill
       $isComplete={isComplete}
-      onClick={onClick} // Use the onClick prop
+      onClick={onClick}
     >
-      {label}
+      <span>{label}</span>
     </ScTimerButton>
   );
 };
