@@ -16,11 +16,11 @@ const fadeIn = keyframes`
 export const PodiumWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* Center podiums vertically */
+  justify-content: center; /* Center podiums vertically */
   align-items: center;
   width: 100%;
-  height: 100%;  /* Set to 100% of the container */
-  padding: 0;  /* Remove extra padding */
+  height: 100%; /* Set to 100% of the container */
+  padding: 0; /* Remove extra padding */
   box-sizing: border-box;
   color: white;
 `;
@@ -30,9 +30,9 @@ export const PodiumContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 10px;  /* Reduce gap between podiums */
+  gap: 24px;
   width: 100%;
-  max-width: 90vw;  /* Make sure the podiums take up available width */
+  max-width: 90vw; /* Make sure the podiums take up available width */
   flex-wrap: wrap; /* Allows podiums to wrap on smaller screens */
   height: auto;
 
@@ -41,7 +41,7 @@ export const PodiumContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    gap: 5px;  /* Smaller gap on smaller screens */
+    gap: 5px; /* Smaller gap on smaller screens */
   }
 `;
 
@@ -55,7 +55,7 @@ export const PodiumSpot = styled.div<{ $delay: number; color?: string }>`
   text-align: center;
   color: white;
   background: ${(props) => props.color || "rgba(255, 255, 255, 0.1)"};
-  width: 15vw;  /* Width based on viewport width */
+  width: 15vw; /* Width based on viewport width */
   position: relative;
 
   opacity: 0;
@@ -88,7 +88,7 @@ export const ThirdPlace = styled(PodiumSpot)`
 
 export const PlayerInfo = styled.div`
   position: absolute;
-  top: 10px;
+  top: 24px;
   text-align: center;
 `;
 
