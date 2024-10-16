@@ -47,7 +47,19 @@ describe("GameCard Component", () => {
 
   it('should close the card when the "X" button is clicked', () => {
     render(<GameCard {...defaultProps} />);
-    fireEvent.click(screen.getByText("X"));
-    expect(mockOnClose).toHaveBeenCalled(); // Check if onClose is called
+
+    // Find all the elements with the text "X"
+    const closeButtons = screen.getAllByText("X");
+
+    // Assuming the visible "X" button is the one with higher opacity
+    const visibleCloseButton = closeButtons.find(
+      (button) => getComputedStyle(button).opacity !== "0"
+    );
+
+    // Click the visible "X" button
+    fireEvent.click(visibleCloseButton!);
+
+    // Check if onClose is called
+    expect(mockOnClose).toHaveBeenCalled();
   });
 });
