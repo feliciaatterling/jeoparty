@@ -19,6 +19,7 @@ interface GameData {
   }[];
   currentTurnTeamId: number;
   isGameOver: boolean;
+  gameFinishedAt: Date | null
 }
 
 export default GameData;

@@ -62,7 +62,8 @@ const ResultsPage: React.FC = () => {
 
   // Function to delete the game data
   async function deleteGame() {
-    await deleteGameData(gameId);
+    console.log('called delete function')
+    await deleteGameData(gameId)
   }
 
   const handlePlayAgain = async () => {
@@ -82,6 +83,7 @@ const ResultsPage: React.FC = () => {
       setGameData(data);
     }
     fetchData();
+    deleteGame();
   }, [gameId]);
 
   // Update logo size based on window height
