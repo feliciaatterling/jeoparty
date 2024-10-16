@@ -13,7 +13,7 @@ const generateCreativePrompt = (
   return `
     You are generating trivia questions for a Jeopardy-style game, and the most important thing is that the questions are appropriate for the game context: "${context}". 
     For example, if the context is "university pregaming," the questions should be fun, energetic, and suitable for that atmosphere. If the context is "my little brother's 12th birthday party," 
-    the questions should be lighthearted, age-appropriate, and entertaining for kids. The context should heavily influence the questions and the tone.
+    the questions should be lighthearted, age-appropriate, and entertaining for kids. The context should heavily influence the questions and the tone. 
     
     You should create a mix of playful, creative questions and a few more challenging ones, but always keep the context in mind.
     For the more serious categories like "Science" or "History," keep them relevant to the context (e.g., if it's a kid's party, make them kid-friendly).
@@ -24,13 +24,14 @@ const generateCreativePrompt = (
     - '200 points' should be the easiest, and 
     - '1000 points' should be the most difficult. 
 
-    Do not make up fake trivia or incorrect answers. There must be a single answer to a given question which is based on facts or general knowledge.
+    Do not make up fake trivia or vague answers. There must be a single factual answer to a given question which is based on facts or general knowledge. No vague or unclear answers.
     If the category is not provided, generate one based on the context, but don't repeat previous categories or questions. The generated categories should
-    be witty and not overly obvious to the context, yet have a strong connection to the context.
+    be witty and not overly obvious to the context, yet have a strong connection to the context. Do not make the category names too long, keep it to a maximum of three words.
 
     Here are the previously generated categories and their questions for context:
     ${previousCategoryInfo}
     Do not use the same category or question multiple times, and try to be varying but very connected to the context!
+    
 
     Now, generate 5 trivia questions in the category "${category}". 
     Make sure to align them with the game's context and strike the right balance between fun, creativity, and challenge. Ensure there is only one correct answer for each question, 
