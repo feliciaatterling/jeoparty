@@ -80,24 +80,22 @@ export default function GameSetup() {
     index: number,
     newValue: { name?: string; color?: string }
   ) => {
-    const newName = newValue.name?.slice(0, 25); // Restrict to 25 characters
-
-    // Check if the name exceeds the limit
-    if (newValue.name && newValue.name.length > 25) {
-      setTeamNameLengthErrors((prevErrors) =>
-        prevErrors.map((error, i) => (i === index ? true : error))
-      );
-    } else {
-      setTeamNameLengthErrors((prevErrors) =>
-        prevErrors.map((error, i) => (i === index ? false : error))
-      );
+    if (newValue.name) {
+      // Check if the name exceeds the limit
+      if (newValue.name && newValue.name.length > 25) {
+        setTeamNameLengthErrors((prevErrors) =>
+          prevErrors.map((error, i) => (i === index ? true : error))
+        );
+      } else {
+        setTeamNameLengthErrors((prevErrors) =>
+          prevErrors.map((error, i) => (i === index ? false : error))
+        );
+      }
     }
 
     setTeams((prevTeams) =>
       prevTeams.map((team, i) =>
-        i === index
-          ? { ...team, ...(newName !== undefined ? { name: newName } : {}) }
-          : team
+        i === index ? { ...team, ...newValue } : team
       )
     );
   };
