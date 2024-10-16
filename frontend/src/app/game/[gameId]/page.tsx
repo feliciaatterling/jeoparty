@@ -35,7 +35,7 @@ export default function Home() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
-  const [mute, setMute] = useState(true);
+  const [mute, setMute] = useState(false);
 
   let sound: Howl;
 

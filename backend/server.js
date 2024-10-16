@@ -27,7 +27,7 @@ async function connect() {
 connect();
 
 const corsOptions = {
-  origin: "https://jeoparty-puce.vercel.app", // Allow your frontend's URL
+  origin: ["https://jeoparty-puce.vercel.app", "http://localhost:3000"], // Allow your frontend's URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow certain methods
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
