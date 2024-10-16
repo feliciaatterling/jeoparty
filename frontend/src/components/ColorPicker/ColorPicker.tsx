@@ -7,7 +7,11 @@ import {
 } from "./ColorPicker.styled";
 import ColorPickerProps from "./ColorPicker.types";
 
-const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors}) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({
+  color,
+  setColor,
+  defaultColors,
+}) => {
   const [showPicker, setShowPicker] = useState<boolean>(false); // For toggling the picker
   const pickerRef = useRef<HTMLDivElement>(null); // To track if user clicks outside the picker
 
@@ -17,7 +21,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors
   };
 
   const handleColorChange = (newColor: string) => {
-    setColor(newColor);
+    setColor(newColor); // Update the color
   };
 
   // Close the color picker if clicked outside
@@ -26,7 +30,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors
       pickerRef.current &&
       !pickerRef.current.contains(event.target as Node)
     ) {
-      setShowPicker(false);
+      setShowPicker(false); // Hide the color picker
     }
   };
 
@@ -40,10 +44,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors
 
   return (
     <ColorPickerContainer>
-      <Circle color={color} onClick={togglePicker} />
+      <Circle color={color} onClick={togglePicker} role="button" tabIndex={0} />
       {showPicker && (
         <PickerWrapper ref={pickerRef}>
-          <HexColorPicker color={color} onChange={handleColorChange} />
+          <HexColorPicker
+            color={color}
+            onChange={handleColorChange}
+            role="color-picker"
+          />
 
           {/* Render default color options */}
           <div style={{ display: "flex", marginTop: "10px" }}>
@@ -53,6 +61,8 @@ const ColorPicker: React.FC<ColorPickerProps> = ({color, setColor, defaultColors
                 color={defaultColor}
                 onClick={() => handleColorChange(defaultColor)}
                 style={{ marginRight: "4px" }}
+                role="color-option"
+                aria-label={`Select ${defaultColor}`} // Add accessible label
               />
             ))}
           </div>
