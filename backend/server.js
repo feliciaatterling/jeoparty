@@ -26,8 +26,13 @@ async function connect() {
 
 connect();
 
-// Middleware to parse JSON bodies
-app.use(cors());
+const corsOptions = {
+  origin: "https://jeoparty-puce.vercel.app", // Allow your frontend's URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow certain methods
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/game", gameRouter);
 app.use("/", homeRouter);
