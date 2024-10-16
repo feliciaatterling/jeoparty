@@ -26,10 +26,10 @@ const gameSchema = new mongoose.Schema({
   ],
   currentTurnTeamId: Number,
   isGameOver: Boolean,
-  gameFinishedAt: { type: Date, default: null }
+  gameFinishedAt: { type: Date, default: null },
 });
 
 // Create a TTL index to delete the document 1 hour (3600 seconds) after gameFinishedAt
-gameSchema.index({ gameFinishedAt: 1 }, { expireAfterSeconds: 30 });
+gameSchema.index({ gameFinishedAt: 1 }, { expireAfterSeconds: 3600 });
 
 module.exports = mongoose.model("gamemodel", gameSchema);
