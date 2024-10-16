@@ -2,9 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Podium from "@/components/Podium/Podium"; // Podium component import
-import { PageWrapper } from "./page.styled"; // Import the styled PageWrapper component
+import { BackgroundWrapper, ButtonContainer, PageWrapper, Scoreboard, ScoreboardItem, ScoreboardTeamName, ScoreboardTeamScore } from "./page.styled"; // Import the styled components
 import { deleteGameData, fetchGameData } from "./utils";
 import { useParams, useRouter } from "next/navigation";
+import Button from "@/components/Button/Button";
+import Logo from "@/components/Logo/Logo";
+import Spacer from "@/components/Spacer/Spacer";
 
 // Define the GameData type based on your game structure
 interface Team {
@@ -12,6 +15,10 @@ interface Team {
   name: string;
   color: string;
   score: number;
+}
+
+interface Player extends Team {
+  rgbaColor: string; // Add rgbaColor for podium display
 }
 
 interface GameData {
@@ -24,24 +31,26 @@ function hexToRgba(hex: string, alpha: number) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-// Function to calculate rankings with ties
-function calculateRankings(teams: Team[]) {
-  const sortedTeams = teams.slice().sort((a, b) => b.score - a.score);
-  const rankings: { team: Team; rank: number }[] = [];
-  let currentRank = 1;
+// Function to group players by their scores and convert to Player type
+function groupPlayersByScore(teams: Team[]): { score: number; players: Player[] }[] {
+  const groupedTeams: { score: number; players: Player[] }[] = [];
 
-  for (let i = 0; i < sortedTeams.length; i++) {
-    if (i > 0 && sortedTeams[i].score === sortedTeams[i - 1].score) {
-      // Same rank as previous team for a tie
-      rankings.push({ team: sortedTeams[i], rank: currentRank });
+  teams.forEach((team) => {
+    const rgbaColor = hexToRgba(team.color, 0.5); // Convert color to rgba for podium
+    const player: Player = { ...team, rgbaColor };
+
+    const existingGroup = groupedTeams.find(
+      (group) => group.score === team.score
+    );
+
+    if (existingGroup) {
+      existingGroup.players.push(player);
     } else {
-      // New rank for non-tied team
-      rankings.push({ team: sortedTeams[i], rank: currentRank });
-      currentRank = i + 1 + 1; // Skip rank for ties
+      groupedTeams.push({ score: team.score, players: [player] });
     }
-  }
+  });
 
-  return rankings;
+  return groupedTeams.sort((a, b) => b.score - a.score); // Sort by descending score
 }
 
 // Define the ResultsPage component
@@ -49,6 +58,7 @@ const ResultsPage: React.FC = () => {
   const { gameId } = useParams() as { gameId: string };
   const router = useRouter(); // Initialize router for navigation
   const [gameData, setGameData] = useState<GameData | null>(null);
+  const [logoSize, setLogoSize] = useState<"small" | "medium" | "large">("medium");
 
   // Function to delete the game data
   async function deleteGame() {
@@ -57,13 +67,13 @@ const ResultsPage: React.FC = () => {
   }
 
   const handlePlayAgain = async () => {
-    //await deleteGame();
-    router.push(`/gamesetup`); // Redirect to game setup page
+    await deleteGame();
+    router.push(`/gamesetup`);
   };
 
   const handleExit = async () => {
-    //await deleteGame();
-    router.push(`/`); // Redirect to the homepage
+    await deleteGame();
+    router.push(`/`);
   };
 
   // Fetch the game data from the database
@@ -76,29 +86,66 @@ const ResultsPage: React.FC = () => {
     deleteGame();
   }, [gameId]);
 
+  // Update logo size based on window height
+  useEffect(() => {
+    const updateLogoSize = () => {
+      const height = window.innerHeight;
+      if (height < 600) {
+        setLogoSize("small");
+      } else if (height >= 600 && height < 800) {
+        setLogoSize("medium");
+      } else {
+        setLogoSize("large");
+      }
+    };
+
+    // Set initial size
+    updateLogoSize();
+
+    // Add event listener to track window resizing
+    window.addEventListener("resize", updateLogoSize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", updateLogoSize);
+  }, []);
+
   // If there's no game data, return early
   if (!gameData) return null;
 
-  // Sort the teams and handle ties using the `calculateRankings` function
-  const rankedTeams = calculateRankings(gameData.teams);
+  // Group the players by score
+  const groupedTeams = groupPlayersByScore(gameData.teams);
 
-  // Extract the top 3 teams for the podium
-  const topTeams = rankedTeams
-    .slice(0, 3)
-    .map((rankedTeam) => ({
-      name: rankedTeam.team.name,
-      score: rankedTeam.team.score,
-      color: rankedTeam.team.color,
-      rgbaColor: hexToRgba(rankedTeam.team.color, 0.5), // Generate transparent version of team color
-    }));
+  // Get the top 3 scores and their players
+  const topThreeGroups = groupedTeams.slice(0, 3);
+
+  // Remaining teams to display in the scoreboard
+  const remainingGroups = groupedTeams.slice(3);
 
   return (
     <PageWrapper>
-      <Podium
-        players={topTeams}
-        onPlayAgain={handlePlayAgain}
-        onExit={handleExit}
-      />
+      <Logo size={logoSize} /> {/* Render logo based on the current screen height */}
+      <Spacer size={2} orientation={"vertical"}></Spacer>
+
+      <BackgroundWrapper>
+        {/* Pass the top 3 score groups to the Podium component */}
+        <Podium podiumGroups={topThreeGroups} />
+
+        <Scoreboard>
+          {remainingGroups.map((group) =>
+            group.players.map((team) => (
+              <ScoreboardItem key={team.id} color={team.color}>
+                <ScoreboardTeamName>{team.name}</ScoreboardTeamName>
+                <ScoreboardTeamScore>${team.score}</ScoreboardTeamScore>
+              </ScoreboardItem>
+            ))
+          )}
+        </Scoreboard>
+
+        <ButtonContainer>
+          <Button label="Play Again" variant="primary" onClick={handlePlayAgain} />
+          <Button label="Exit" variant="danger" onClick={handleExit} />
+        </ButtonContainer>
+      </BackgroundWrapper>
     </PageWrapper>
   );
 };

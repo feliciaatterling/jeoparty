@@ -2,19 +2,19 @@ import styled from "styled-components";
 
 // Main game board container ensuring content fits
 export const ScGameBoard = styled.div`
-  padding: 20px;
+  padding: 24px 42px;
   background-color: #ffffff10;
   border-radius: 8px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  width: calc(100% - 275px);
-  margin-left: 250px;
-  max-width: 100%;
-  box-sizing: border-box;
-`;
+  gap: 16px;
 
+  @media (min-width: 1920px) {
+    gap: 24px;
+  }
+  @media (min-width: 2560px) {
+  }
+`;
 
 // Wrapper for each category and its respective point cards
 export const ScCategoryColumn = styled.div`
@@ -22,59 +22,61 @@ export const ScCategoryColumn = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin: 0 5px; 
-  width: calc(100% / 6 - 10px); 
-  min-width: 100px;
-  max-width: 140px;
+  width: 140px;
 
-  @media (max-width: 1200px) {
-    width: calc(100% / 5 - 10px); 
+  @media (min-width: 1640px) {
+    width: 180px;
   }
-
-  @media (max-width: 992px) {
-    width: calc(100% / 4 - 10px); 
+  @media (min-width: 1920px) {
+    width: 220px; /* Maximum limit for ultra-wide screens */
+    gap: 12px;
   }
-
-  @media (max-width: 768px) {
-    width: calc(100% / 3 - 10px); 
-  }
-
-  @media (max-width: 576px) {
-    width: calc(100% / 2 - 10px); 
+  @media (min-width: 2560px) {
   }
 `;
 
-// Category name wrapper ensuring dynamic text adjustment
 // Category name wrapper ensuring dynamic text adjustment
 export const ScCategoryName = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px; 
+  height: 50px;
   max-height: 50px;
   text-align: center;
   overflow: hidden;
 
   h3 {
-    font-size: clamp(0.6rem, 1.2vw, 1.5rem); // Dynamic font size based on available width
+    font-size: 18px;
     line-height: 1;
     text-align: center;
     display: block;
-    white-space: normal; // Allow text to wrap
+    white-space: normal;
     overflow: hidden;
-    word-break: break-word; // Break words to avoid overflow
-    max-height: 98%; // Ensure the text fits within the available space
-    display: -webkit-box; // Ensure it works well in flexbox
-    -webkit-line-clamp: 3; // Limit to 3 lines
-    -webkit-box-orient: vertical; // Orientation for line clamping
+    word-break: break-word;
+    max-height: 98%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    @media (min-width: 1920px) {
+      font-size: 24px;
+    }
+    @media (min-width: 2560px) {
+    }
   }
 `;
-
 
 export const ScCard = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%; 
+  align-items: center;
+  width: 100%;
   text-align: center;
-  margin-top: 5px; 
+  gap: 16px;
+
+  @media (min-width: 1920px) {
+    gap: 24px;
+  }
+  @media (min-width: 2560px) {
+  }
 `;

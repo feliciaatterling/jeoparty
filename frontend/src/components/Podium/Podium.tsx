@@ -1,17 +1,18 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import {
-  PodiumWrapper,
   PodiumContainer,
   FirstPlace,
   SecondPlace,
   ThirdPlace,
   PlayerInfo,
-  ButtonContainer,
+  PlaceLabel,
+  PodiumWrapper,
+  PodiumObject,
 } from "./Podium.styled";
-import Button from "../Button/Button";
 import Typography from "../Typography/Typography";
-import Logo from "@/components/Logo/Logo";
 
 interface Player {
   name: string;
@@ -21,9 +22,7 @@ interface Player {
 }
 
 interface PodiumProps {
-  players: Player[];
-  onPlayAgain: () => void;
-  onExit: () => void;
+  podiumGroups: { score: number; players: Player[] }[];
 }
 
 // Function to generate a gradient for tied players
@@ -31,7 +30,7 @@ const generateGradient = (colors: string[]) => {
   if (colors.length === 1) {
     return colors[0]; // If there's only one player, return the single color
   }
-  return `linear-gradient(45deg, ${colors.join(", ")})`;
+  return `linear-gradient(90deg, ${colors.join(", ")})`;
 };
 
 // Utility to format tied player names with "&"
@@ -40,14 +39,11 @@ const formatTiedNames = (players: Player[]) => {
   return names.length > 1 ? names.join(" & ") : names[0];
 };
 
-const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
-  // Sort players by score in descending order
-  const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-
+const Podium: React.FC<PodiumProps> = ({ podiumGroups }) => {
   // State for controlling confetti
   const [showConfetti, setShowConfetti] = useState(false);
 
-  // Trigger confetti after the third-place podium is revealed
+  // Trigger confetti after the podium is revealed
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConfetti(true);
@@ -55,134 +51,84 @@ const Podium: React.FC<PodiumProps> = ({ players, onPlayAgain, onExit }) => {
     return () => clearTimeout(timer); // Clean up timer on component unmount
   }, []);
 
-  // Helper function to group tied players by score
-  const groupByScore = (players: Player[]) => {
-    const groupedPlayers: { score: number; players: Player[] }[] = [];
-
-    players.forEach((player) => {
-      const existingGroup = groupedPlayers.find(
-        (group) => group.score === player.score
-      );
-
-      if (existingGroup) {
-        existingGroup.players.push(player);
-      } else {
-        groupedPlayers.push({ score: player.score, players: [player] });
-      }
-    });
-
-    return groupedPlayers;
-  };
-
-  const groupedPlayers = groupByScore(sortedPlayers);
-
   return (
     <PodiumWrapper>
-      {/* Title */}
-      <Logo size="medium" />
-      <Typography variant="h2" align="center" color="white">
-        RESULTS
-      </Typography>
-
       <PodiumContainer>
         {/* Second Place Podium */}
-        {groupedPlayers.length >= 2 && (
-          <SecondPlace
-            color={generateGradient(
-              groupedPlayers[1].players.map((player) => player.color)
-            )}
-            $delay={2}
-          >
-            <PlayerInfo>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
+        {podiumGroups.length >= 2 && (
+          <PodiumObject>
+            <SecondPlace
+              color={generateGradient(
+                podiumGroups[1].players.map((player) => player.color)
+              )}
+              $delay={2}
+            >
+              <PlayerInfo>
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[1].players)}{" "}
-                  {/* Names with "&" */}
+                  {formatTiedNames(podiumGroups[1].players)} {/* Names with "&" */}
                 </Typography>
-              </div>
-              <Typography variant="meta" color="white">
-                ${groupedPlayers[1].score}
-              </Typography>
-            </PlayerInfo>
-          </SecondPlace>
+                <Typography variant="meta" color="white">
+                  ${podiumGroups[1].score}
+                </Typography>
+              </PlayerInfo>
+            </SecondPlace>
+            <PlaceLabel>🥈 2nd Place</PlaceLabel>
+          </PodiumObject>
         )}
-
+        
         {/* First Place Podium */}
-        {groupedPlayers.length >= 1 && (
-          <FirstPlace
-            color={generateGradient(
-              groupedPlayers[0].players.map((player) => player.color)
-            )}
-            $delay={3}
-          >
-            <PlayerInfo>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
+        {podiumGroups.length >= 1 && (
+          <PodiumObject>
+            <FirstPlace
+              color={generateGradient(
+                podiumGroups[0].players.map((player) => player.color)
+              )}
+              $delay={3}
+            >
+              <PlayerInfo>
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[0].players)}{" "}
-                  {/* Names with "&" */}
+                  {formatTiedNames(podiumGroups[0].players)} {/* Names with "&" */}
                 </Typography>
-              </div>
-              <Typography variant="meta" color="white">
-                ${groupedPlayers[0].score}
-              </Typography>
-            </PlayerInfo>
-          </FirstPlace>
+                <Typography variant="meta" color="white">
+                  ${podiumGroups[0].score}
+                </Typography>
+              </PlayerInfo>
+            </FirstPlace>
+            <PlaceLabel>🥇 1st Place</PlaceLabel>
+          </PodiumObject>
         )}
 
         {/* Third Place Podium */}
-        {groupedPlayers.length >= 3 && (
-          <ThirdPlace
-            color={generateGradient(
-              groupedPlayers[2].players.map((player) => player.color)
-            )}
-            $delay={1}
-          >
-            <PlayerInfo>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
+        {podiumGroups.length >= 3 && (
+          <PodiumObject>
+            <ThirdPlace
+              color={generateGradient(
+                podiumGroups[2].players.map((player) => player.color)
+              )}
+              $delay={1}
+            >
+              <PlayerInfo>
                 <Typography variant="p" color="white">
-                  {formatTiedNames(groupedPlayers[2].players)}{" "}
-                  {/* Names with "&" */}
+                  {formatTiedNames(podiumGroups[2].players)} {/* Names with "&" */}
                 </Typography>
-              </div>
-              <Typography variant="meta" color="white">
-                ${groupedPlayers[2].score}
-              </Typography>
-            </PlayerInfo>
-          </ThirdPlace>
+                <Typography variant="meta" color="white">
+                  ${podiumGroups[2].score}
+                </Typography>
+              </PlayerInfo>
+            </ThirdPlace>
+            <PlaceLabel>🥉 3rd Place</PlaceLabel>
+          </PodiumObject>
         )}
       </PodiumContainer>
 
-      {/* Buttons */}
-      <ButtonContainer>
-        <Button label="Play Again" variant="primary" onClick={onPlayAgain} />
-        <Button label="Exit" variant="danger" onClick={onExit} />
-      </ButtonContainer>
-
-      {/* Confetti */}
       {showConfetti && (
         <Confetti
           width={window.innerWidth}
           height={window.innerHeight}
           recycle={false}
-          colors={sortedPlayers.map((player) => player.color)}
+          colors={podiumGroups.flatMap((group) =>
+            group.players.map((player) => player.color)
+          )}
         />
       )}
     </PodiumWrapper>

@@ -6,9 +6,9 @@ interface LogoWrapperProps {
 
 // Define the size styles based on the size prop
 const logoSizes = {
-  small: { width: 150, height: 50 },
-  medium: { width: 225, height: 32 },
-  large: { width: 700, height: 100 },
+  small: { width: 225, height: 225 / 6.088 },
+  medium: { width: 350, height: 350 / 6.088 },
+  large: { width: 700, height: 700 / 6.088 },
 };
 
 // Styled wrapper to apply different sizes based on props
