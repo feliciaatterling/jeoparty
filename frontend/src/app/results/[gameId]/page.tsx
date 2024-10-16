@@ -77,7 +77,6 @@ const ResultsPage: React.FC = () => {
       setGameData(data);
     }
     fetchData();
-    deleteGame();
   }, [gameId]);
 
   // Update logo size based on window height
