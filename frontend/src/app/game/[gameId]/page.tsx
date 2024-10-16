@@ -21,6 +21,7 @@ import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
 import { IoVolumeHighOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import SoundButton from "@/components/SoundButton/SoundButton";
+import { Howl, Howler } from "howler";
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
@@ -34,7 +35,9 @@ export default function Home() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
-  const [mute, setMute] = useState(false);
+  const [mute, setMute] = useState(true);
+
+  let sound: Howl;
 
   const router = useRouter();
 
@@ -148,8 +151,23 @@ export default function Home() {
     }
   };
 
+  const toggleMute = () => {
+    setMute(!mute);
+    Howler.mute(!mute);
+  };
+
   useEffect(() => {
+    sound = new Howl({
+      src: ["/audio/music.mp3"],
+      loop: true,
+    });
+    sound.play();
+
     getGameData();
+
+    return () => {
+      sound.unload();
+    };
   }, [gameId]);
 
   return (
@@ -185,7 +203,7 @@ export default function Home() {
                       (team) => team.id === gameData!.currentTurnTeamId
                     )[0]?.name + "'s turn!"}
                   </Typography>
-                  <SoundButton mute={mute} onClick={() => setMute(!mute)} />
+                  <SoundButton mute={mute} onClick={toggleMute} />
                 </ScTurnAndSoundContainer>
                 <Spacer size={2} orientation="vertical" />
               </>
