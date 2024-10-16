@@ -1,6 +1,5 @@
 "use client";
 
-import { IoGameControllerOutline } from "react-icons/io5";
 import { ScHowToCard } from "./HowToCard.styled";
 import Spacer from "../Spacer/Spacer";
 import Typography from "../Typography/Typography";

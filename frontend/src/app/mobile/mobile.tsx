@@ -61,8 +61,8 @@ export default function HomeMobile() {
           align="center"
           style={{ fontSize: 13, fontWeight: 300, padding: "0 12px" }}
         >
-          We're sorry! We currently do not support mobile games, please come
-          back again on desktop or tablet!
+          {`We're sorry! We currently do not support mobile games, please come
+          back again on desktop or tablet!`}
         </Typography>
         <Spacer orientation="vertical" size={3} />
 
