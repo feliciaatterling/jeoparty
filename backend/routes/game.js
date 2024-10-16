@@ -14,17 +14,6 @@ const openai = new OpenAI({
 
 // Create new game session
 router.post("/create", async (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://jeoparty-puce.vercel.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "POST, GET, OPTIONS, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
   const teams = req.body.teams; // {name: "name", color: "color"}[] received from frontend UI
   const context = req.body.context; // Context of the game
   const categories = req.body.categories; // Array of 6 categories
