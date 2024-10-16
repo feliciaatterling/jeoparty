@@ -18,6 +18,7 @@ import Image from "next/image";
 import useIsMobile from "@/hooks/useIsMobile";
 import HomeMobile from "./mobile/mobile";
 import HowToCard from "@/components/HowToCard/HowToCard";
+import FlexDiv from "@/components/FlexDiv/FlexDiv";
 
 export default function Home() {
   const isMobile = useIsMobile();
@@ -94,7 +95,7 @@ export default function Home() {
 
         <Spacer orientation="vertical" size={2} />
 
-        <div style={{ display: "flex", gap: 24 }}>
+        <FlexDiv gap={24}>
           <HowToCard label="The Game" Icon={IoGameControllerOutline}>
             Jeoparty is a trivia game based on the classic Jeopardy format.
             There are six categories with five questions each. The more money
@@ -112,7 +113,8 @@ export default function Home() {
             every time you play! Try giving the AI instructions to better tailor
             your experience!
           </HowToCard>
-        </div>
+        </FlexDiv>
+
         <Spacer orientation="vertical" size={4} />
 
         <Typography

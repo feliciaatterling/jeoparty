@@ -1,5 +1,6 @@
 import React from "react";
 import ScPointCard from "@/components/PointCard/PointCard.styled";
+import FlexDiv from "../FlexDiv/FlexDiv";
 
 interface PointCardProps {
   points: number;
@@ -24,9 +25,9 @@ const PointCard: React.FC<PointCardProps> = ({
       $teamColor={ownerColor} // Pass the team color to styled component
     >
       {disabled && owner ? ( // If the card is disabled, show team name
-        <div style={{ color: ownerColor }}>
+        <FlexDiv justifyContent="center" style={{ color: ownerColor }}>
           {owner} {/* Display team name */}
-        </div>
+        </FlexDiv>
       ) : (
         `$${points}` // Otherwise, show the points
       )}

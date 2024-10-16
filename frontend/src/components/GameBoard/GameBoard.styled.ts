@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 // Main game board container ensuring content fits
 export const ScGameBoard = styled.div`
-  padding: 24px 42px;
+  padding: 36px 52px;
   background-color: #ffffff10;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   gap: 16px;
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
+  border: 2px solid #ffffff10;
 
   @media (min-width: 1920px) {
     gap: 24px;
