@@ -73,8 +73,13 @@ const ResultsPage: React.FC = () => {
   // Fetch the game data from the database
   useEffect(() => {
     async function fetchData() {
-      const data = await fetchGameData(gameId);
-      setGameData(data);
+      const fetchedGameData = await fetchGameData(gameId);
+      if (fetchedGameData) {
+        setGameData(fetchedGameData);
+      } else {
+        console.error("Could not fetch GameData");
+        router.push(`/error/${"Game not found"}`);
+      }
     }
     fetchData();
   }, [gameId]);

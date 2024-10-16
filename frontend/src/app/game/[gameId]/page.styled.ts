@@ -30,8 +30,24 @@ export const ScGameCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   padding: 32px;
+`;
+
+export const ScTurnAndSoundContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 920px;
+
+  @media (min-width: 1640px) {
+    width: 1160px; /* Maximum limit for ultra-wide screens */
+  }
+  @media (min-width: 1920px) {
+    width: 1440px; /* Maximum limit for ultra-wide screens */
+  }
+  @media (min-width: 2560px) {
+  }
 `;
 
 export const ScLoadingContainer = styled.div`

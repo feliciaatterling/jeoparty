@@ -9,6 +9,7 @@ import {
   ScDashboardWrapper,
   ScGameCardWrapper,
   ScLoadingContainer,
+  ScTurnAndSoundContainer,
 } from "./page.styled";
 import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
@@ -18,6 +19,8 @@ import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
+import { IoVolumeHighOutline, IoVolumeMuteOutline } from "react-icons/io5";
+import SoundButton from "@/components/SoundButton/SoundButton";
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
@@ -31,6 +34,7 @@ export default function Home() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
+  const [mute, setMute] = useState(false);
 
   const router = useRouter();
 
@@ -148,8 +152,6 @@ export default function Home() {
     getGameData();
   }, [gameId]);
 
-  console.log(gameData);
-
   return (
     <HomeWrapper
       style={
@@ -176,11 +178,15 @@ export default function Home() {
           <ScGameCardWrapper>
             {gameData && (
               <>
-                <Typography variant="h1" align="center">
-                  {gameData.teams.filter(
-                    (team) => team.id === gameData!.currentTurnTeamId
-                  )[0]?.name + "'s turn!"}
-                </Typography>
+                <ScTurnAndSoundContainer>
+                  <IoVolumeHighOutline color="transparent" size={36} />
+                  <Typography variant="h1" align="center">
+                    {gameData.teams.filter(
+                      (team) => team.id === gameData!.currentTurnTeamId
+                    )[0]?.name + "'s turn!"}
+                  </Typography>
+                  <SoundButton mute={mute} onClick={() => setMute(!mute)} />
+                </ScTurnAndSoundContainer>
                 <Spacer size={2} orientation="vertical" />
               </>
             )}
