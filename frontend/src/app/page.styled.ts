@@ -19,7 +19,7 @@ export const ScButtonContainer = styled.div`
 `;
 
 export const ScDemoContainer = styled.div`
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
 `;
 
 export const ScHowToPlayContainer = styled.div`
@@ -52,4 +52,4 @@ export const Sc404Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
-`
+`;

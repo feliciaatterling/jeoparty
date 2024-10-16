@@ -11,4 +11,5 @@ export const ScHowToCard = styled.div`
   background-color: #ffffff15;
   border: 2px solid #ffffff20;
   border-radius: 8px;
+  box-shadow: 0px 0px 16px rgba(225, 27, 252, 0.4);
 `;

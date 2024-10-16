@@ -17,6 +17,8 @@ const ScContainer = styled.div`
   min-width: 1000px;
   background-color: #ffffff10;
   border-radius: 8px;
+  border: 2px solid #ffffff10;
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
 
   @media (min-width: 1920px) {
     width: 1280px; /* Maximum limit for ultra-wide screens */
