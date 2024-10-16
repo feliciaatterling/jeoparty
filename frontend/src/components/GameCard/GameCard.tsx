@@ -9,6 +9,7 @@ import {
 import Button from "../Button/Button";
 import Spacer from "../Spacer/Spacer";
 import Typography from "../Typography/Typography";
+import TimerButton from "../TimerButton/TimerButton";
 
 interface GameCardProps {
   question: string;
@@ -79,11 +80,11 @@ const GameCard: React.FC<GameCardProps> = ({
             <Spacer size={3} orientation="vertical" />
 
             <ScShowAnswerWrapper>
-              <Button
-                label="SHOW ANSWER"
-                variant="secondary"
-                onClick={handleToggleMode}
-              />
+            <TimerButton
+              duration={10000}
+              label="SHOW ANSWER" 
+              onClick={handleToggleMode}
+            />
             </ScShowAnswerWrapper>
             <Spacer orientation="vertical" size={2} />
           </>

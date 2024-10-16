@@ -41,7 +41,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             isActive={team.id === currentTurnId}
             highestTeam={highestTeam}
             isEditMode={isEditMode}
-            onScoreChange={onScoreChange} // Pass the teamId and amount
+            onScoreChange={onScoreChange} 
           />
         ))}
       </TeamsContainer>
