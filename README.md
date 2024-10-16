@@ -23,7 +23,7 @@ Link to our Figma: https://www.figma.com/design/Naz6CvGBCQqWv9vnRFxCNy/JeoParty?
 ![Tech_graphic](https://github.com/user-attachments/assets/79eb07ab-6fdf-4036-8a99-c753d37d0992)
 
 ### Testing
-Vitest is used for testing the components. All the testfiles are located in ../frontend/__tests__. To run all tests, "cd fronted", then "npx vitest run" in the terminal. To run a specific test, use "npx vitest run filename".
+Vitest is used for component testing. All the testfiles are located in ../frontend/__tests__. To run all tests, "cd fronted", then "npx vitest run" in the terminal. To run a specific test, use "npx vitest run filename".
 
 IMPORTANT NOTE: To run vitest, make sure tsconfig.json, located in ../frontend is set to "jsx": "react-jsx" and not "jsx": "preserve". This value is changed by next.js every time "npm run dev" is executed and needs to be changed back manually before running tests.
 
