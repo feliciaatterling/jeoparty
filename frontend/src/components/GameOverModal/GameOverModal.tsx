@@ -15,9 +15,9 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onConfirm }) => {
           <Image
             src="/images/GameOver.png"
             alt="Game Over"
-            width={600}  // Adjusted width
-            height={300} // Adjusted height maintaining aspect ratio
-            style={{ maxWidth: "100%", height: "auto" }} // Ensures responsiveness
+            width={600}  
+            height={300} 
+            style={{ maxWidth: "100%", height: "auto" }} 
             priority
           />
           <Button label="See Results" variant="secondary" onClick={onConfirm} />

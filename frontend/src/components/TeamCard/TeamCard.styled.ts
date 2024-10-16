@@ -1,37 +1,37 @@
 import styled, { css } from "styled-components";
 
-// Wrapper for each team card
-export const TeamCardWrapper = styled.div<{ isActive: boolean; color: string }>`
-  background-color: ${({ isActive, color }) =>
-    isActive ? color : "transparent"};
-  padding: 8px;
-  border-radius: 8px;
-  text-align: center;
-  box-sizing: border-box;
-  width: 100%;
-  border: 2px solid
-    ${({ isActive, color }) => (isActive ? "transparent" : color)};
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    opacity 0.3s ease;
-  position: relative;
+//  Wrapper for each team card
+export const TeamCardWrapper = styled.div<{$isActive : boolean; color: string }>`
+background-color: ${({ $isActive, color }) =>
+  $isActive ? color : "transparent"};
+padding: 8px;
+border-radius: 8px;
+text-align: center;
+box-sizing: border-box;
+width: 100%;
+border: 2px solid
+  ${({ $isActive, color }) => ($isActive ? "transparent" : color)};
+transition:
+  transform 0.3s ease,
+  box-shadow 0.3s ease,
+  opacity 0.3s ease;
+position: relative;
 
-  ${(props) =>
-    props.isActive
-      ? css`
-          box-shadow: 0px 0px 12px ${props.color};
-          transform: scale(1.05); /* Make the active card slightly larger */
-          color: white; /* Ensure text is white for active cards */
-        `
-      : css`
-          opacity: 0.6; /* Transparent for non-active */
-          color: white; /* White text for non-active cards */
-        `}
+${({ $isActive, color }) =>
+  $isActive
+    ? css`
+        box-shadow: 0px 0px 12px ${color};
+        transform: scale(1.05); /* Make the active card slightly larger */
+        color: white; /* Ensure text is white for active cards */
+      `
+    : css`
+        opacity: 0.6; /* Transparent for non-active */
+        color: white; /* White text for non-active cards */
+      `}
 `;
 
 // Team name styling
-export const TeamName = styled.div<{ isActive: boolean }>`
+export const TeamName = styled.div`
   font-size: 16px;
   font-weight: bold;
   color: white; /* Always white text */
@@ -39,7 +39,7 @@ export const TeamName = styled.div<{ isActive: boolean }>`
 `;
 
 // Money/Score styling
-export const TeamMoney = styled.div<{ isActive: boolean }>`
+export const TeamMoney = styled.div`
   font-size: 16px;
   color: white; /* Always white text */
   display: flex;
