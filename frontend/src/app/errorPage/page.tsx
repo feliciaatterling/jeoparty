@@ -33,7 +33,7 @@ export default function NotFound() {
           <Spacer orientation="vertical" size={3} />
 
           <ScButtonContainer>
-            <Button label="RETURN HOME" onClick={() => (window.location.href = "/")}/>
+            <Button label="RETURN TO GAME SETUP" onClick={() => (window.location.href = "/gamesetup")}/>
           </ScButtonContainer>
           <Spacer orientation="vertical" size={4} />
         </Sc404Wrapper>
