@@ -14,6 +14,17 @@ const openai = new OpenAI({
 
 // Create new game session
 router.post("/create", async (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://jeoparty-puce.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, GET, OPTIONS, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
   const teams = req.body.teams; // {name: "name", color: "color"}[] received from frontend UI
   const context = req.body.context; // Context of the game
   const categories = req.body.categories; // Array of 6 categories
@@ -177,16 +188,15 @@ router.put("/delete/:gameId", async (req, res) => {
     if (!gameToDelete) {
       return res.status(404).json({ error: "Game not found" });
     }
-    
-    res.status(200).json({ 
-      message: "Game marked as finished and will be deleted in 1 hour.", 
-      gameToDelete 
+
+    res.status(200).json({
+      message: "Game marked as finished and will be deleted in 1 hour.",
+      gameToDelete,
     });
   } catch (error) {
     // If there's an error, send a 500 status code
     res.status(500).json({ error: "Failed to mark game as finished" });
   }
 });
-
 
 module.exports = router;
