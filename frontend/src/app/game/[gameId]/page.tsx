@@ -42,6 +42,7 @@ export default function Home() {
       setIsLoading(false);
     } else {
       console.log("Could not fetch GameData");
+      router.push(`/error/${"Game not found"}`);
     }
   }
 
@@ -146,6 +147,8 @@ export default function Home() {
   useEffect(() => {
     getGameData();
   }, [gameId]);
+
+  console.log(gameData);
 
   return (
     <HomeWrapper
