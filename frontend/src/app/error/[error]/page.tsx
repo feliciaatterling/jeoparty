@@ -35,7 +35,7 @@ export default function NotFound() {
           align="center"
           style={{ lineHeight: "1.15em", fontSize: 18, fontWeight: 300 }}
         >
-          It seems like something went wrong! Please return to the start page.
+          It seems like something went wrong! Please return to the setup page.
         </Typography>
       </ScDescriptionContainer>
 

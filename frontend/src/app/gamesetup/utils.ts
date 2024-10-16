@@ -17,6 +17,7 @@ async function createGame(gameSetup: gameSetup) {
       const data = await response.json();
       console.log(`Game Created with id ${data.gameId}! :)`);
       return data.gameId;
+    } else {
     }
   } catch (error) {
     console.error(error);
