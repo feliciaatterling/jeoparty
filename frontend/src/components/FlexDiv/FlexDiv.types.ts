@@ -5,3 +5,5 @@ interface FlexDivProps {
   gap?: number;
   style?: React.CSSProperties;
 }
+
+export default FlexDivProps;
