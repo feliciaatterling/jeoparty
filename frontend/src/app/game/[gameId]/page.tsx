@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import GameCard from "@/components/GameCard/GameCard";
-import GameOverModal from "@/components/GameOverModal/GameOverModal"; 
+import GameOverModal from "@/components/GameOverModal/GameOverModal";
 import {
   HomeWrapper,
-  DashboardWrapper,
-  GameCardWrapper,
+  ScDashboardWrapper,
+  ScGameCardWrapper,
   ScLoadingContainer,
 } from "./page.styled";
 import GameBoard from "@/components/GameBoard/GameBoard";
@@ -15,7 +15,7 @@ import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
 import { fetchGameData, updateGameData } from "./utils";
-import { useParams } from "next/navigation"; 
+import { useParams } from "next/navigation";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +32,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
 
-  const router = useRouter(); 
+  const router = useRouter();
 
   // Fetch game data from the backend
   async function getGameData(): Promise<void> {
@@ -72,9 +72,9 @@ export default function Home() {
 
       const updatedTeams = gameData.teams.map((team) => {
         if (team.id === gameData.currentTurnTeamId) {
-          return { ...team, score: team.score + points }; 
+          return { ...team, score: team.score + points };
         }
-        return team; 
+        return team;
       });
 
       const updatedQuestions = gameData.questions.map((category) => {
@@ -95,7 +95,7 @@ export default function Home() {
         questions: updatedQuestions,
         teams: updatedTeams,
         currentTurnTeamId:
-          (gameData.currentTurnTeamId + 1) % gameData.teams.length, 
+          (gameData.currentTurnTeamId + 1) % gameData.teams.length,
       };
 
       setGameData(updatedGamedata);
@@ -116,7 +116,7 @@ export default function Home() {
 
   // Function to handle closing the question without answering it
   const handleCloseQuestion = () => {
-    setQuestion(null); 
+    setQuestion(null);
   };
 
   // Handler to adjust team scores from the dashboard
@@ -160,17 +160,17 @@ export default function Home() {
       ) : (
         <>
           {gameData && (
-            <DashboardWrapper>
+            <ScDashboardWrapper>
               <Dashboard
                 teams={gameData.teams}
                 currentTurnId={gameData.currentTurnTeamId}
-                onScoreChange={handleScoreChange} 
+                onScoreChange={handleScoreChange}
                 onEndGame={handleEndGame}
               />
-            </DashboardWrapper>
+            </ScDashboardWrapper>
           )}
 
-          <GameCardWrapper>
+          <ScGameCardWrapper>
             {gameData && (
               <>
                 <Typography variant="h1" align="center">
@@ -200,14 +200,10 @@ export default function Home() {
                 />
               )
             )}
-          </GameCardWrapper>
+          </ScGameCardWrapper>
 
           {/* Show Game Over modal if the game is over */}
-          {isGameOver && (
-            <GameOverModal
-                onConfirm={handleEndGame} 
-        />
-          )}
+          {isGameOver && <GameOverModal onConfirm={handleEndGame} />}
         </>
       )}
     </HomeWrapper>
