@@ -13,7 +13,7 @@ const generateCreativePrompt = (
   return `
     You are generating trivia questions for a Jeopardy-style game, and the most important thing is that the questions are appropriate for the game context: "${context}". 
     For example, if the context is "university pregaming," the questions should be fun, energetic, and suitable for that atmosphere. If the context is "my little brother's 12th birthday party," 
-    the questions should be lighthearted, age-appropriate, and entertaining for kids. The context should heavily influence the both questions and the tone.
+    the questions should be lighthearted, age-appropriate, and entertaining for kids. The context should heavily influence the questions and the tone.
     
     You should create a mix of playful, creative questions and a few more challenging ones, but always keep the context in mind.
     For the more serious categories like "Science" or "History," keep them relevant to the context (e.g., if it's a kid's party, make them kid-friendly).

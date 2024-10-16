@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  GameCardWrapper,
-  AnswerButtonsWrapper,
-  CloseButton,
-  LargeText,
+  ScGameCardWrapper,
+  ScAnswerButtonsWrapper,
+  ScCloseButton,
+  ScLargeText,
   ScShowAnswerWrapper,
 } from "./GameCard.styled";
 import Button from "../Button/Button";
 import Spacer from "../Spacer/Spacer";
 import Typography from "../Typography/Typography";
 import TimerButton from "../TimerButton/TimerButton";
+import FlexDiv from "../FlexDiv/FlexDiv";
 
 interface GameCardProps {
   question: string;
@@ -49,17 +50,16 @@ const GameCard: React.FC<GameCardProps> = ({
   }, [onClose]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <GameCardWrapper>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-            alignItems: "center",
-          }}
+    <FlexDiv justifyContent="center">
+      <ScGameCardWrapper>
+        <FlexDiv
+          justifyContent="space-between"
+          alignItems="center"
+          style={{ width: "100%" }}
         >
-          <CloseButton style={{ opacity: 0, cursor: "default" }}>X</CloseButton>
+          <ScCloseButton style={{ opacity: 0, cursor: "default" }}>
+            X
+          </ScCloseButton>
           <Typography
             variant="h2"
             color="#ffffff80"
@@ -68,15 +68,15 @@ const GameCard: React.FC<GameCardProps> = ({
           >
             {category} ${value}
           </Typography>
-          <CloseButton onClick={onClose}>X</CloseButton>
-        </div>
+          <ScCloseButton onClick={onClose}>X</ScCloseButton>
+        </FlexDiv>
 
         <Spacer size={4} orientation="vertical" />
         {isQuestionMode ? (
           <>
-            <LargeText variant="h1" align="center">
+            <ScLargeText variant="h1" align="center">
               {question}
-            </LargeText>
+            </ScLargeText>
             <Spacer size={3} orientation="vertical" />
 
             <ScShowAnswerWrapper>
@@ -90,25 +90,21 @@ const GameCard: React.FC<GameCardProps> = ({
           </>
         ) : (
           <>
-            <LargeText variant="h1" align="center">
+            <ScLargeText variant="h1" align="center">
               {answer}
-            </LargeText>
+            </ScLargeText>
             <Spacer size={3} orientation="vertical" />
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                maxWidth: 400,
-              }}
+            <FlexDiv
+              direction="column"
+              style={{ width: "100%", maxWidth: 400 }}
             >
               <Typography variant="meta" color="#D3D3D3" align="center">
                 Did you get the question right?
               </Typography>
               <Spacer size={1} orientation="vertical" />
 
-              <AnswerButtonsWrapper>
+              <ScAnswerButtonsWrapper>
                 <Button
                   label="YES"
                   onClick={() => onBack(true)}
@@ -120,13 +116,13 @@ const GameCard: React.FC<GameCardProps> = ({
                   onClick={() => onBack(false)}
                   variant="secondary"
                 />
-              </AnswerButtonsWrapper>
-            </div>
+              </ScAnswerButtonsWrapper>
+            </FlexDiv>
             <Spacer orientation="vertical" size={2} />
           </>
         )}
-      </GameCardWrapper>
-    </div>
+      </ScGameCardWrapper>
+    </FlexDiv>
   );
 };
 

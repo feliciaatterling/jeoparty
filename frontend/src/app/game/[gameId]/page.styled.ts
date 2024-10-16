@@ -10,7 +10,7 @@ export const HomeWrapper = styled.div`
 `;
 
 // Left section: Dashboard area
-export const DashboardWrapper = styled.div`
+export const ScDashboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,7 +26,7 @@ export const DashboardWrapper = styled.div`
 `;
 
 // Right section: GameCard area
-export const GameCardWrapper = styled.div`
+export const ScGameCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,10 +36,12 @@ export const GameCardWrapper = styled.div`
 
 export const ScLoadingContainer = styled.div`
   display: flex;
-  width: 70vw;
-  height: 85vh;
+  width: 50vw;
+  height: 55vh;
   background-color: #ffffff10;
   border-radius: 8px;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
+  border: 2px solid #ffffff10;
 `;
