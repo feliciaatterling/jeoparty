@@ -52,7 +52,7 @@ const ResultsPage: React.FC = () => {
 
   // Function to delete the game data
   async function deleteGame() {
-    await deleteGameData(gameId);
+    await deleteGameData(gameId)
   }
 
   const handlePlayAgain = async () => {

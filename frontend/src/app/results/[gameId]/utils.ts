@@ -22,12 +22,14 @@ export interface GameData {
   }[];
   currentTurnTeamId: number;
   isGameOver: boolean;
+  gameFinishedAt: Date | null;
 }
 
 export async function deleteGameData(gameId: string) {
   try {
     const response = await fetch(`${URL}/game/delete/${gameId}`, {
-      method: "DELETE",
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
     });
 
     if (!response.ok) {
