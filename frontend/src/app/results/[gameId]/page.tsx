@@ -62,7 +62,6 @@ const ResultsPage: React.FC = () => {
 
   // Function to delete the game data
   async function deleteGame() {
-    console.log('called delete function')
     await deleteGameData(gameId)
   }
 

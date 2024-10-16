@@ -45,8 +45,6 @@ export default function Home() {
     }
   }
 
-  console.log('game data', gameData)
-
   // Push updated game data to the backend
   async function changeGameData(updatedGamedata: GameData): Promise<void> {
     if (!gameId || !updatedGamedata) {
