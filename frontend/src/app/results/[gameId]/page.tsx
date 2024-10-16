@@ -52,16 +52,17 @@ const ResultsPage: React.FC = () => {
 
   // Function to delete the game data
   async function deleteGame() {
+    console.log('called delete function')
     await deleteGameData(gameId)
   }
 
   const handlePlayAgain = async () => {
-    await deleteGame();
+    //await deleteGame();
     router.push(`/gamesetup`); // Redirect to game setup page
   };
 
   const handleExit = async () => {
-    await deleteGame();
+    //await deleteGame();
     router.push(`/`); // Redirect to the homepage
   };
 
@@ -72,6 +73,7 @@ const ResultsPage: React.FC = () => {
       setGameData(data);
     }
     fetchData();
+    deleteGame();
   }, [gameId]);
 
   // If there's no game data, return early

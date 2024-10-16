@@ -99,6 +99,7 @@ router.post("/create", async (req, res) => {
       questions: formattedQuestions,
       currentTurnTeamId: formattedTeams[0].id,
       isGameOver: false,
+      gameFinishedAt: null,
     });
 
     // Save the game to the database
