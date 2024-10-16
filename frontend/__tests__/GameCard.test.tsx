@@ -51,7 +51,7 @@ describe("GameCard Component", () => {
     // Find all the elements with the text "X"
     const closeButtons = screen.getAllByText("X");
 
-    // Assuming the visible "X" button is the one with higher opacity
+    // The visible "X" button is the one with higher opacity
     const visibleCloseButton = closeButtons.find(
       (button) => getComputedStyle(button).opacity !== "0"
     );
