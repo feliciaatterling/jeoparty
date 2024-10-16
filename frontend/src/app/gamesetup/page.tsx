@@ -141,6 +141,7 @@ export default function GameSetup() {
         router.push(`/game/${gameId}`);
       } else {
         setStartGameError(true);
+        router.push(`/error/${"Error generating game"}`);
       }
     } catch (error) {
       console.error(error);
