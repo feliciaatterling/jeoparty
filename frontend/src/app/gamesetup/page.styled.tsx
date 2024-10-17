@@ -14,7 +14,6 @@ const ScContainer = styled.div`
   display: flex;
   width: 1000px;
   max-height: 690px;
-  min-width: 1000px;
   background-color: #ffffff10;
   border-radius: 8px;
   border: 2px solid #ffffff10;
@@ -31,6 +30,8 @@ const ScContainer = styled.div`
 const ScLoadingContainer = styled(ScContainer)`
   justify-content: center;
   align-items: center;
+  width: 50vw;
+  height: 55vh;
 `;
 
 // Game settings section (60% width)

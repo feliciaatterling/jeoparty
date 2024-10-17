@@ -75,15 +75,15 @@ export const PodiumSpot = styled.div<{ $delay: number; color?: string }>`
 
 // Specific styles for the first, second, and third places
 export const FirstPlace = styled(PodiumSpot)`
-  height: calc(30vh - 20px);
+  height: calc(40vh - 20px);
 `;
 
 export const SecondPlace = styled(PodiumSpot)`
-  height: calc(24vh - 20px);
+  height: calc(30vh - 20px);
 `;
 
 export const ThirdPlace = styled(PodiumSpot)`
-  height: calc(18vh - 20px);
+  height: calc(20vh - 20px);
 `;
 
 export const PlayerInfo = styled.div`
