@@ -19,7 +19,7 @@ import { fetchGameData, updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
-import { IoVolumeHighOutline, IoVolumeMuteOutline } from "react-icons/io5";
+import { IoVolumeHighOutline } from "react-icons/io5";
 import SoundButton from "@/components/SoundButton/SoundButton";
 import { Howl, Howler } from "howler";
 
