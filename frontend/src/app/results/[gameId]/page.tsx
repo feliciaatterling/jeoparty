@@ -73,11 +73,15 @@ const ResultsPage: React.FC = () => {
   // Fetch the game data from the database
   useEffect(() => {
     async function fetchData() {
-      const data = await fetchGameData(gameId);
-      setGameData(data);
+      const fetchedGameData = await fetchGameData(gameId);
+      if (fetchedGameData) {
+        setGameData(fetchedGameData);
+      } else {
+        console.error("Could not fetch GameData");
+        router.push(`/error/${"Game not found"}`);
+      }
     }
     fetchData();
-    deleteGame();
   }, [gameId]);
 
   // Update logo size based on window height
@@ -129,9 +133,12 @@ const ResultsPage: React.FC = () => {
         {/* Pass the top 3 score groups to the Podium component */}
         <Podium podiumGroups={topThreeGroups} />
 
-        <Spacer orientation="vertical" size={4} />
-
-        <Scoreboard groups={remainingGroups} />
+        {remainingGroups.length != 0 && (
+          <>
+            <Spacer orientation="vertical" size={4} />
+            <Scoreboard groups={remainingGroups} />
+          </>
+        )}
 
         <ScButtonContainer>
           <Button
