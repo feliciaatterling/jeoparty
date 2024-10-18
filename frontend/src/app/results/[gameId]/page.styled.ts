@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const ScPageWrapper = styled.div`
+  flex-direction: column;
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-direction: column;
   width: 100%;
+  padding-bottom: 64px;
 `;
 
 export const ScBackgroundWrapper = styled.div`
@@ -99,4 +99,16 @@ export const ScButtonContainer = styled.div`
     max-width: 80%;
     gap: 15px;
   }
+`;
+
+export const ScLoadingContainer = styled.div`
+  display: flex;
+  width: 50vw;
+  height: 55vh;
+  background-color: #ffffff10;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 50px rgba(225, 27, 252, 0.4);
+  border: 2px solid #ffffff10;
 `;
