@@ -2,6 +2,8 @@
 Jeoparty! is an online version of the classic game Jeopardy, but with a twist: all questions are generated with AI.
 This project was made for the course DH2643 at KTH, by Emily Nilsson, Patrik Larsson, Olle Sköld and Felicia Atterling.
 
+<img width="1438" alt="mockup_jeoparty" src="https://github.com/user-attachments/assets/5fa3b5eb-8a06-4d7d-b11f-b81e3a145dab">
+
 ## How To Play
 Welcome to Jeoparty!, the game where knowledge meets competition and fun! Whether you’re playing with one player or a team of six, this game is designed for everyone—no matter your age. Just gather around one screen, and let the party begin!
 
