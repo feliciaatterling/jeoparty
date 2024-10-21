@@ -80,11 +80,11 @@ const GameCard: React.FC<GameCardProps> = ({
             <Spacer size={3} orientation="vertical" />
 
             <ScShowAnswerWrapper>
-            <TimerButton
-              duration={10000}
-              label="SHOW ANSWER" 
-              onClick={handleToggleMode}
-            />
+              <TimerButton
+                duration={30000}
+                label="SHOW ANSWER"
+                onClick={handleToggleMode}
+              />
             </ScShowAnswerWrapper>
             <Spacer orientation="vertical" size={2} />
           </>
