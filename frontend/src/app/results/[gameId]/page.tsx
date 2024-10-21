@@ -5,9 +5,10 @@ import Podium from "@/components/Podium/Podium"; // Podium component import
 import {
   ScBackgroundWrapper,
   ScButtonContainer,
+  ScLoadingContainer,
   ScPageWrapper,
 } from "./page.styled"; // Import the styled components
-import { deleteGameData, fetchGameData, GameData } from "./utils";
+import { deleteGameData } from "./utils";
 import { useParams, useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import Logo from "@/components/Logo/Logo";
@@ -15,6 +16,8 @@ import Spacer from "@/components/Spacer/Spacer";
 import { Team, Player } from "./page.types";
 import Scoreboard from "@/components/Scoreboard/Scoreboard";
 import Typography from "@/components/Typography/Typography";
+import useGetGameData from "@/hooks/useGetGameData";
+import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 // Utility function to convert HEX color to RGBA
 function hexToRgba(hex: string, alpha: number) {
@@ -50,7 +53,7 @@ function groupPlayersByScore(
 const ResultsPage: React.FC = () => {
   const { gameId } = useParams() as { gameId: string };
   const router = useRouter(); // Initialize router for navigation
-  const [gameData, setGameData] = useState<GameData | null>(null);
+  const { gameData, isLoading } = useGetGameData(gameId); // Custom hook for fetching GameData
   const [logoSize, setLogoSize] = useState<"small" | "medium" | "large">(
     "medium"
   );
@@ -69,20 +72,6 @@ const ResultsPage: React.FC = () => {
     await deleteGame();
     router.push(`/`);
   };
-
-  // Fetch the game data from the database
-  useEffect(() => {
-    async function fetchData() {
-      const fetchedGameData = await fetchGameData(gameId);
-      if (fetchedGameData) {
-        setGameData(fetchedGameData);
-      } else {
-        console.error("Could not fetch GameData");
-        router.push(`/error/${"Game not found"}`);
-      }
-    }
-    fetchData();
-  }, [gameId]);
 
   // Update logo size based on window height
   useEffect(() => {
@@ -121,34 +110,42 @@ const ResultsPage: React.FC = () => {
 
   return (
     <ScPageWrapper>
-      <Spacer orientation="vertical" size={4} />
-      {/* Render logo based on the current screen height */}
-      <Logo size={logoSize} />
-      <Spacer orientation="vertical" size={4} />
+      {isLoading ? (
+        <ScLoadingContainer>
+          <LoadingBar message="Fetching your results, please wait!" />
+        </ScLoadingContainer>
+      ) : (
+        <>
+          <Spacer orientation="vertical" size={4} />
+          {/* Render logo based on the current screen height */}
+          <Logo size={logoSize} />
+          <Spacer orientation="vertical" size={4} />
 
-      <ScBackgroundWrapper>
-        <Typography variant="h1">Results</Typography>
-        <Spacer orientation="vertical" size={3} />
+          <ScBackgroundWrapper>
+            <Typography variant="h1">Results</Typography>
+            <Spacer orientation="vertical" size={3} />
 
-        {/* Pass the top 3 score groups to the Podium component */}
-        <Podium podiumGroups={topThreeGroups} />
+            {/* Pass the top 3 score groups to the Podium component */}
+            <Podium podiumGroups={topThreeGroups} />
 
-        {remainingGroups.length != 0 && (
-          <>
-            <Spacer orientation="vertical" size={4} />
-            <Scoreboard groups={remainingGroups} />
-          </>
-        )}
+            {remainingGroups.length != 0 && (
+              <>
+                <Spacer orientation="vertical" size={4} />
+                <Scoreboard groups={remainingGroups} />
+              </>
+            )}
 
-        <ScButtonContainer>
-          <Button
-            label="PLAY AGAIN"
-            variant="primary"
-            onClick={handlePlayAgain}
-          />
-          <Button label="EXIT" variant="danger" onClick={handleExit} />
-        </ScButtonContainer>
-      </ScBackgroundWrapper>
+            <ScButtonContainer>
+              <Button
+                label="PLAY AGAIN"
+                variant="primary"
+                onClick={handlePlayAgain}
+              />
+              <Button label="EXIT" variant="danger" onClick={handleExit} />
+            </ScButtonContainer>
+          </ScBackgroundWrapper>
+        </>
+      )}
     </ScPageWrapper>
   );
 };

@@ -37,7 +37,7 @@ export const ScInput = styled(TextField)<{ $error: boolean }>`
 
   /* Change the label color */
   .MuiInputLabel-root {
-    color: white; /* Label text color */
+    color: #ffffff80; /* Label text color */
   }
 
   /* Change label color when input is focused */

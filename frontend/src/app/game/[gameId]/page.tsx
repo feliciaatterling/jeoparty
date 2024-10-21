@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import GameCard from "@/components/GameCard/GameCard";
 import GameOverModal from "@/components/GameOverModal/GameOverModal";
@@ -15,17 +15,20 @@ import GameBoard from "@/components/GameBoard/GameBoard";
 import Typography from "@/components/Typography/Typography";
 import Spacer from "@/components/Spacer/Spacer";
 import GameData from "./utils.types";
-import { fetchGameData, updateGameData } from "./utils";
+import { updateGameData } from "./utils";
 import { useParams } from "next/navigation";
 import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import { useRouter } from "next/navigation";
 import { IoVolumeHighOutline } from "react-icons/io5";
 import SoundButton from "@/components/SoundButton/SoundButton";
-import { Howl, Howler } from "howler";
+import useGetGameData from "@/hooks/useGetGameData";
+import useMusic from "@/hooks/useMusic";
 
 export default function Home() {
   const { gameId } = useParams() as { gameId: string };
-  const [gameData, setGameData] = useState<GameData | null>(null);
+  const { gameData, setGameData, isLoading } = useGetGameData(gameId); // Custom hook for initial fetching of game data with setGameData included
+  const { mute, toggleMute } = useMusic(); // Custom hook for controlling game music
+
   const [question, setQuestion] = useState<{
     _id: string;
     question: string;
@@ -33,25 +36,10 @@ export default function Home() {
     points: number;
     category: string;
   } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
-  const [mute, setMute] = useState(true);
 
-  let sound: Howl;
+  const [isGameOver, setIsGameOver] = useState(false); // Track if game over modal is shown
 
   const router = useRouter();
-
-  // Fetch game data from the backend
-  async function getGameData(): Promise<void> {
-    const fetchedGameData: GameData | null = await fetchGameData(gameId);
-    if (fetchedGameData) {
-      setGameData(fetchedGameData);
-      setIsLoading(false);
-    } else {
-      console.log("Could not fetch GameData");
-      router.push(`/error/${"Game not found"}`);
-    }
-  }
 
   // Push updated game data to the backend
   async function changeGameData(updatedGamedata: GameData): Promise<void> {
@@ -150,25 +138,6 @@ export default function Home() {
       console.error("Game ID is missing.");
     }
   };
-
-  const toggleMute = () => {
-    setMute(!mute);
-    Howler.mute(!mute);
-  };
-
-  useEffect(() => {
-    sound = new Howl({
-      src: ["/audio/music.mp3"],
-      loop: true,
-    });
-    sound.play();
-
-    getGameData();
-
-    return () => {
-      sound.unload();
-    };
-  }, [gameId]);
 
   return (
     <HomeWrapper

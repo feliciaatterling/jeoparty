@@ -41,18 +41,3 @@ export async function deleteGameData(gameId: string) {
     console.error("Error deleting game data:", error);
   }
 }
-
-export async function fetchGameData(gameId: string): Promise<GameData | null> {
-  try {
-    const response = await fetch(`${URL}/game/${gameId}`);
-    if (response.ok) {
-      const data: GameData = await response.json();
-      return data;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}

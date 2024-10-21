@@ -2,21 +2,6 @@ import GameData from "./utils.types";
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export async function fetchGameData(gameId: string): Promise<GameData | null> {
-  try {
-    const response = await fetch(`${URL}/game/${gameId}`);
-    if (response.ok) {
-      const data: GameData = await response.json();
-      return data;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
 export async function updateGameData(
   gameId: string,
   gameData: GameData
