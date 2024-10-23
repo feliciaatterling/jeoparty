@@ -3,6 +3,7 @@ interface DashboardProps {
   currentTurnId: number;
   onScoreChange: (teamId: number, amount: number) => void;
   onEndGame: () => void;
+  onSaveChange: () => void;
 }
 
 export default DashboardProps;
