@@ -15,6 +15,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   currentTurnId,
   onScoreChange,
   onEndGame,
+  onSaveChange,
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -26,9 +27,13 @@ const Dashboard: React.FC<DashboardProps> = ({
     setIsEditMode((prevMode) => !prevMode);
   };
 
+  const saveChanges = () => {
+    onSaveChange();
+    handleEditToggle();
+  };
   return (
     <DashboardWrapper>
-      <Logo size="small"/> 
+      <Logo size="small" />
       <Spacer size={3} orientation="vertical" />
       <TeamsContainer>
         {teams?.map((team, index) => (
@@ -41,16 +46,17 @@ const Dashboard: React.FC<DashboardProps> = ({
             isActive={team.id === currentTurnId}
             highestTeam={highestTeam}
             isEditMode={isEditMode}
-            onScoreChange={onScoreChange} 
+            onScoreChange={onScoreChange}
           />
         ))}
       </TeamsContainer>
 
       <ButtonGroup>
-        <Button
-          label={isEditMode ? "DONE EDITING" : "EDIT GAME"}
-          onClick={handleEditToggle}
-        />
+        {!isEditMode ? (
+          <Button label={"EDIT GAME"} onClick={handleEditToggle} />
+        ) : (
+          <Button label={"SAVE CHANGES"} onClick={saveChanges} />
+        )}
         <Button variant="danger" label="END GAME" onClick={onEndGame} />
       </ButtonGroup>
     </DashboardWrapper>

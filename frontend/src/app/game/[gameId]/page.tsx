@@ -127,7 +127,6 @@ export default function Home() {
 
       const updatedGamedata = { ...gameData, teams: updatedTeams };
       setGameData(updatedGamedata);
-      changeGameData(updatedGamedata);
     }
   };
 
@@ -158,6 +157,7 @@ export default function Home() {
                 currentTurnId={gameData.currentTurnTeamId}
                 onScoreChange={handleScoreChange}
                 onEndGame={handleEndGame}
+                onSaveChange={() => changeGameData(gameData)}
               />
             </ScDashboardWrapper>
           )}
